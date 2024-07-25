@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Monoton&family=Quicksand:wght@500;700&display=swap");
+:root {
+  --spacing: 1em;
+
+  --border-radius: 1em;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+#root {
+  min-height: 100vh;
+  background-color: #5a3e2b;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+body {
+  color: #5a3e2b;
+  margin: 0;
+  font-family: "Quicksand";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+.container {
+  max-width: 80rem;
+  width: 90%;
+}
+.container--travelling {
+  display: grid;
+  grid-template-rows: 15% 15% 60% 10%;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+input {
+  border-radius: var(--border-radius);
+  border: none;
+  padding: calc(var(--spacing) / 2);
+  background-color: #ffdbbb;
+}
+input:focus,
+input:active,
+select:focus,
+select:active {
+  outline: none;
+}
+.header {
+  background-color: #ffdbbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container--form {
+  height: 100%;
+  padding: var(--spacing);
+  background-color: darkorange;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) / 2);
+  justify-content: center;
+  width: 100%;
+}
+.form-description {
+  flex-basis: 30%;
+}
+.quantity {
+  flex-basis: 7%;
+  min-width: 7%;
+  border-radius: var(--border-radius);
+  border: none;
+  padding: calc(var(--spacing) / 2);
+  background-color: #ffdbbb;
+}
+.item-input {
+  flex-basis: 15%;
+  padding: calc(var(--spacing) / 2) calc(var(--spacing))
+    calc(var(--spacing) / 2) calc(var(--spacing));
+}
+.add-button {
+  background-color: indianred;
+  flex-basis: 8%;
+  font-weight: bold;
+}
+.packing-list {
+  background-color: #804600;
+  display: flex;
+  padding: calc(var(--spacing));
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+.item-container {
+}
+.item {
+  display: flex;
+  gap: calc(var(--spacing) / 2);
+}
+.sort {
+  background-color: aquamarine;
+  padding: var(--spacing);
+}
+.item-cancel {
+  background: none;
+  border: none;
+  color: red;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
