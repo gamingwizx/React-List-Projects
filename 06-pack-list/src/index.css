@@ -3,6 +3,8 @@
   --spacing: 1em;
 
   --border-radius: 1em;
+
+  --fs-1: 10px;
 }
 *,
 *::before,
@@ -31,12 +33,18 @@ body {
   display: grid;
   grid-template-rows: 15% 15% 60% 10%;
 }
+.container--item {
+  width: 80%;
+  display: flex;
+}
 h1,
 h2,
 h3 {
   margin: 0;
 }
-input {
+input,
+select,
+button {
   border-radius: var(--border-radius);
   border: none;
   padding: calc(var(--spacing) / 2);
@@ -91,13 +99,39 @@ select:active {
   padding: calc(var(--spacing));
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   color: white;
+  font-family: inherit;
 }
-.item-container {
+.filter {
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: calc(var(--spacing) / 3) calc((var(--spacing)) * 1.5);
+
+  font-size: var(--fs-1);
+}
+.clear-all {
+  padding: calc(var(--spacing) / 5) calc((var(--spacing)) * 1.5);
+  font-weight: bold;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-size: var(--fs-1);
+  border-radius: calc(var(--spacing) * 1.5);
 }
 .item {
   display: flex;
   gap: calc(var(--spacing) / 2);
+  align-items: center;
+  cursor: pointer;
+}
+.item-name {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+input[type="checkbox"]:checked + .item {
+  background-color: red;
 }
 .sort {
   background-color: aquamarine;
@@ -107,7 +141,13 @@ select:active {
   background: none;
   border: none;
   color: red;
+  cursor: pointer;
 }
+.filter-container {
+  display: flex;
+  gap: var(--spacing);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
