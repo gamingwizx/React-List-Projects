@@ -1,0 +1,79 @@
+:root {
+  --gap: 1em;
+  --border-radius: 1em;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 80rem;
+  width: 90%;
+  margin: 0 auto;
+  padding: var(--gap) 0;
+}
+.container--card {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+.card {
+  border-radius: calc(var(--border-radius) / 2);
+  border: 1px solid darkgray;
+  flex-basis: 25%;
+  flex-grow: 1;
+  padding: calc(var(--gap) * 5) calc(var(--gap));
+  background-color: lightgray;
+}
+
+.card.reveal .question {
+  display: none;
+}
+.card.reveal .answer {
+  display: block;
+}
+.card.reveal {
+  background-color: red;
+}
+.card.hide .question {
+  display: block;
+}
+.card.hide .answer {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
