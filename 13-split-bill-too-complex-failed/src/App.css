@@ -12,6 +12,11 @@
   --fs-2: 16px;
   --fs-1: 20px;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 .App {
   height: 100vh;
   display: flex;
@@ -39,6 +44,7 @@ img {
   display: flex;
 }
 .button {
+  cursor: pointer;
   padding: calc(var(--spacing) / 2) calc(var(--spacing));
   background-color: var(--color-medium);
   color: var(--color-font);
@@ -56,6 +62,7 @@ img {
 .container--friends {
   justify-content: center;
   gap: calc(var(--spacing) * 2);
+  padding: var(--spacing);
   display: flex;
 }
 .friend-list-container {
@@ -74,6 +81,8 @@ img {
   border-radius: calc(var(--border-radius) / 2);
   text-align: left;
   gap: calc(var(--spacing));
+  justify-content: space-between;
+  width: 100%;
 }
 .profile-title {
   font-size: var(--fs-2);
@@ -91,12 +100,29 @@ img {
   padding: calc(var(--spacing) * 2);
   border-radius: calc(var(--border-radius) / 2);
 }
-.bill-label {
-  flex-basis: 70%;
+.form-container {
+  background-color: var(--color-lightest);
+  padding: calc(var(--spacing) / 2);
+  border-radius: calc(var(--border-radius) / 2);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--spacing) / 2);
 }
-.bill-input {
+.input {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.input--button {
+  justify-content: flex-end;
+}
+.input-input {
   align-self: center;
-  width: 30%;
   font-size: var(--fs-1);
   text-align: center;
   padding: calc(var(--spacing) / 3);
@@ -104,11 +130,11 @@ img {
   border: 1px solid var(--color-light);
   font-family: inherit;
 }
-.bill-input:focus {
-  outline: 1px solid var(--color-medium);
+.input-input--dropdown {
+  text-align: left;
 }
-.bill-button {
-  flex-basis: 25%;
+.input-input:focus {
+  outline: 1px solid var(--color-medium);
 }
 .row {
   display: flex;
