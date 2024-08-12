@@ -7,9 +7,11 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ToDoContainer from "./components/ToDoContainer.js";
 import Bottom from "./components/Bottom.js";
 import BackgroundImage from "./components/BackgroundImage.js";
+
 function App() {
   const [theme, setTheme] = useState("dark");
   const [change, setChange] = useState({});
+
   const body = useRef(document.body);
   const handleThemeSwitch = () => {
     if (theme === "dark") setTheme("light");

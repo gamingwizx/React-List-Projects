@@ -7,15 +7,7 @@ import ToDo from "./ToDo.js";
 import Label from "./Label.js";
 import Options from "./Options.js";
 import ToDoFooter from "./ToDoFooter.js";
-import {
-  addNewTodo,
-  handleUpdateTodo,
-  handleOnClick,
-  handleShowActive,
-  handleShowAll,
-  handleShowCompleted,
-  handleOnDrop,
-} from "../functions.js";
+import { Reorder } from "framer-motion";
 export default function ToDoBody({ change }) {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
@@ -30,10 +22,63 @@ export default function ToDoBody({ change }) {
     todoBackgroundColor: todoInputColor,
     textColor: textColor,
   } = change;
+  const populateTodo = () => {
+    setTodos(() => {
+      return refTodos.current;
+    });
+  };
+  const addNewTodo = () => {
+    const newTodo = {
+      id: refTodos.current.length + 1,
+      name: inputValue,
+      completed: false,
+    };
 
-  useEffect(() => {
-    draggables.current = draggables.current.slice(0, todos.length + 1);
-  });
+    refTodos.current = [...refTodos.current, newTodo];
+    populateTodo();
+  };
+
+  const updateTodo = (updatedTodo) => {
+    refTodos.current = refTodos.current.map((todo) =>
+      todo.id === updatedTodo.id ? updatedTodo : todo
+    );
+    populateTodo();
+  };
+  const onClickTodo = () => {
+    refTodos.current = [];
+    populateTodo();
+  };
+  const showActive = () => {
+    populateTodo();
+    setTodos((todos) => todos.filter((todo) => todo.completed === false));
+  };
+  const showAll = () => {
+    populateTodo();
+  };
+  const showCompleted = () => {
+    populateTodo();
+    setTodos((todos) => todos.filter((todo) => todo.completed === true));
+  };
+  const handleDragDrop = (e) => {
+    const enteredIndex = todos.findIndex(
+      (element) => element.id === enteredId.current
+    );
+    const draggedIndex = todos.findIndex(
+      (element) => element.id === draggedId.current
+    );
+    const draggedItem = todos[draggedIndex];
+    const enteredItem = todos[enteredIndex];
+    const tempTodos = todos.slice();
+    tempTodos[draggedIndex] = enteredItem;
+    tempTodos[enteredIndex] = draggedItem;
+    setTodos(tempTodos);
+    // setTodos((todos) =>
+    //   todos.map((todo) => (todo.id === draggedId.current ? enteredItem : todo))
+    // );
+    // setTodos((todos) =>
+    //   todos.map((todo) => (todo.id === enteredId.current ? draggedItem : todo))
+    // );
+  };
   return (
     <section className="todo-body">
       <Form onSubmit={() => addNewTodo()} todoBgColor={todoBgColor}>
@@ -45,34 +90,41 @@ export default function ToDoBody({ change }) {
         />
       </Form>
       <ToDoList
-        onDrop={(e) => handleOnDrop(e)}
         onDragOver={(e) => e.preventDefault()}
         onDragEnter={(e) => e.preventDefault()}
         className="todos-drag"
         todoBgColor={todoBgColor}
       >
-        {todos.map((todo) => (
-          <ToDo
-            key={todo.id}
-            onEnter
-            textColor={textColor}
-            onUpdateTodo={(updatedToDo) => handleUpdateTodo(updatedToDo)}
-            todo={todo}
-            ref={(el) => (draggables.current[todo.id] = el)}
-          />
-        ))}
-
+        <Reorder.Group values={todos} onReorder={setTodos}>
+          {todos &&
+            todos.map((todo) => (
+              <Reorder.Item value={todo} key={todo}>
+                <ToDo
+                  key={todo.id}
+                  onEnter
+                  textColor={textColor}
+                  onUpdateTodo={(updatedToDo) => updateTodo(updatedToDo)}
+                  todo={todo}
+                  draggedId={draggedId}
+                  droppedId={enteredId}
+                  onDragDrop={() => handleDragDrop()}
+                  ref={(el) => (draggables.current[todo.id] = el)}
+                />
+              </Reorder.Item>
+            ))}
+        </Reorder.Group>
         <ToDoFooter>
           <Label classname="option-label">
-            {todos.filter((todo) => todo.completed === false).length} items left
+            {todos && todos.filter((todo) => todo.completed === false).length}{" "}
+            items left
           </Label>
           <Options
-            onShowActive={() => handleShowActive()}
-            onShowAll={() => handleShowAll()}
-            onShowCompleted={() => handleShowCompleted()}
+            onShowActive={() => showActive()}
+            onShowAll={() => showAll()}
+            onShowCompleted={() => showCompleted()}
           ></Options>
           <Button
-            onClick={() => handleOnClick()}
+            onClick={() => onClickTodo()}
             classname="button-option"
             text="Clear Completed"
           ></Button>

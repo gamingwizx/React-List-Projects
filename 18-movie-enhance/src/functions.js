@@ -1,56 +1,77 @@
-import { useState, useRef } from "react";
-const populateTodo = (todos) => {
-  const refTodos = useRef(todos);
-  const [todos, setTodos] = useState();
-  setTodos(() => {
-    return refTodos.current;
-  });
-};
-const useAddNewTodo = () => {
-  const newTodo = {
-    id: refTodos.current.length + 1,
-    name: inputValue,
-    completed: false,
-  };
-  refTodos.current = [...refTodos.current, newTodo];
-  populateTodo();
+import React, { useState, useRef, useContext } from "react";
+export const Context = React.createContext();
+export const ContextProvider = ({ children }) => {
+  const [todos, setTodos] = useState([]);
+
+  return (
+    <Context.Provider value={{ todos, setTodos }}>{children}</Context.Provider>
+  );
 };
 
-const handleUpdateTodo = (updatedTodo) => {
-  refTodos.current = refTodos.current.map((todo) =>
-    todo.id === updatedTodo.id ? updatedTodo : todo
-  );
-  populateTodo();
+const populateTodo = () => {
+  //   const { setTodos } = useContext(Context);
+  //   setTodos(() => {
+  //     return refTodos.current;
+  //   });
 };
-const handleOnClick = () => {
-  refTodos.current = [];
-  populateTodo();
+const useTest = () => {
+  const { todos } = useContext(Context);
+  return todos;
 };
-const handleShowActive = () => {
-  populateTodo();
-  setTodos((todos) => todos.filter((todo) => todo.completed === false));
+const useSetTest = (todos) => {
+  const { setTodos } = useContext(Context);
+  setTodos(() => {
+    return todos;
+  });
+  return true;
 };
-const handleShowAll = () => {
-  populateTodo();
+const addNewTodo = () => {
+  //   const newTodo = {
+  //     id: refTodos.current.length + 1,
+  //     name: inputValue,
+  //     completed: false,
+  //   };
+  //   refTodos.current = [...refTodos.current, newTodo];
+  //   populateTodo();
 };
-const handleShowCompleted = () => {
-  populateTodo();
-  setTodos((todos) => todos.filter((todo) => todo.completed === true));
+
+const updateTodo = (updatedTodo) => {
+  //   refTodos.current = refTodos.current.map((todo) =>
+  //     todo.id === updatedTodo.id ? updatedTodo : todo
+  //   );
+  //   populateTodo();
+};
+const onClickTodo = () => {
+  //   refTodos.current = [];
+  //   populateTodo();
+};
+const showActive = () => {
+  //   populateTodo();
+  //   setTodos((todos) => todos.filter((todo) => todo.completed === false));
+};
+const showAll = () => {
+  //   populateTodo();
+};
+const showCompleted = () => {
+  //   populateTodo();
+  //   setTodos((todos) => todos.filter((todo) => todo.completed === true));
 };
 const handleDragOver = (e) => {
-  console.log(draggables);
+  //   console.log(draggables);
 };
 
-const handleOnDrop = (e) => {
-  console.log("Test");
-};
+const handleOnDrop = (e) => {};
 
 export {
+  populateTodo,
+  useTest,
+  useSetTest,
   addNewTodo,
-  handleUpdateTodo,
-  handleOnClick,
-  handleShowActive,
-  handleShowAll,
-  handleShowCompleted,
+  updateTodo,
+  onClickTodo,
+  showActive,
+  showAll,
+  showCompleted,
+  handleDragOver,
   handleOnDrop,
 };
