@@ -1,0 +1,28 @@
+const API_URI =
+  "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple";
+const POPULATE = "populate";
+const INDEX_INCREMENT = "INDEX_INCREMENT";
+const GET_CURRENT_QUESTION = "GET_CURRENT_QUESTION";
+const SHUFFLE_ANSWER = "SHUFFLE_ANSWER";
+const RESTART_GAME = "RESTART_GAME";
+const TIMEOUT = "TIMEOUT";
+const POINTS_ON_CORRECT = 15;
+const FETCH_OPTIONS = {};
+const DELAY = 5;
+const TIME_LIMIT_MINUTES = 0;
+const TIME_LIMIT_SECONDS = 5;
+
+export {
+  API_URI,
+  POPULATE,
+  GET_CURRENT_QUESTION,
+  RESTART_GAME,
+  TIMEOUT,
+  INDEX_INCREMENT,
+  SHUFFLE_ANSWER,
+  POINTS_ON_CORRECT,
+  FETCH_OPTIONS,
+  DELAY,
+  TIME_LIMIT_MINUTES,
+  TIME_LIMIT_SECONDS,
+};

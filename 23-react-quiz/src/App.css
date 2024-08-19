@@ -1,0 +1,212 @@
+:root {
+  --color-hovered: #1D2022;
+  --color-darkest: #343a40;
+  --color-dark: #495057;
+  --color-medium: 210, 14%, 83%;
+  --color-light: #f1f3f5;
+
+  --color-theme: #1098ad;
+  --color-accent: #ffa94d;
+
+  --ff: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --ff1: "Codystar";
+
+  --spacing: 1em;
+  --border-radius: 100px;
+  --fs-1: 5.6rem;
+  --fs-2: 4.2rem;
+  --fs-3: 3.0rem;
+  --fs-4: 2.0rem;
+  --fs-6: 1.5rem;
+  --fs-5: 1.0rem;
+
+
+}
+@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+*,*::before, *::after {
+  box-sizing: border-box;
+}
+.App {
+  display: flex;
+  justify-content: center;
+}
+body {
+  font-family: var(--ff);
+  background-color: var(--color-darkest);
+  color: var(--color-light);
+  font-weight: 500;
+  
+}
+h1 {
+  font-family: var(--ff1);
+  color: var(--color-light);
+  font-size: var(--fs-1);
+}
+.react-quiz-container {
+  width: 80rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing);
+  position: relative;
+}
+.quiz-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing);
+}
+.progress-bar {
+  width: 100%;
+  aspect-ratio: 1;
+}
+.progress-bar-container-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.label {
+  font-size: var(--fs-6);
+  letter-spacing: 0.1em;
+  color: var(--color-light);
+  
+}
+::-webkit-progress-bar {
+  width: 100%;
+  background-color: #ced4da;
+  border-radius: var(--border-radius);
+}
+::-webkit-progress-value {
+  background-color: var(--color-theme);
+  border-radius: 100px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.quiz-header {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing));
+
+}
+.quiz-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.quiz-body-title {
+  font-size: var(--fs-6);
+  color: var(--color-light)
+}
+.answer {
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-dark);
+  padding: calc(var(--spacing) / 2) var(--spacing) calc(var(--spacing) / 2) calc(var(--spacing) * 1.5);
+  margin: calc(var(--spacing) / 3) calc(var(--spacing) / 3) calc(var(--spacing) / 3) 0;
+  color: var(--color-light);
+  font-size: var(--fs-6);
+  font-weight: 500;
+  border-radius: 100px;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.1s ease-in-out;
+  -o-transition: transform 0.1s ease-in-out;
+}
+.quiz-footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  font-size: var(--fs-6);
+  margin: calc(var(--spacing) * 1.5) 0;
+}
+.timer {
+  padding: calc(var(--spacing) / 2.5) var(--spacing);
+  border: 2px solid hsl(var(--color-medium), 0.2);
+  border-radius: 75px;
+  display: flex;
+  justify-content: center;
+  width: 7rem;
+}
+.button {
+  padding: calc(var(--spacing) / 2.5) var(--spacing);
+  background-color: var(--color-dark);
+  border-radius: 75px;
+  cursor: pointer;
+}
+.modal-parent {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: calc(var(--spacing) * 9);
+  top: 25%;
+  right: 25%;
+  width: 50%;
+  height: 500px;
+  background-color: var(--color-dark);
+  border-radius: calc(var(--border-radius) / 5);
+  border: 3px solid var(--color-hovered)
+}
+.restart-button {
+  font-size: var(--fs-4);
+  background-color: var(--color-darkest);
+}
+.modal-text {
+  font-size: var(--fs-3);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media(max-width: 1000px){
+  :root {
+    --fs-1: 50px;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --fs-1: 30px;
+  }
+}
