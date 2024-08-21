@@ -11,7 +11,7 @@
   --ff: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
   Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --ff1: "Codystar";
-
+  
   --spacing: 1em;
   --border-radius: 100px;
   --fs-1: 5.6rem;
@@ -20,7 +20,8 @@
   --fs-4: 2.0rem;
   --fs-6: 1.5rem;
   --fs-5: 1.0rem;
-
+  
+  --modal-padding: 1em;
 
 }
 @import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
@@ -45,6 +46,7 @@ h1 {
 }
 .react-quiz-container {
   width: 80rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -108,6 +110,7 @@ h1 {
   position: relative;
 }
 .quiz-body-title {
+  height: 8vh;
   font-size: var(--fs-6);
   color: var(--color-light)
 }
@@ -132,6 +135,7 @@ h1 {
   justify-content: space-between;
   font-size: var(--fs-6);
   margin: calc(var(--spacing) * 1.5) 0;
+  align-items: center;
 }
 .timer {
   padding: calc(var(--spacing) / 2.5) var(--spacing);
@@ -148,19 +152,22 @@ h1 {
   cursor: pointer;
 }
 .modal-parent {
+  
   position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: calc(var(--spacing) * 9);
+  padding: calc(var(--modal-padding) * 2);
   top: 25%;
   right: 25%;
   width: 50%;
   height: 500px;
   background-color: var(--color-dark);
   border-radius: calc(var(--border-radius) / 5);
-  border: 3px solid var(--color-hovered)
+  border: 3px solid var(--color-hovered);
+  text-align: center;
+  gap: calc(var(--spacing) * 5)
 }
 .restart-button {
   font-size: var(--fs-4);
@@ -168,6 +175,17 @@ h1 {
 }
 .modal-text {
   font-size: var(--fs-3);
+}
+.button {
+  border: none;
+  color: var(--color-light)
+}
+.next {
+  font-size: var(--fs-5);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  padding: calc(var(--spacing)) var(--spacing);
+  width: 5rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -202,11 +220,30 @@ h1 {
 @media(max-width: 1000px){
   :root {
     --fs-1: 50px;
+    
+  }
+  .modal-parent {
+    justify-content: center;
+    --modal-pading: calc(var(--spacing) * 5);
+    gap: calc(var(--spacing) * 3);
+    text-align: center;
+  }
+  .modal-text {
+    font-size: var(--fs-4);
   }
 }
 
 @media (max-width: 800px) {
   :root {
     --fs-1: 30px;
+  }
+  .modal-parent {
+    justify-content: center;
+    --modal-pading: calc(var(--spacing));
+    gap: calc(var(--spacing) * 3);
+    text-align: center;
+  }
+  .modal-text {
+    font-size: var(--fs-6);
   }
 }

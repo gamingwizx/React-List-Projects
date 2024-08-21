@@ -1,5 +1,4 @@
-const API_URI =
-  "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple";
+const API_URI = "https://the-trivia-api.com/v2/questions";
 const POPULATE = "populate";
 const INDEX_INCREMENT = "INDEX_INCREMENT";
 const GET_CURRENT_QUESTION = "GET_CURRENT_QUESTION";
@@ -9,8 +8,8 @@ const TIMEOUT = "TIMEOUT";
 const POINTS_ON_CORRECT = 15;
 const FETCH_OPTIONS = {};
 const DELAY = 5;
-const TIME_LIMIT_MINUTES = 0;
-const TIME_LIMIT_SECONDS = 5;
+const TIME_LIMIT_MINUTES = 10;
+const TIME_LIMIT_SECONDS = 0;
 
 export {
   API_URI,
