@@ -1,0 +1,22 @@
+.mapNav {
+    display: flex;
+    list-style-type: none;
+    border-radius: var(--border-radius);
+}
+ul {
+    background-color: var(--color-dark--2);
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    border-radius: var(--border-radius);
+}
+.mapNav a {
+    display: block;
+    font-size: var(--fs-2);
+  font-weight: 700;
+  padding: calc(var(--spacing) / 2) calc(var(--spacing));
+  border-radius: 5px;
+}
+.mapNav a:global(.active) {
+    background-color: var(--color-dark--0);
+}

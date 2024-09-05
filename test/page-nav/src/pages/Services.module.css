@@ -1,0 +1,11 @@
+.description {
+    color: yellow;
+}
+.serviceContainer {
+    display: flex;
+    height: 50vh;
+    width: 50%;
+    position: absolute;
+    right: 10px;
+    background-color: antiquewhite;
+}

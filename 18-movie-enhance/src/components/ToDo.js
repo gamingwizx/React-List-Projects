@@ -1,11 +1,9 @@
 import React, { useRef } from "react";
 import Checkbox from "./Checkbox.js";
 import Label from "./Label.js";
+import { motion } from "framer-motion";
 const ToDo = React.forwardRef(
-  (
-    { textColor, todo, onUpdateTodo, draggedId, droppedId, onDragDrop },
-    ref
-  ) => {
+  ({ textColor, todo, onUpdateTodo, enteredId, draggedId }, ref) => {
     const enteredTodo = useRef(0);
     const onCheck = () => {
       const updatedTodo = {
@@ -15,23 +13,31 @@ const ToDo = React.forwardRef(
       };
       onUpdateTodo(updatedTodo);
     };
+    const handleOnDragStart = (e) => {
+      e.dataTransfer.setData("id", todo.id);
+    };
 
+    const ondrag = () => {
+      console.log("Hello");
+      draggedId.current = todo.id;
+    };
     return (
-      <div
-        onDragStart={(e) => (draggedId.current = todo.id)}
+      <motion.div
+        layout
+        layoutId={todo.id}
         onClick={() => onCheck(enteredTodo.current)}
-        onDrop={() => onDragDrop()}
-        onDragOver={(e) => e.preventDefault()}
-        onDragEnter={(e) => (droppedId.current = todo.id)}
-        className="todo draggable"
-        draggable="true"
+        className="todo"
         ref={ref}
+        draggable="true"
+        datad={todo.id}
+        onDragStart={(e) => ondrag(e)}
+        onDragEnter={(e) => (enteredId.current = todo.id)}
       >
         <Checkbox completed={todo.completed} classname="button" />
         <Label textColor={textColor} classname="todo-label">
           {todo.name}
         </Label>
-      </div>
+      </motion.div>
     );
   }
 );

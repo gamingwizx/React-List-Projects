@@ -59,26 +59,7 @@ export default function ToDoBody({ change }) {
     populateTodo();
     setTodos((todos) => todos.filter((todo) => todo.completed === true));
   };
-  const handleDragDrop = (e) => {
-    const enteredIndex = todos.findIndex(
-      (element) => element.id === enteredId.current
-    );
-    const draggedIndex = todos.findIndex(
-      (element) => element.id === draggedId.current
-    );
-    const draggedItem = todos[draggedIndex];
-    const enteredItem = todos[enteredIndex];
-    const tempTodos = todos.slice();
-    tempTodos[draggedIndex] = enteredItem;
-    tempTodos[enteredIndex] = draggedItem;
-    setTodos(tempTodos);
-    // setTodos((todos) =>
-    //   todos.map((todo) => (todo.id === draggedId.current ? enteredItem : todo))
-    // );
-    // setTodos((todos) =>
-    //   todos.map((todo) => (todo.id === enteredId.current ? draggedItem : todo))
-    // );
-  };
+
   return (
     <section className="todo-body">
       <Form onSubmit={() => addNewTodo()} todoBgColor={todoBgColor}>
@@ -90,29 +71,24 @@ export default function ToDoBody({ change }) {
         />
       </Form>
       <ToDoList
-        onDragOver={(e) => e.preventDefault()}
-        onDragEnter={(e) => e.preventDefault()}
-        className="todos-drag"
+        todos={todos}
+        setTodos={setTodos}
+        enteredId={enteredId}
+        draggedId={draggedId}
         todoBgColor={todoBgColor}
       >
-        <Reorder.Group values={todos} onReorder={setTodos}>
-          {todos &&
-            todos.map((todo) => (
-              <Reorder.Item value={todo} key={todo}>
-                <ToDo
-                  key={todo.id}
-                  onEnter
-                  textColor={textColor}
-                  onUpdateTodo={(updatedToDo) => updateTodo(updatedToDo)}
-                  todo={todo}
-                  draggedId={draggedId}
-                  droppedId={enteredId}
-                  onDragDrop={() => handleDragDrop()}
-                  ref={(el) => (draggables.current[todo.id] = el)}
-                />
-              </Reorder.Item>
-            ))}
-        </Reorder.Group>
+        {todos &&
+          todos.map((todo) => (
+            <ToDo
+              key={todo.id}
+              onEnter
+              textColor={textColor}
+              onUpdateTodo={(updatedToDo) => updateTodo(updatedToDo)}
+              todo={todo}
+              draggedId={draggedId}
+              enteredId={enteredId}
+            />
+          ))}
         <ToDoFooter>
           <Label classname="option-label">
             {todos && todos.filter((todo) => todo.completed === false).length}{" "}

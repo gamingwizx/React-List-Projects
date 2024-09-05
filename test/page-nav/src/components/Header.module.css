@@ -1,0 +1,9 @@
+.nav {
+    background-image: url("/public/logo192.png");
+}
+:global(.active) {
+    background-color: green;
+}
+:global(.hello) {
+    background-color: aliceblue;
+}

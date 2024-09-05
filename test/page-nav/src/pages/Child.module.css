@@ -1,0 +1,7 @@
+.child {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+}

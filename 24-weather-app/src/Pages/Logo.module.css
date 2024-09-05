@@ -1,0 +1,8 @@
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    font-size: var(--fs-2);
+    font-weight: 600;
+    padding: var(--spacing)
+}

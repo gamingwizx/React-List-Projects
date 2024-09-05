@@ -1,0 +1,44 @@
+.form {
+    background-color: var(--color-dark--2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing) * 1.5);
+}
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: calc(var(--spacing) / 2);
+    position: relative;
+}
+.input input {
+    font-size: var(--fs-2);
+    padding: calc(var(--spacing) / 2);
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+.input input:disabled {
+    background-color: var(--color-light--3);
+}
+.buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+button {
+    cursor: pointer;
+}
+.back {
+    border: 2px solid var(--color-light--3);
+    color: var(--color-light--3);
+    background-color: var(--color-dark--2);
+    padding: calc(var(--spacing) / 2) calc(var(--spacing));
+}
+.add {
+    padding: calc(var(--spacing) / 2) calc(var(--spacing));
+
+}

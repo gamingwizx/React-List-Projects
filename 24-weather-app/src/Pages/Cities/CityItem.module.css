@@ -1,0 +1,41 @@
+@font-face {
+    font-family: NotoColorEmojiLimited;
+    unicode-range: U+1F1E6-1F1FF;
+    src: url(https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf);
+  }
+.cityItem {
+    background-color: var(--color-dark--2);
+    padding: var(--spacing);
+    width: 100%;
+    margin: calc(var(--spacing) / 2);
+    border-radius: var(--border-radius);
+    border-left: var(--color-brand--2) 6px solid;
+    font-size: var(--fs-3);
+    justify-content: space-between;
+    display: flex;
+    font-family: 'NotoColorEmojiLimited', -apple-system, BlinkMacSystemFont, 
+  'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+  align-items: center;
+}
+.emoji {
+    padding: calc(var(--spacing) / 1.5);
+}
+.cross {
+    border-radius: 50%;
+    background-color: var(--color-dark--1);
+    color: white;
+    padding: 3px 7px;
+    font-weight: 600;
+    font-size: var(--fs-5);
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+}
+.right {
+    align-items: center;
+    justify-self: flex-end;
+    gap: var(--spacing);
+    display: flex;
+}
