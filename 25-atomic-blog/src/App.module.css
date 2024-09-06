@@ -1,0 +1,63 @@
+.logo {
+    background-image: url("/public/logo192.png");
+    width: 3rem;
+    height: 3rem;
+    background-size: cover;
+    border: none;
+}
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.headerResult {
+    display: flex;
+    gap: var(--spacing);
+    align-items: center;
+}
+.counter {
+    font-weight: 700;
+}
+.addSection {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-orange);
+    padding: var(--spacing);
+    width: 100%;
+}
+form {
+    display: flex;
+    gap: var(--spacing);
+    width: 100%;
+}
+.postBody {
+    flex-basis: 70%;
+}
+.addFormButton {
+    flex-basis: 10%;
+    white-space: nowrap;
+}
+.addFormTitle {
+    flex-basis: 20%;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing);
+}
+.list > * {
+    flex-basis: 20%;
+}
+.item {
+    border: var(--color-orange) 1px solid;
+    padding: calc(var(--spacing) / 5) var(--spacing);
+}
+.title {
+    font-weight: 700;
+}
