@@ -1,0 +1,16 @@
+.title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.left {
+}
+.right {
+    flex-basis: 40%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: var(--clr-light-01);
+    font-size: var(--fs-3);
+    font-weight: 600;
+}

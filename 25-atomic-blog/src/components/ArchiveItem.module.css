@@ -1,0 +1,15 @@
+.archivedPostTitle {
+    flex-basis: 15%;
+}
+.archivedPostBody {
+    flex-basis: 70%;
+}
+.archivedPostButton {
+    flex-basis: 15%;
+}
+.archivedPost {
+    width: 100%;
+    display: flex;
+    padding: calc(var(--spacing) / 3);
+    border: var(--color-orange) 1px solid;
+}

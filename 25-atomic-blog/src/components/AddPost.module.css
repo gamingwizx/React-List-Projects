@@ -1,0 +1,22 @@
+.addSection {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-orange);
+    padding: var(--spacing);
+    width: 100%;
+}
+form {
+    display: flex;
+    gap: var(--spacing);
+    width: 100%;
+}
+.postBody {
+    flex-basis: 70%;
+}
+.addFormButton {
+    flex-basis: 10%;
+    white-space: nowrap;
+}
+.addFormTitle {
+    flex-basis: 20%;
+}

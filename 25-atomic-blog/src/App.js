@@ -1,28 +1,62 @@
 import logo from "./logo.svg";
 import "./App.css";
 import styles from "./App.module.css";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { usePost } from "./Context/PostContext";
+import { faker } from "@faker-js/faker";
+import Header from "./components/Header";
+import PostList from "./components/PostList";
+import AddPost from "./components/AddPost";
+import ArchivePostForm from "./components/ArchivePostForm";
+const randomPost = () => {
+  return {
+    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+    body: faker.hacker.phrase(),
+  };
+};
 function App() {
-  const { posts, addPost, clearPost, searchPost } = usePost();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleAddPost = (e) => {
-    e.preventDefault();
-    const post = {
-      title,
-      description,
+  const { posts } = usePost();
+  const [searchPost, setSearchPost] = useState("");
+  const [darkLightMode, setDarkLightMode] = useState(false);
+  const [archivedPosts, setArchivedPosts] = useState(() =>
+    Array.from({ length: 10000 }, () => {
+      return randomPost();
+    })
+  );
+  const [showArchivePosts, setShowArchivePosts] = useState(false);
+  // const posts = useState(() =>
+  //   Array.from({ length: 50 }, () => {
+  //     return randomPost();
+  //   })
+  // );
+  const searchPosts = posts.filter((post) =>
+    `${post.title} ${post.body}`.toLowerCase().includes(searchPost)
+  );
+  const handleClearPost = () => {};
+  const archiveOptions = useMemo(() => {
+    return {
+      text: `Number of archive posts plus ${posts.length}`,
+      showArchivePosts,
     };
-    addPost(post);
+  });
+  const handleAddPost = (post) => {
+    searchPosts.push(post);
   };
-
-  const handleClearPost = (e) => {
-    clearPost();
+  const handleShowArchivePost = () => {
+    setShowArchivePosts(!showArchivePosts);
   };
+  useEffect(() => {
+    document.documentElement.classList.toggle("fake-dark-mode");
+  }, [darkLightMode]);
 
   return (
     <div className="App flow">
+      <button
+        onClick={() => setDarkLightMode(!darkLightMode)}
+        className={styles.darkLightMode}
+      >
+        {darkLightMode ? "☀️" : "🌙"}
+      </button>
       <header className={styles.header}>
         <div className={styles.logoContainer}>
           <img className={styles.logo} />
@@ -30,43 +64,26 @@ function App() {
         </div>
         <div className={styles.headerResult}>
           <span className={styles.counter}>
-            🚀 {posts.length} atomic posts found
+            🚀 {searchPosts.length} atomic posts found
           </span>
           <input
             className="input"
             placeholder="Search posts"
-            onChange={(e) => searchPost(e.target.value)}
+            onChange={(e) => setSearchPost(e.target.value)}
           ></input>
           <button className="button" onClick={() => handleClearPost()}>
             Clear posts
           </button>
         </div>
       </header>
-      <section className={styles.addSection}>
-        <form className={styles.addForm} onSubmit={(e) => handleAddPost(e)}>
-          <input
-            className={`input ${styles.addFormTitle}`}
-            placeholder="Post title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          ></input>
-          <textarea
-            className={`input ${styles.postBody}`}
-            placeholder="Post body"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-          <button className={`button ${styles.addFormButton}`}>Add post</button>
-        </form>
-      </section>
-      <section className={styles.list}>
-        {posts &&
-          posts.map((post) => (
-            <div className={styles.item}>
-              <p className={styles.title}>{post.title}</p>
-              <p>{post.description}</p>
-            </div>
-          ))}
+      <AddPost addPost={handleAddPost} />
+      <PostList searchPosts={searchPosts} />
+      <ArchivePostForm
+        onShowArchivePost={handleShowArchivePost}
+        archiveOptions={archiveOptions}
+      />
+      <section className={styles.footer}>
+        <p>© by The Atomic Blog ✌️</p>
       </section>
     </div>
   );

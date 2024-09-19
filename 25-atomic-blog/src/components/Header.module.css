@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: calc(var(--spacing) * 1.5) 0;
+}
+.headerResult {
+    display: flex;
+    gap: var(--spacing);
+    align-items: center;
+}
+.counter {
+    font-weight: 700;
+}

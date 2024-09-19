@@ -1,12 +1,6 @@
 import logo from "./logo.svg";
 import { lazy } from "react";
 import "./App.css";
-import Home from "./Pages/Home/Home.js";
-import Product from "./Pages/Product/Product.js";
-import Login from "./Pages/Login/Login.js";
-import Pricing from "./Pages/Pricing/Pricing.js";
-import Header from "./Pages/Header.js";
-// import AppLayout from "./Pages/Map/AppLayout.jsx";
 import Form from "./Pages/Map/Form.js";
 import Countries from "./Pages/Map/Countries.js";
 import City from "./Pages/Cities/City.jsx";
@@ -15,6 +9,10 @@ import ProtectedRoute from "./Pages/ProtectedRoute.js";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import { CitiesProvider } from "./Context/CitiesContext.jsx";
 const AppLayout = lazy(() => import("./Pages/Map/AppLayout.jsx"));
+const Home = lazy(() => import("./Pages/Home/Home.js"));
+const Product = lazy(() => import("./Pages/Product/Product.js"));
+const Login = lazy(() => import("./Pages/Login/Login.js"));
+const Pricing = lazy(() => import("./Pages/Pricing/Pricing.js"));
 function App() {
   return (
     <div className="App">

@@ -1,0 +1,60 @@
+:root {
+  --spacing: 1em;
+  --clr-light-01: azure;
+
+  --fs-1: 40px;
+  --fs-2: 30px;
+  --fs-3: 25px;
+  --fs-4: 20px;
+}
+*,*::before, *::after {
+  box-sizing: border-box;
+}
+h1,h2,h3 {
+  margin: 0;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: var(--spacing)
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+button {
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: calc(var(--spacing) / 2);
+}
+.container {
+  max-width: 80rem;
+  width: 80%;
+}
+.flow > * + * {
+  margin-top: var(--spacing);
+}
+.form {
+  background-color: var(--clr-light-01);
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+}
+.input {
+  display: flex;
+  align-items: stretch;
+}
+.input > * + *{
+  margin-left: var(--spacing);
+}
+span {
+  display: flex;
+  align-items: center;
+}

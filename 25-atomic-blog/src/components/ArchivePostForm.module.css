@@ -1,0 +1,27 @@
+.showArchivePosts {
+    width: 100%;
+}
+.archivedPosts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+}
+.archivedPost {
+    width: 100%;
+    display: flex;
+    padding: calc(var(--spacing) / 3);
+    border: var(--color-orange) 1px solid;
+}
+.archivedPostTitle {
+    flex-basis: 15%;
+}
+.archivedPostBody {
+    flex-basis: 70%;
+}
+.archivedPostButton {
+    flex-basis: 15%;
+}
+.archiveTitle {
+    padding: var(--spacing) var(--spacing) var(--spacing) 0;
+}

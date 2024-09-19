@@ -11,21 +11,22 @@ export default function CityItem({ city }) {
       year: "numeric",
     }).format(new Date(date));
   };
-  const handleDeleteCity = () => {
+  const handleDeleteCity = (e) => {
     deleteCity(city.id);
+    e.stopPropagation();
   };
-  const handleClick = () => {
+  const handleClick = (e) => {
     navigate(`/app/cities/${city.id}`);
   };
   return (
-    <div className={styles.cityItem} onClick={() => handleClick()}>
+    <div className={styles.cityItem} onClick={(e) => handleClick(e)}>
       <div>
         <span className={styles.emoji}>{city.emoji}</span>
         {city.cityName}
       </div>
       <div className={styles.right}>
         <span>{formatDate(city.date)}</span>
-        <button className={styles.cross} onClick={() => handleDeleteCity()}>
+        <button className={styles.cross} onClick={(e) => handleDeleteCity(e)}>
           x
         </button>
       </div>

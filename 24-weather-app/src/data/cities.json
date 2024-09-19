@@ -1,87 +1,15 @@
 {
   "cities": [
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2023-04-03T07:47:59.202Z",
-      "notes": "asdadadas",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": "98443197"
-    },
-    {
-      "cityName": "Nijar",
-      "country": "Spain",
+      "id": "8CHQWG37+8W",
       "emoji": "🇪🇸",
-      "date": "2023-04-03T07:47:59.202Z",
-      "notes": "",
-      "position": {
-        "lat": "36.967508314568164",
-        "lng": "-2.13128394200588"
-      },
-      "id": "98443198"
-    },
-    {
-      "id": "8CHQ7RV3+P7",
-      "emoji": "🇪🇸",
-      "notes": "hello",
-      "cityName": "Cuellar",
+      "notes": "awdad",
+      "cityName": "Tariego de Cerrato",
       "country": "Spain",
-      "date": "2024-09-01T14:04:44.487Z",
+      "date": "2024-09-12T04:28:26.758Z",
       "position": {
-        "lat": 41.29431726315258,
-        "lng": -4.196777343750001
-      }
-    },
-    {
-      "id": "8FM2P25V+2H",
-      "emoji": "🇫🇷",
-      "notes": "heloasldoas",
-      "cityName": "Sabazan",
-      "country": "France",
-      "date": "2024-09-01T14:04:50.660Z",
-      "position": {
-        "lat": 43.70759350405296,
-        "lng": 0.0439453125
-      }
-    },
-    {
-      "id": "8CGVXH76+8X",
-      "emoji": "🇪🇸",
-      "notes": "",
-      "cityName": "Luzaga",
-      "country": "Spain",
-      "date": "2024-09-02T08:50:06.978Z",
-      "position": {
-        "lat": 40.96330795307353,
-        "lng": -2.4375915527343754
-      }
-    },
-    {
-      "id": "8CGM746J+FG",
-      "emoji": "🇵🇹",
-      "notes": "asdsadadad",
-      "cityName": "Sabugal",
-      "country": "Portugal",
-      "date": "2024-09-03T14:17:44.833Z",
-      "position": {
-        "lat": 40.26115469882079,
-        "lng": -6.868653148412705
-      }
-    },
-    {
-      "id": "8CGH3HX7+32",
-      "emoji": "🇵🇹",
-      "notes": "",
-      "cityName": "Condeixa-a-Nova",
-      "country": "Portugal",
-      "date": "2024-09-05T08:03:48.402Z",
-      "position": {
-        "lat": 40.09763156162746,
-        "lng": -8.437500000000002
+        "lat": 41.90335021080836,
+        "lng": -4.485161367765536
       }
     }
   ]

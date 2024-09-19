@@ -28,14 +28,20 @@ const reducer = (state, action) => {
             const filteredPosts = keyword === "" ? action.initialPosts : state.posts.slice().filter(post => `${post.title} ${post.description}`.toLowerCase().includes(keyword))
             return {...state, posts: filteredPosts}
         case "post/archivePost":
-            const archivePosts = Array.from({length: 30}, (e) => randomPost())
-            console.log(archivePosts)
+            const archivedPosts = Array.from({length: 10000}, (e) => randomPost())
+            return {...state, archivedPosts}
+        case "post/removeArchivePost":
+            const removedArchivedPost = action.payload
+            console.log(state.archivedPosts)
+            console.log(removedArchivedPost)
+            const newListArchivePost = state.archivedPosts.slice().filter(archivePost => archivePost.title === removedArchivedPost.title && archivePost.description === removedArchivedPost.description ? false : true)
+            return {...state, archivedPosts: newListArchivePost}
     }
 }
 
 function PostProvider({children}) {
     const [initialPosts, setIntialPosts] = useState([])
-    const [{isLoading, posts}, dispatch] = useReducer(reducer, initialValue)
+            const [{isLoading, posts, archivedPosts}, dispatch] = useReducer(reducer, initialValue)
     useEffect(() => {
         dispatch({type: "post/load"})
         async function fetchData() {
@@ -45,6 +51,7 @@ function PostProvider({children}) {
                 return res.json()
             }).then((result) => {
                 setIntialPosts(result)
+                dispatch({type: "post/archivePost"})
                 dispatch({type: "post/loaded", payload: result})
             });
         }
@@ -88,12 +95,18 @@ function PostProvider({children}) {
 
     }
 
+    async function removeArchivePost(post) {
+        dispatch({type: "post/removeArchivePost", payload: post})
+    }
+
     function searchPost(keyword) {
         dispatch({type: "post/search", payload: keyword, initialPosts})
     }
 
+  
+ 
     return (
-        <PostContext.Provider value={{posts, isLoading, addPost, clearPost, searchPost}}>{children}</PostContext.Provider>
+        <PostContext.Provider value={{posts, isLoading,archivedPosts, addPost, clearPost, searchPost, removeArchivePost}}>{children}</PostContext.Provider>
     )
 }
 

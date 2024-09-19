@@ -1,0 +1,16 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing);
+}
+.list > * {
+    flex-basis: 20%;
+}
+.item {
+    border: var(--color-orange) 1px solid;
+    padding: calc(var(--spacing) / 5) var(--spacing);
+    flex-grow: 1;
+}
+.title {
+    font-weight: 700;
+}
