@@ -9,8 +9,7 @@ export default function SearchOrder() {
     }
     
     return (<form onSubmit={(e) => handleSubmit(e)}>
-        <input placeholder="Search Order #" onChange={(e) => setOrderId(e.target.value)}></input>
-        <button></button>
+        <input className="input" placeholder="Search Order #" onChange={(e) => setOrderId(e.target.value)}></input>
     </form>)
 }
 

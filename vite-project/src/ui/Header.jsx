@@ -1,13 +1,11 @@
+// import {useSelector} from "react-redux"
 import SearchOrder from "../features/Order/SearchOrder"
-import {useSelector} from "react-redux"
 export default function Header() {
-    const username = useSelector((store) => store.user.username)
+    // const username = useSelector((store) => store.user.username)
 
-    return (<header>
-        <h1>
-            Fast React Pizza Co.
-        </h1>
+    return (<header className="flex justify-between p-3 bg-yellow-500">
+        <p className="uppercase text-xl tracking-wide font-normal">Fast React Pizza Co.</p>
         <SearchOrder></SearchOrder>
-        <div>a{username}</div>
+        <div className="text-xl uppercase font-medium">Jonas</div>
     </header>)
 }

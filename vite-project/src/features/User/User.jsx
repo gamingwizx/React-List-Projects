@@ -1,4 +1,3 @@
-import Header from "../../ui/Header"
 import {useState} from "react"
 import {registerUser} from "../User/UserSlice"
 import { useDispatch } from "react-redux"
@@ -12,13 +11,11 @@ export default function User() {
         dispatch(registerUser(fullName))
     }
      return <>
-        <Header/>
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <p>The best pizza.</p>
-            <Link to="/menu">Straight out of the oven, straight to you,</Link>
+        <form className="flow" onSubmit={(e) => handleSubmit(e)}>
+            <p className="text-gray-800 text-3xl">The best pizza.</p>
+            <Link to="/menu" className="text-yellow-500 text-3xl">Straight out of the oven, straight to you,</Link>
             <p>Welcome! Please start by telling us your name:</p>
-            <input placeholder="Your full name" onChange={(e) => setFullName(e.target.value)}></input>
-            <button>View Menu</button>
+            <input placeholder="Your full name" className="input" onChange={(e) => setFullName(e.target.value)}></input>
         </form>
 
     </>
