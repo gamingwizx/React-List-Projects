@@ -10,7 +10,7 @@ export default function User() {
         e.preventDefault()
         dispatch(registerUser(fullName))
     }
-     return <>
+     return <div>
         <form className="flow" onSubmit={(e) => handleSubmit(e)}>
             <p className="text-gray-800 text-3xl">The best pizza.</p>
             <Link to="/menu" className="text-yellow-500 text-3xl">Straight out of the oven, straight to you,</Link>
@@ -18,5 +18,5 @@ export default function User() {
             <input placeholder="Your full name" className="input" onChange={(e) => setFullName(e.target.value)}></input>
         </form>
 
-    </>
+    </div>
 }

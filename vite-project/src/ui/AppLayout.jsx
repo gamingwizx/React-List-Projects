@@ -8,8 +8,7 @@ import CartLayout from "../features/Cart/CartLayout"
         <div className="w-screen grid grid-rows-layout h-screen text-center">
             {isLoading && <p>Loading...</p>}
             <Header></Header>
-
-            <main className="flex justify-center bg-gray-100 h-full items-center">
+            <main className="bg-gray-200 overflow-auto">
                 <Outlet></Outlet>
             </main>
             <CartLayout></CartLayout>

@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       gridTemplateRows: {
-        "layout": "8% 84% 8%" 
-      }
+        "layout": "8% 84% 8%",
+        "repeat": "min-content"
+      },
     },
   },
   plugins: [],

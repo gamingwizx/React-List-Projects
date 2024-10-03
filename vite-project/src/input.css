@@ -12,6 +12,9 @@
     .flow > * + * {
         margin-top: 2em;
     }
+    .flow-left > * + * {
+        margin-left: 2em; 
+    }
     .input {
         @apply px-4 py-1 rounded-3xl
     }
