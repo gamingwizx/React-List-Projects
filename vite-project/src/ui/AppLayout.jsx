@@ -5,7 +5,7 @@ import CartLayout from "../features/Cart/CartLayout"
     const navigation = useNavigation()
     const isLoading = navigation.state === "loading"
     return (
-        <div className="w-screen grid grid-rows-layout h-screen text-center">
+        <div className="w-screen grid grid-rows-layout grid-cols-1 h-screen text-center">
             {isLoading && <p>Loading...</p>}
             <Header></Header>
             <main className="bg-gray-200 overflow-auto">

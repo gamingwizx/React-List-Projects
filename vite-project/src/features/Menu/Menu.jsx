@@ -3,7 +3,6 @@ import { getMenu } from "../../services/apiRestaurant"
 import MenuItem from "./MenuItem"
 function Menu() {
     const menus = useLoaderData()
-    console.log(menus)
     return (
         <div className="w-full flex items-center justify-center flex-col">
         {menus.map((pizza) => (
