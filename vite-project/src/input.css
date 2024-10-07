@@ -21,4 +21,7 @@
     .quantity-button {
         @apply rounded-full bg-yellow-500 inline-block text-sm font-semibold px-2.5 pt-0.5 pb-1 tracking-wide uppercase
     }
+    .button {
+        @apply rounded-full bg-yellow-500 inline-block uppercase font-semibold py-2 px-6
+    }
 }

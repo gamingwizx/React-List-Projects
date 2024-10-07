@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { increaseAmount, addItem, removeItem, decreaseAmount } from "../Cart/CartSlice"
 import { useState, useEffect } from "react"
+import Button from "../../ui/Button"
 export default function MenuItem(pizza) {
     const [isAddedToCart, setIsAddedToCart] = useState(false)
     const [quantity, setQuantity] = useState(0)
@@ -36,12 +37,12 @@ export default function MenuItem(pizza) {
                     <p className="text-2xl">€{unitPrice.toFixed(2)}</p>
                 </div>
             </div>
-            {!isAddedToCart && <button onClick={() => handleAddToCart()}className="rounded-3xl uppercase bg-yellow-500 text-sm self-end">Add To Cart</button>}
+            {!isAddedToCart && <Button type="primary" onClick={() => handleAddToCart()}>Add To Cart</Button>}
             {isAddedToCart && 
             <div className="self-end flex gap-3 flex items-center">
-                <button className="quantity-button" onClick={() => handleDecreaseAmount()}>-</button>
+                <Button type="small" onClick={() => handleDecreaseAmount()}>-</Button>
                 <span>{quantity}</span>
-                <button className="quantity-button" onClick={() => handleIncreaseAmount()}>+</button>
+                <Button type="small" onClick={() => handleIncreaseAmount()}>+</Button>
                 <button onClick={() => handleDeleteFromCart()} className="rounded-3xl uppercase bg-yellow-500 text-xs self-end">Delete</button>
             </div>}
         </div>

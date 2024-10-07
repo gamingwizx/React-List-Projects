@@ -12,7 +12,7 @@ export default function User() {
         dispatch(registerUser(fullName))
         navigate("/menu")
     }
-     return <div className="flex justify-center items-center h-full">
+     return <div className="flex justify-center py-10">
         <form className="flow" onSubmit={(e) => handleSubmit(e)}>
             <p className="text-gray-800 text-3xl">The best pizza.</p>
             <Link to="/menu" className="text-yellow-500 text-3xl">Straight out of the oven, straight to you,</Link>

@@ -4,7 +4,7 @@ import MenuItem from "./MenuItem"
 function Menu() {
     const menus = useLoaderData()
     return (
-        <div className="w-full flex items-center justify-center flex-col">
+        <div className="flex items-center justify-center flex-col">
         {menus.map((pizza) => (
             <MenuItem key={pizza.id} pizza={pizza}/>
         ))}
