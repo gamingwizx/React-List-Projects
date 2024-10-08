@@ -9,6 +9,7 @@ export async function getMenu() {
 }
 
 export async function placeOrder(newOrder) {
+    console.log(JSON.stringify(newOrder))
     const fetchOptions = {
         method: "POST",
         body: JSON.stringify(newOrder),

@@ -1,40 +1,42 @@
+/* eslint-disable */
 import { useState } from "react";
 import { placeOrder } from "../../services/apiRestaurant";
 import { Form, useActionData, redirect } from "react-router-dom";
+import {useSelector} from "react-redux"
+import Button from "../../ui/Button";
 export default function CreateOrder() {
-    
+        const cart = useSelector((store) => store.cart.cart)
         const formError = useActionData()
         const [username, setUsername] = useState("")
         const [address, setAddress] = useState("")
         const [phone, setPhoneNumber] = useState("")
-        const cart = [
-            {
-                pizzaId: 1,
-                name: "Margherita",
-                quantity: 1,
-                unitPrice: 12,
-                totalPrice: 12,
-                }
-        ]
+        const [priority, setPriority] = useState(false)
     return (
-        <Form method="POST">
+        <Form className="flow" method="POST">
+            <p className="text-3xl pt-5">Ready to order? Let&#39;s go!</p>
             <input name="cart" value={JSON.stringify(cart)} hidden></input>
-            <div>
-                <label>Username</label>
-                <input placeholder="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+            <div className="flow">
+                <div className="flex">
+                    <label className="form-label">Username</label>
+                    <input name="username" className="form-input" value={username} onChange={(e) => setUsername(e.target.value)}></input>
+                    </div>
+                {formError?.username && <p>{formError?.username}</p>}
+                <div className="flex">
+                    <label className="form-label">Address</label>
+                    <input className="form-input" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                    </div>
+                {formError?.address && <p>{formError?.address}</p>}
+                <div className="flex">
+                    <label className="form-label">Phone number</label>
+                    <input className="form-input" name="phone" value={phone} onChange={(e) => setPhoneNumber(e.target.value)}></input>
                 </div>
-            {formError?.username && <p>{formError?.username}</p>}
-            <div>
-                <label>Address</label>
-                <input placeholder="Address" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                <div className="flex gap-4">
+                    <input className="w-6" name="priority" value={priority} onChange={((e) => setPriority(e.target.checked))} type="checkbox"></input>
+                    <p className="text-xl font-semibold">Want to give your order priority?</p>
+                    {formError?.phone && <p>{formError?.phone}</p>}
                 </div>
-            {formError?.address && <p>{formError?.address}</p>}
-            <div>
-                <label>Phone number</label>
-                <input placeholder="Phone Number" name="phone" value={phone} onChange={(e) => setPhoneNumber(e.target.value)}></input>
             </div>
-            {formError?.phone && <p>{formError?.phone}</p>}
-            <button type="submit">Place order</button>
+            <Button type="primary">Order Now</Button>
         </Form>
     )
 
@@ -53,18 +55,17 @@ export async function action({request}) {
     const data = Object.fromEntries(formData) 
     const error = {}
     const newOrder = {
-        address :"A-4106 Jalan Kubang Buaya",
-        customer: "qwe",
+        address :data.address,
+        customer: data.username,
         cart: JSON.parse(data.cart),
-        phone: "0187883139",
+        phone: data.phone,
         position: "",
-        priority: false
+        priority: data.priority === "true"
     }
     if (!isValidPhone(data.phone)) error.phone = "Phone is wrong format!"
     if (!isValidUsername(data.username)) error.username = "Username must be longer than 10"
     if (!isValidUsername(data.address)) error.address = "Address must be longer than 10"
-    
-    console.log(error)
+    console.log(newOrder)    
     if (Object.keys(error).length > 0) return error
 
     const res = await placeOrder(newOrder)

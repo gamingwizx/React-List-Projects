@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useSelector, useDispatch } from "react-redux"
 import { increaseAmount, addItem, removeItem, decreaseAmount } from "../Cart/CartSlice"
 import { useState, useEffect } from "react"
@@ -7,9 +8,18 @@ export default function MenuItem(pizza) {
     const [quantity, setQuantity] = useState(0)
     const cart = useSelector((store) => store.cart.cart)
     const dispatch = useDispatch()
-    const {name, unitPrice, ingredients, imageUrl, id} = pizza.pizza
+    const {name, unitPrice, ingredients, imageUrl, id, soldOut} = pizza.pizza
     const handleAddToCart = () => {
-        dispatch(addItem(pizza))
+        const newPizza = {
+            pizzaId: id,
+            imageUrl,
+            ingredients,
+            name,
+            quantity,
+            soldOut,
+            unitPrice
+        }
+        dispatch(addItem(newPizza))
     }
     const handleDeleteFromCart = () => {
         dispatch(removeItem(pizza))
@@ -21,13 +31,13 @@ export default function MenuItem(pizza) {
         dispatch(decreaseAmount(pizza))
     }
     useEffect(() => {
-        setIsAddedToCart(() => cart.map((cartItem) => cartItem.pizza?.id)?.includes(id))
-        setQuantity(() => cart.find(cartItem => cartItem.pizza.id === id)?.quantity)
+        setIsAddedToCart(() => cart.map((cartItem) => cartItem?.pizzaId)?.includes(id))
+        setQuantity(() => cart.find(cartItem => cartItem.pizzaId === id)?.quantity)
         
     }, [cart]);
     return (
         <div className="flow-left w-3/4 flex p-3 border-gray-400 border-b justify-between">
-            <div className="flex gap-4">
+            <div className="flex gap-4 w-3/5">
                 <img className="h-24" src={imageUrl}></img>
                 <div className="self-stretch justify-between flex flex-col items-start">
                     <div className="flex flex-col items-start capitalize">

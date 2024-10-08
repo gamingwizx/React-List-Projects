@@ -1,6 +1,6 @@
 import Button from "../../ui/Button"
 export default function CartItem(cartItem) {
-    const {name, unitPrice} = cartItem.cartItem.pizza
+    const {name, unitPrice} = cartItem.cartItem 
     const quantity = cartItem.cartItem.quantity
     return (
         <div className="flex justify-between">

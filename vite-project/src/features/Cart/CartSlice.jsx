@@ -7,16 +7,20 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem(state, action) {
-            state.cart = [...state.cart, {pizza: action.payload.pizza, quantity: 1}]
+            state.cart = [...state.cart, {...action.payload , quantity: 1}]
         },
         removeItem(state, action) {
-            state.cart = state.cart.filter(cartItem => cartItem.pizza.id !== action.payload.pizza.id)
+            state.cart = state.cart.filter(cartItem => cartItem.pizzaId !== action.payload.id)
         },
         increaseAmount(state, action) {
-            state.cart = state.cart.map(cartItem => cartItem.pizza.id === action.payload.pizza.id ? {pizza: cartItem.pizza, quantity: cartItem.quantity + 1} : {pizza: cartItem.pizza, quantity: cartItem.quantity})
+            state.cart = state.cart.map(cartItem => cartItem.pizzaId === action.payload.pizza.id ? {...cartItem, quantity: cartItem.quantity + 1} : {...cartItem, quantity: cartItem.quantity})
         },
         decreaseAmount(state, action) {
-            state.cart = state.cart.map(cartItem => cartItem.pizza.id === action.payload.pizza.id ? {pizza: cartItem.pizza, quantity: cartItem.quantity > 0 ? cartItem.quantity - 1 : 0} : {pizza: cartItem.pizza, quantity: cartItem.quantity})
+            state.cart = state.cart.map(cartItem => cartItem.pizzaId === action.payload.pizza.id ? {...cartItem, quantity: cartItem.quantity > 0 ? cartItem.quantity - 1 : 0} : {...cartItem, quantity: cartItem.quantity})
+        },
+        /* eslint-disable */ 
+        clearCart(state, action) {
+            state.cart = []
         }
     }
 })
@@ -29,5 +33,5 @@ const cartSlice = createSlice({
 //     }
 // }
 
-export const {addItem, removeItem, increaseAmount, decreaseAmount} = cartSlice.actions
+export const {addItem, removeItem, increaseAmount, decreaseAmount, clearCart} = cartSlice.actions
 export default cartSlice.reducer

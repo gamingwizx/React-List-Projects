@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 export default function CartLayout() {
     const cart = useSelector((store) => store.cart.cart)
-    const totalPrice = cart.reduce((totalPrice, cartItem) => totalPrice + cartItem.pizza.unitPrice * cartItem.quantity, 0)
+    const totalPrice = cart.reduce((totalPrice, cartItem) => totalPrice + cartItem.unitPrice * cartItem.quantity, 0)
     const navigate = useNavigate()
     const handleOpenCart = () => {
         navigate("/cart")
