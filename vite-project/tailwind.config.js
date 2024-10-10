@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       gridTemplateRows: {
-        "layout": "8% 84% 8%",
+        "layout": "auto 1fr auto",
         "repeat": "min-content"
       },
     },

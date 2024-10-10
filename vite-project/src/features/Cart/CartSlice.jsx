@@ -10,7 +10,8 @@ const cartSlice = createSlice({
             state.cart = [...state.cart, {...action.payload , quantity: 1}]
         },
         removeItem(state, action) {
-            state.cart = state.cart.filter(cartItem => cartItem.pizzaId !== action.payload.id)
+            console.log(action.payload)
+            state.cart = state.cart.filter(cartItem => cartItem.pizzaId !== action.payload.pizza.id)
         },
         increaseAmount(state, action) {
             state.cart = state.cart.map(cartItem => cartItem.pizzaId === action.payload.pizza.id ? {...cartItem, quantity: cartItem.quantity + 1} : {...cartItem, quantity: cartItem.quantity})

@@ -6,10 +6,11 @@ import {useSelector} from "react-redux"
 import Button from "../../ui/Button";
 export default function CreateOrder() {
         const cart = useSelector((store) => store.cart.cart)
+        
         const formError = useActionData()
-        const [username, setUsername] = useState("")
-        const [address, setAddress] = useState("")
-        const [phone, setPhoneNumber] = useState("")
+        const [username, setUsername] = useState("qweqqweqweqwwe")
+        const [address, setAddress] = useState("qweqqweqweqwwe")
+        const [phone, setPhoneNumber] = useState("0187883139")
         const [priority, setPriority] = useState(false)
     return (
         <Form className="flow" method="POST">

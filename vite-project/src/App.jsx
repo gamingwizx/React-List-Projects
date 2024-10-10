@@ -1,6 +1,7 @@
 import User from "./features/User/User"
 import Menu, {loader as MenuLoader} from "./features/Menu/Menu"
 import NewOrder, {loader as OrderLoader} from "./features/Order/NewOrder"
+import {action as UpdateOrderAction} from "./features/Order/UpdateOrder"
 import Cart from "./features/Cart/Cart"
 import CreateOrder, {action as CreateOrderAction} from "./features/Order/CreateOrder"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
@@ -30,8 +31,8 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <NewOrder />,
-        loader: OrderLoader
-
+        action: UpdateOrderAction,
+        loader: OrderLoader,
       },
     ]
   }

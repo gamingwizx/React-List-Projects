@@ -5,33 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .parent {
-            height: 10rem;
-            background-color: red;
-            display: grid;
-            grid-template-rows: 20% 80%;
-            overflow: auto;
-        }
-        .header {
-            background-color: blue;
-        }
-        .content {
-            background-color: yellow;
-        }
+        .bars-6 {
+            width: 45px;
+            aspect-ratio: .75;
+            --c: no-repeat linear-gradient(#000 0 0);
+            background: 
+                var(--c) 0%   50%,
+                var(--c) 50%  50%,
+                var(--c) 100% 50%;
+            background-size: 20% 50%;
+            animation: b6 1s infinite linear;
+            }
+            @keyframes b6 {
+            20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
+            40% {background-position: 0% 100%,50% 0%  ,100% 50% }
+            60% {background-position: 0% 50% ,50% 100%,100% 0%  }
+            80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+            }
+            .test {
+                width: 50px;
+                aspect-ratio: 0.75;
+                --d: no-repeat linear-gradient(blue 0 0);
+                background: var(--d) 0% 50%,
+                var(--d) 50% 50%,
+                var(--d) 100% 50%;
+                background-size: 20% 50%;
+            }
+            body {
+                margin: 0;
+                height: 100vh;
+                display: grid;
+                grid-auto-rows: min-content;
+            }
+            header {
+                background-color: red;
+                width: 100%;
+            }
+            main {
+                background-color: orange;
+                width: 100%
+            }
+            footer {
+                background-color: yellow;
+                width: 100%;
+            }
     </style>
 </head>
 <body>
-    <div class="parent">
-        <div class="header"></div>
-        <div class="content">
-            <p>Hello</p>
-            <p>Hello</p>
-            <p>Hello</p>
-            <p>Hello</p>
-            <p>Hello</p>
-            <p>Hello</p>
-            <p>Hello</p>
-        </div>
-    </div>
+   <header>
+    Test
+   </header>
+   <main>
+    Main
+   </main>
+   <footer>
+    Footer
+   </footer>
 </body>
 </html>

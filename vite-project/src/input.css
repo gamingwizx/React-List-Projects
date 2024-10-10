@@ -16,7 +16,7 @@
         margin-left: 2em; 
     }
     .input {
-        @apply px-4 py-1 rounded-3xl
+        @apply px-4 py-1 rounded-3xl 
     }
     .quantity-button {
         @apply rounded-full bg-yellow-500 inline-block text-sm font-semibold px-2.5 pt-0.5 pb-1 tracking-wide uppercase
@@ -30,4 +30,16 @@
     .form-input {
         @apply basis-3/4 p-3 rounded-full
     }
+    .bars-6 {
+        width: 45px;
+        height: 10px;
+        --c: no-repeat linear-gradient(#000 0 0);
+        background: red;
+        }
+    @keyframes b6 {
+        20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
+        40% {background-position: 0% 100%,50% 0%  ,100% 50% }
+        60% {background-position: 0% 50% ,50% 100%,100% 0%  }
+        80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+        }
 }

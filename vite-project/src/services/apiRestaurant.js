@@ -29,3 +29,17 @@ export async function getOrder(orderId) {
     const data = await res.json()
     return data
 }
+
+export async function updateOrder(orderId, obj) {
+    const fetchOptions = {
+        method: "PATCH",
+        body: JSON.stringify(obj),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    const res = await fetch(`${API_URL}/order/${orderId}`, fetchOptions)
+    if (!res.ok) throw new Error(res.message)
+    const data = await res.json()
+    return data
+}
