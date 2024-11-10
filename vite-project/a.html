@@ -5,50 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .bars-6 {
-            width: 45px;
-            aspect-ratio: .75;
-            --c: no-repeat linear-gradient(#000 0 0);
-            background: 
-                var(--c) 0%   50%,
-                var(--c) 50%  50%,
-                var(--c) 100% 50%;
-            background-size: 20% 50%;
-            animation: b6 1s infinite linear;
-            }
-            @keyframes b6 {
-            20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
-            40% {background-position: 0% 100%,50% 0%  ,100% 50% }
-            60% {background-position: 0% 50% ,50% 100%,100% 0%  }
-            80% {background-position: 0% 50% ,50% 50% ,100% 100%}
-            }
-            .test {
-                width: 50px;
-                aspect-ratio: 0.75;
-                --d: no-repeat linear-gradient(blue 0 0);
-                background: var(--d) 0% 50%,
-                var(--d) 50% 50%,
-                var(--d) 100% 50%;
-                background-size: 20% 50%;
-            }
-            body {
-                margin: 0;
-                height: 100vh;
-                display: grid;
-                grid-auto-rows: min-content;
-            }
-            header {
-                background-color: red;
-                width: 100%;
-            }
+        @media screen and (min-width: 400px) {
             main {
-                background-color: orange;
-                width: 100%
+                background-color: blue;
             }
-            footer {
-                background-color: yellow;
-                width: 100%;
+        }
+        @media screen and (min-width: 500px) {
+            main {
+                background-color: red;
             }
+        }
+        input {
+            display: inline;
+            width: 90%;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +26,7 @@
     Test
    </header>
    <main>
-    Main
+    <input>
    </main>
    <footer>
     Footer

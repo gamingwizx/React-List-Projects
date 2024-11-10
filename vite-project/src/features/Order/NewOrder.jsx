@@ -22,34 +22,34 @@ export default function NewOrder() {
     },[fetcher])
     console.log(fetcher.data)
     return (
-        <div className="text-2xl flow">
+        <div className="md:text-2xl text-base flow px-6">
             {order && 
             <>
-            <div className="flex justify-between pt-6 items-center">
+            <div className="flex gap-2 justify-between pt-6 items-center">
                 <p className="font-semibold">Order {order.id} status</p>
                 <div className="flex gap-4">
                     {order.priority === true && <Label type="red">Priority</Label>}
                     {order.status === "preparing" && <Label type="green">Preparing Order</Label>}
                 </div>
             </div>
-            <div className="bg-gray-300 px-5 py-3 flex justify-between items-center">
-                <p className="text-lg font-semibold">Only {estimatedDeliveryTimestamp.getMinutes()} minutes left 😀</p>
-                <p className="text-sm">&#40;Estimated Delivery: {formattedTime}&#41;</p>
+            <div className="bg-gray-300 px-5 py-3 flex gap-2 justify-between items-center">
+                <p className="md:text-lg text-base font-semibold">Only {estimatedDeliveryTimestamp.getMinutes()} minutes left 😀</p>
+                <p className="md:text-sm text-xs">&#40;Estimated Delivery: {formattedTime}&#41;</p>
             </div>
             <div>
 
             {order.cart.map(item => (
-                <div className="flex text-lg justify-between flow" key={item.pizzaId}>
+                <div className="border-t border-gray-200 flex-start flex gap-2 text-lg justify-between flow py-4" key={item.pizzaId}>
                     <div className="flex flex-col">
                         <div className="flex">
                             <span className="self-center text-center">{item.quantity}&times;&nbsp;</span>
                             <span>{item.name}</span>
                         </div>
-                        <p className="font-light capitalize">
+                        <p className="font-light text-sm capitalize">
                         {fetcher?.data?.find(menuItem => menuItem.id === item.pizzaId)?.ingredients.join(" ,")}
                         </p>
                     </div>
-                    <p className="font-bold">€{item.totalPrice.toFixed(2)}</p>
+                    <p className="font-bold mt-0">€{item.totalPrice.toFixed(2)}</p>
 
                 </div>
             ))}

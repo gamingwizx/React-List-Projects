@@ -7,6 +7,11 @@ export default {
         "layout": "auto 1fr auto",
         "repeat": "min-content"
       },
+      fontSize: {
+      },
+      inset: {
+        "1px": "1px"
+      }
     },
   },
   plugins: [],

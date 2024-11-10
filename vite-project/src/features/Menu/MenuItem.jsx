@@ -35,26 +35,40 @@ export default function MenuItem(pizza) {
         setQuantity(() => cart.find(cartItem => cartItem.pizzaId === id)?.quantity)
         
     }, [cart]);
-    return (
-        <div className="flow-left w-3/4 flex p-3 border-gray-400 border-b justify-between">
-            <div className="flex gap-4 w-3/5">
-                <img className="h-24" src={imageUrl}></img>
-                <div className="self-stretch justify-between flex flex-col items-start">
-                    <div className="flex flex-col items-start capitalize">
-                    <p className="font-bold text-xl">{name}</p>
-                        {ingredients.join(", ")}
-                    </div>
-                    <p className="text-2xl">€{unitPrice.toFixed(2)}</p>
+
+    if (isAddedToCart) {
+        return (
+            <div className="flow-left w-full flex p-3 border-gray-400 border-b">
+            <img className="h-24" src={imageUrl}></img>
+            <div className="flex gap-1 w-full justify-between flex-col">
+                <p className="font-bold font">{name}</p>
+                <p className="font-1 capitalize">{ingredients.join(", ")}</p>
+                <div className="flex items-center justify-between">
+                    <p className="font">€{unitPrice.toFixed(2)}</p>
+                    <div className="self-end flex gap-3 flex items-center">
+                    <Button type="small" onClick={() => handleDecreaseAmount()}>-</Button>
+                    <span>{quantity}</span>
+                    <Button type="small" onClick={() => handleIncreaseAmount()}>+</Button>
+                    <button onClick={() => handleDeleteFromCart()} className="rounded-3xl uppercase bg-yellow-500 text-xs self-end">Delete</button>
+                </div>
                 </div>
             </div>
-            {!isAddedToCart && <Button type="primary" onClick={() => handleAddToCart()}>Add To Cart</Button>}
-            {isAddedToCart && 
-            <div className="self-end flex gap-3 flex items-center">
-                <Button type="small" onClick={() => handleDecreaseAmount()}>-</Button>
-                <span>{quantity}</span>
-                <Button type="small" onClick={() => handleIncreaseAmount()}>+</Button>
-                <button onClick={() => handleDeleteFromCart()} className="rounded-3xl uppercase bg-yellow-500 text-xs self-end">Delete</button>
-            </div>}
+        </div>
+        )
+
+    }
+
+    return (
+        <div className="flow-left w-full flex p-3 border-gray-400 border-b">
+            <img className="h-24" src={imageUrl}></img>
+            <div className="flex gap-1 w-full justify-between flex-col">
+                <p className="font-bold font">{name}</p>
+                <p className="font-1 capitalize">{ingredients.join(", ")}</p>
+                <div className="flex items-center justify-between">
+                    <p className="font">€{unitPrice.toFixed(2)}</p>
+                    <Button type="primary" onClick={() => handleAddToCart()}>Add To Cart</Button>
+                </div>
+            </div>
         </div>
     )
 }

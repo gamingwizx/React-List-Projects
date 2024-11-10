@@ -22,6 +22,9 @@ const cartSlice = createSlice({
         /* eslint-disable */ 
         clearCart(state, action) {
             state.cart = []
+        },
+        deleteCart(state, action) {
+           state.cart = state.cart.filter(cartItem => cartItem.pizzaId !== action.payload)
         }
     }
 })
@@ -34,5 +37,5 @@ const cartSlice = createSlice({
 //     }
 // }
 
-export const {addItem, removeItem, increaseAmount, decreaseAmount, clearCart} = cartSlice.actions
+export const {addItem, removeItem, increaseAmount, decreaseAmount, clearCart, deleteCart} = cartSlice.actions
 export default cartSlice.reducer

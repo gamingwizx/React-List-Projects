@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 function Label({type, children}) {
-    const base = "font-bold text-white py-1 px-5 text-sm uppercase rounded-full"
+    const base = "font-bold text-white py-1 px-5 md:text-sm text-xs flex items-center uppercase rounded-full"
     const styles = {
         green: base + " bg-green-500",
         red: base + " bg-red-500"

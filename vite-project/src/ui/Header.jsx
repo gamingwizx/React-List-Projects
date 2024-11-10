@@ -5,9 +5,9 @@ export default function Header() {
     const username = useSelector((store) => store.user.username)
     // const username = useSelector((store) => store.user.username)
 
-    return (<header className="flex justify-between p-3 bg-yellow-500">
-        <Link to="/" className="uppercase text-xl tracking-wide font-normal">Fast React Pizza Co.</Link>
+    return (<header className="flex justify-between items-center p-3 bg-yellow-500">
+        <Link to="/" className="uppercase sm:text-xl text-sm tracking-wide font-normal">Fast React Pizza Co.</Link>
         <SearchOrder></SearchOrder>
-        <div className="text-xl uppercase font-medium">{username}</div>
+        <div className="text-sm sm:text-xl uppercase font-medium">{username}</div>
     </header>)
 }
