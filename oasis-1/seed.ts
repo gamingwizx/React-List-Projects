@@ -60,6 +60,10 @@ const insertCabins = async () => {
   ])
 }
 
+// const test1 = async(resolve, catch) => {
+  
+// }
+
 const main = async () => {
   const seed = await createSeedClient({dryRun: true});
   await seed.$resetDatabase();
@@ -92,6 +96,26 @@ const main = async () => {
 
   ])
 
+  await seed.guests([
+    {
+      fullName: "Ng Pheng Loong",
+      email: "ngpl-wm19@student.tarc.edu.my",
+      nationality: "Malaysia",
+      countryFlag: "🇲🇾"
+    },
+    {
+      fullName: "Ng Pheng Wei",
+      email: "ngpw-19@student.tarc.edu.my",
+      nationality: "Malaysia",
+      countryFlag: "🇲🇾"
+    },
+    {
+      fullName: "Ng Poh Ting",
+      email: "ngpt-wm19@student.tarc.edu.my",
+      nationality: "Malaysia",
+      countryFlag: "🇲🇾"
+    },
+  ])
   await seed.bookings([
     {
       startDate: "1731044060",
