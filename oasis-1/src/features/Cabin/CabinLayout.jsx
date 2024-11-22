@@ -6,6 +6,7 @@ import CabinRow from "./CabinRow"
 import AddCabin from "./AddCabin"
 import useCabin from "./useCabin"
 import Loader from "../../ui/Spinner"
+import Modal from "../../ui/Modal"
 const StyledCabinLayout = styled.div`
     display: flex;
     gap: var(--spacing);
@@ -33,14 +34,21 @@ function CabinLayout() {
                     <th>Discount</th>
                     <th>Operation</th>
                 </Table.Header>
-                <Table.Body>
-                    {cabins && cabins.map(dat => (
+                <Table.Body data={cabins} render={dat => (
                         <CabinRow key={dat.id} data={dat}></CabinRow>
-                    ))}
+                    )}>
                 </Table.Body>
             </Table>
             <AddNewCabinLayout>
-                <AddCabin />
+            <Modal>
+                <Modal.Open name="add-cabin-form">
+                    <Button>Add Cabin</Button>
+                </Modal.Open>
+                <Modal.Window name="add-cabin-form">
+                    <AddCabin />
+                </Modal.Window>
+            </Modal>
+                
             </AddNewCabinLayout>
         </StyledCabinLayout>
     )

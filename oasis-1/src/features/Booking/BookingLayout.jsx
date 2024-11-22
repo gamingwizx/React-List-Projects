@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import BookingRow from "./BookingRow"
 import Table from "../../ui/Table"
+import useBooking from "./useBookings"
+import Loader from "../../ui/Spinner"
+import Empty from "../../ui/Empty"
 const StyledBookingLayout = styled.table`
     border-collapse: collapse;
     box-shadow: 0.8px 2px 5px 0.8px var(--bg-gray-400);
@@ -28,53 +31,24 @@ const StyledBookingLayout = styled.table`
 
 function BookingLayout() {
 
-    const bookingData = [{
-        "cabin": "007",
-        "guest": "Fatimah",
-        "email": "fatimah@gmail.com",
-        "duration": "in 15 days -> 6 night stay",
-        "dates": "Jun 01 2023 - Jun 07 2023",
-        "status": "Checked In",
-        "amount": "3,720",
-    },
-    {
-        "cabin": "007",
-        "guest": "Fatimah",
-        "email": "fatimah@gmail.com",
-        "duration": "in 15 days -> 6 night stay",
-        "dates": "Jun 01 2023 - Jun 07 2023",
-        "status": "Checked In",
-        "amount": "3,720",
-    },{
-        "cabin": "007",
-        "guest": "Fatimah",
-        "email": "fatimah@gmail.com",
-        "duration": "in 15 days -> 6 night stay",
-        "dates": "Jun 01 2023 - Jun 07 2023",
-        "status": "Checked In",
-        "amount": "3,720",
-    },{
-        "cabin": "007",
-        "guest": "Fatimah",
-        "email": "fatimah@gmail.com",
-        "duration": "in 15 days -> 6 night stay",
-        "dates": "Jun 01 2023 - Jun 07 2023",
-        "status": "Checked In",
-        "amount": "3,720",
-    }]
-
+    const {bookings, isLoading, error} = useBooking()
+    if (isLoading) return <Loader></Loader>
+    if (!bookings.length) return <Empty resourceName="booking" />;
     return (
-        <Table>
-            <Table.Header>
+        <Table id="booking">
+            <Table.Header id="bookingHeader">
                 <th>Cabin</th>
                 <th>Guest</th>
                 <th>Dates</th>
                 <th>Status</th>
                 <th>Amount</th>
+                <th></th>
             </Table.Header>
-            {bookingData.map((booking) => (
-                <BookingRow data={booking}></BookingRow>
-            ))}
+            <Table.Body data={bookings} render={(booking) => (
+                <BookingRow id={booking.id} data={booking}></BookingRow>
+            )} id="bookingBody">
+
+            </Table.Body>
         </Table>
         // <StyledBookingLayout>
         //     <tr>

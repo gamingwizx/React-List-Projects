@@ -8,11 +8,25 @@
       body {
         background-color: orange;
       }
+      .a {
+        background-color: red;
+        position: absolute;
+        right: 50%;
+        width: 100px;
+        height: 100px;
+      }
       
     </style>
 </head>
 <body>
   <span class="loader"></span>
+  <div class="a">a</div>
 </body>
+<script>
+  const test = document.querySelector(".a")
+  const size = test.getBoundingClientRect()
+  console.log(size)
+  console.log(window.innerWidth)
+</script>
 
 </html>

@@ -1,12 +1,15 @@
 import supabase from "./supabase.js"
 
 async function registerApi({email, fullname, password}) {
+    console.log(email, fullname, password)
     const {data, error} = await supabase.auth.signUp({
         email,
         password,
     })
-    if (error) throw new Error(error.message)
-
+    if (error) {
+        console.error(error)
+        throw new Error(error.message)
+    }   
     return {data, error}
 }
 

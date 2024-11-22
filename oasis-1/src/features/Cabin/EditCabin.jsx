@@ -9,6 +9,7 @@ import FormInput from "../../ui/Form/FormInput"
 import { useState, useEffect } from "react"
 import CabinUploadButton from "./CabinUploadButton"
 import CabinImageLabel from "./CabinImageLabel"
+import useEditCabin from "./useEditCabin" 
 const StyledUploadFileFormLayout = styled.div`
     display: flex;
     align-self: flex-start;
@@ -51,42 +52,70 @@ const Input = styled.input`
     }
 `
 
-export default function EditCabin({data}) {
-    const {image, cabin, capacity, price, discount} = data
+export default function EditCabin({data, onCloseModal}) {
+    const {image, name, capacity, price, discount, id} = data
     const [error, setError] = useState({})
-    const [cabinName, setCabinName] = useState(() => cabin)
+    const [cabinName, setCabinName] = useState(() => name)
     const [cabinCapacity, setCabinCapacity] = useState(() => capacity)
     const [cabinPrice, setCabinPrice] = useState(() => price)
     const [cabinDiscount, setCabinDiscount] = useState(() => discount)
     const [cabinWebsite, setCabinWebsite] = useState("")
-    const [cabinImage, setCabinImage] = useState(() => image.split("/")[image.split("/").length - 1])
+    const [cabinImageName, setCabinImageName] = useState(() => image)
+    const [cabinImage, setCabinImage] = useState(null)
+    const {editCabins, isEditing} = useEditCabin()
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (cabinName.length <= 1) {
             setError((error) => {return {...error, cabinName: "At least more than 1 character!"}})
         }
-        if (!/^a-zA-Z/.test(cabinCapacity)) {
+        if (/[a-z]i/.test(cabinCapacity)) {
             setError((error) => {return {...error, cabinCapacity: "Must contain a number!"}})
         }
-        if (!/^a-zA-Z/.test(cabinPrice)) {
+        if (/a-z/i.test(cabinPrice)) {
             setError((error) => {return {...error, cabinPrice: "Must be a number!"}})
         }
-        if (!/^a-zA-Z/.test(cabinDiscount)) {
+        if (/a-z/.test(cabinDiscount)) {
             setError((error) => {return {...error, cabinDiscount: "Must be a number!"}})
         }
 
-        if (cabinImage.length <= 0) {
+        if (cabinImageName.length <= 0) {
             setError((error) => {return {...error, cabinImage: "Select an image!"}})
         }
+        if (Object.keys(error).length > 0) {
+            return
+        };
+  
+        const editedCabin = {
+            id: id,
+            name: cabinName,
+            price: cabinPrice,
+            discount: cabinDiscount,
+            website: cabinWebsite,
+            imageName: cabinImageName,
+            capacity: cabinCapacity,
+            description: cabinWebsite,
+            image: cabinImage
+        }
+        editCabins({...editedCabin},
+            {
+                onSuccess: (data) => {
+                    onCloseModal()
+
+                }
+
+            }
+        )
 
     }
+    const handleFileChange = (e) => {
+        const file = e.target.files[0]
+        const fileName = e.target.value.split("\\")[2]
+        console.log(file)
+        setCabinImageName(() => fileName)
+        setCabinImage(() => file)
+    }
     return (
-        <Modal>
-            <Modal.Open>
-                <Button>Edit</Button>
-            </Modal.Open>
-            <Modal.Window>
                 <FormLayout onSubmit={handleSubmit}>
                     <FormRow label="Cabin name" alignment="horizontal">
                         <FormRowLayout>
@@ -114,7 +143,7 @@ export default function EditCabin({data}) {
                     <FormRowLayout>
                             <FormInputCurrencyLayout>
                                 <StyledSpan>$</StyledSpan>
-                                <Input padding="currency" onChange={(e) => setCabinDiscount(e.target.value)} value={cabinPrice}></Input>
+                                <Input padding="currency" onChange={(e) => setCabinDiscount(e.target.value)} value={cabinDiscount}></Input>
                             </FormInputCurrencyLayout>
                             <Label color="red">{error["cabinDiscount"]}</Label>
                         </FormRowLayout>
@@ -126,18 +155,16 @@ export default function EditCabin({data}) {
                         <FormRowLayout>
                             <StyledUploadFileFormLayout>
                                 <CabinUploadButton for="uploadPhoto">Choose file</CabinUploadButton>
-                                <CabinImageLabel for="uploadPhoto">{cabinImage ? cabinImage : "No file chosen"}</CabinImageLabel>
+                                <CabinImageLabel for="uploadPhoto">{cabinImageName ? cabinImageName : "No file chosen"}</CabinImageLabel>
                             </StyledUploadFileFormLayout>
                             <Label color="red">{error["cabinImage"]}</Label>
                         </FormRowLayout>
-                        <FormInput onChange={(e) => setCabinImage(e.target.value)} type="file" id="uploadPhoto"></FormInput>
+                        <FormInput onChange={handleFileChange} type="file" id="uploadPhoto"></FormInput>
                     </FormRow>
                     <ButtonLayout>
                         <Button color="secondary">Cancel</Button>
                         <Button>Edit Cabin</Button>
                     </ButtonLayout>
                 </FormLayout>
-            </Modal.Window>
-        </Modal>
     )
 }

@@ -80,6 +80,16 @@ const GlobalStyles = createGlobalStyle`
   --bg-yellow-900: rgb(113 63 18);
   --bg-yellow-950: rgb(66 32 6);
 
+  --bg-red-50: rgba(254, 242, 242);	
+  --bg-red-100: rgba(254, 226, 226);	
+  --bg-red-200: rgba(254, 202, 202);	
+  --bg-red-300: rgba(252, 165, 165);	
+  --bg-red-400: rgba(248, 113, 113);	
+  --bg-red-500: rgba(239, 68, 68);	
+  --bg-red-600: rgba(220, 38, 38);	
+  --bg-red-700: rgba(185, 28, 28);	
+  --bg-red-800: rgba(153, 27, 27);	
+
   --fs-1: 8rem;
   --fs-2: 6rem;
   --fs-3: 4.5rem;

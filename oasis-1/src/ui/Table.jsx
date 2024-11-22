@@ -125,10 +125,10 @@ function Table({children}) {
     </TableContext.Provider>)
 }
 
-function Body({children}) {
+function Body({data, render}) {
     return (
         <StyledBody>
-            {children}
+            {data.map(render)}
         </StyledBody>
     )
 }

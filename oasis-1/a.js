@@ -1,0 +1,1 @@
+console.log(process.env.SUPABASE_SERVICE_API_KEY)

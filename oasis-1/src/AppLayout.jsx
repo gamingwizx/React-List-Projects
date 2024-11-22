@@ -6,7 +6,7 @@ import Header from "./ui/Header"
 import Test from "./ui/Test"
 
 const StyledLayout = styled.div`
-    width: 100vw;
+    width: 99vw;
     box-sizing: border-box;
     min-height: 100vh;
     z-index: 1;
@@ -16,7 +16,6 @@ const StyledLayout = styled.div`
     grid-template-areas: 
         "sidebar header"
         "sidebar contentLayout";
-    background-color: sidebar
 `
 export default function AppLayout() {
     const location = useLocation()

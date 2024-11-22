@@ -22,6 +22,9 @@ const color = {
     `,
     red: css`
         color: red;
+    `,
+    yellow: css`
+        color: var(--bg-yellow-700);
     `
 }
 const fs = {
@@ -70,12 +73,10 @@ const paddinghorizontal = {
     padding: 0 calc(var(--spacing) * 2);
     `,
 }
-
 const Label = styled.label`
   display: flex;
   gap: 8px;
   margin: 0;
-
   ${(props) => fs[props.fs]}
   ${(props) => fw[props.fw]}
   ${(props) => color[props.color]}

@@ -49,7 +49,7 @@ StyledInput.defaultProps = {
     padding: "normal"
 }
 
-function FormInput({width, type, accept, hidden, padding, id, value, onChange}) {
+function FormInput({width, type, accept, hidden, padding, id, value, onChange, onBlur}) {
     if (type === "textarea")
         return (
         <StyledTextArea onChange={onChange} value={value} width={width}>
@@ -57,8 +57,24 @@ function FormInput({width, type, accept, hidden, padding, id, value, onChange}) 
         </StyledTextArea>
     )
 
+    if (onChange) {
+        return (
+            <StyledInput type={type} accept={accept} onChange={(e) => onChange(e)} padding={padding} value={value} id={id} hidden={hidden} width={width}>
+    
+            </StyledInput>
+        )
+    }
+    
+    if (onBlur) {
+        return (
+            <StyledInput type={type} accept={accept} onBlur={(e) => onBlur(e)} padding={padding} value={value} id={id} hidden={hidden} width={width}>
+    
+            </StyledInput>
+        )
+    }
+
     return (
-        <StyledInput type={type} accept={accept} onChange={(e) => onChange(e)} padding={padding} value={value} id={id} hidden={hidden} width={width}>
+        <StyledInput type={type} accept={accept} padding={padding} value={value} id={id} hidden={hidden} width={width}>
 
         </StyledInput>
     )

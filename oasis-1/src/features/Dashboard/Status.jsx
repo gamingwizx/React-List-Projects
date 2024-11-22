@@ -13,6 +13,9 @@ const backgroundColor = {
     yellow: css`
         background-color: var(--bg-yellow-200);
     `,
+    red: css`
+        background-color: var(--bg-red-200);
+    `
 }
 
 const color = {
@@ -28,11 +31,14 @@ const color = {
     yellow: css`
         color: var(--bg-yellow-800);
     `,
+    red: css`
+        color: var(--bg-red-800);
+    `
 }
 
 const StyledActivity = styled.div`
     padding: calc(var(--spacing) /3) calc(var(--spacing) * 1.5);
-    
+    white-space: nowrap;
     display: flex;
     align-items: center;
     border-radius: calc(var(--border-radius) * 4);

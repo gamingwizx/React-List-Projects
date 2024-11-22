@@ -18,13 +18,13 @@ const StyledXLayout = styled.div`
 `
 
 const ModalLayout = styled.div`
-    min-height: 50%;
-    min-width: 50%;
+    min-height: auto;
+    min-width: auto;
     position: fixed;
     z-index: 2;
     background-color: white;
-    top: 13%;
-    left: 25%;
+    top: 20%;
+    left: 40%;
     border-radius: var(--border-radius);
     box-shadow: 1px 1px 10px 3px var(--bg-gray-400);
     padding: var(--spacing);
@@ -62,7 +62,7 @@ function Window({name, children}) {
                     <StyledXLayout>
                         <HiX onClick={() => close()}></HiX>
                     </StyledXLayout>
-                    {cloneElement(children)}
+                    {cloneElement(children, {onCloseModal: close})}
                 </ModalLayout>   
             </Overlay>, document.body
     )

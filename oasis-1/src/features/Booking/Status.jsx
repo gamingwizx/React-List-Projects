@@ -13,6 +13,9 @@ const backgroundColor = {
     yellow: css`
         background-color: var(--bg-yellow-200);
     `,
+    red: css`
+        background-color: var(--bg-red-200);
+    `
 }
 
 const color = {
@@ -28,6 +31,9 @@ const color = {
     yellow: css`
         color: var(--bg-yellow-800);
     `,
+    red: css`
+        color: var(--bg-red-800);
+    `
 }
 const padding = {
     small: css`

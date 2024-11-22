@@ -6,6 +6,7 @@ import Login from "./features/Auth/Login";
 import Dashboard from "./features/Dashboard/Dashboard"
 import AuthLayout from "./features/Auth/AuthLayout"
 import Booking from "./features/Booking/Booking"
+import BookingDetail from "./features/Booking/BookingDetail"
 import Cabin from "./features/Cabin/Cabin"
 import Settings from "./features/Settings/Settings"
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query"
@@ -24,35 +25,43 @@ const router = createBrowserRouter([
     {element: <AppLayout />,
     error: <Error />,
     children: [
-              {
-                path: "/home/dashboard",
-                element: <Dashboard />
-              },
-              {
-                path: "/home/login",
-                element: <Login />
-              },
-              {
-                path: "/home/booking",
-                element: <Booking />
-              },
-              {
-                path: "/home/cabin",
-                element: <Cabin />
-              },
-              {
-                path: "/home/user",
-                element: <CreateUser />
-              },
-              {
-                path: "/home/settings",
-                element: <Settings />
-              },
-              {
-                path: "/home/auth/update",
-                element: <AuthDashboardLayout/>
-              }
-            ]
+        {
+          path: "/home/dashboard",
+          element: <Dashboard />
+        },
+        {
+          path: "/home/login",
+          element: <Login />
+        },
+        {
+          path: "/home/booking",
+          element: <Booking />
+        },
+        {
+          path: "/home/booking",
+          element: <Booking />
+        },
+        {
+          path: "/home/booking/:id",
+          element: <BookingDetail />
+        },
+        {
+          path: "/home/cabin",
+          element: <Cabin />
+        },
+        {
+          path: "/home/user",
+          element: <CreateUser />
+        },
+        {
+          path: "/home/settings",
+          element: <Settings />
+        },
+        {
+          path: "/home/auth/update",
+          element: <AuthDashboardLayout/>
+        }
+      ]
     },
         
     {

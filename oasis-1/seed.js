@@ -1,80 +1,59 @@
-import supabase, {adminSupabase} from "./src/services/supabase.js"
-import {useQuery} from "@tanstack/react-query"
+import { insertBookings, insertGuests, insertCabins, insertSettings, deleteAllData } from "./seedOperation.js"
 
-const insertCabins = async  () => {
-  const cabins = [
-    {
-        name: "Forest Cabin",
-        description: "A cabin situated in the middle of a forest",
-        price: 90,
-        discount: 10,
-        capacity: 5,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image01.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-    {
-        name: "Rain Forest Cabin",
-        description: "A cabin situated in the middle of a rain forest",
-        price: 150,
-        discount: 20,
-        capacity: 3,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image02.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-    {
-        name: "Desert Cabin",
-        description: "A cabin situated in the middle of a desert",
-        price: 50,
-        discount: 10,
-        capacity: 2,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image03.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-  ]
-const {data: cabin, error: cabinError} = await adminSupabase.from("cabins").insert(cabins).select()
-return {cabin, cabinError}
-}
-const insertGuests = async  () => {
-  const guests = [
-    {
-        name: "Forest Cabin",
-        description: "A cabin situated in the middle of a forest",
-        price: 90,
-        discount: 10,
-        capacity: 5,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image01.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-    {
-        name: "Rain Forest Cabin",
-        description: "A cabin situated in the middle of a rain forest",
-        price: 150,
-        discount: 20,
-        capacity: 3,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image02.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-    {
-        name: "Desert Cabin",
-        description: "A cabin situated in the middle of a desert",
-        price: 50,
-        discount: 10,
-        capacity: 2,
-        image: "https://nxvxtdqarbflrhkujbbn.supabase.co/storage/v1/object/sign/cabin-images/image03.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJjYWJpbi1pbWFnZXMvaW1hZ2UwMS5qcGciLCJpYXQiOjE3MzA3ODQxNDksImV4cCI6MTc2MjMyMDE0OX0.zQWK0_SctFu7EoZehNhf8B6t-iX5VS6BRBsMwS0WFTk&t=2024-11-05T05%3A22%3A30.280Z"
-    },
-  ]
-const {data: cabin, error: cabinError} = await adminSupabase.from("cabins").insert(cabins).select()
-return {cabin, cabinError}
-}
+// 1) create table
+// 2) insert data into table
+// 3) enable smtp
+// 4) enable rls
+
+// ALTER SEQUENCE settings_id_seq RESTART WITH 1;
+// ALTER SEQUENCE cabins_id_seq RESTART WITH 1;
+// ALTER SEQUENCE bookings_id_seq RESTART WITH 1;
+// ALTER SEQUENCE guests_id_seq RESTART WITH 1;
+
+// create policy "policy_name"
+// on storage.objects for insert to authenticated with check (
+//   bucket_id = 'cabin_images'
+// );
+
+// CREATE POLICY "Enable delete for authenticated users only" ON public.cabins FOR UPDATE USING (auth.role() = 'authenticated');
+
 async function main() {
   
-  const {cabins, cabinError} = await insertCabins()
+  const insertData = () => {
+    return new Promise(async (resolve, reject) => {
+      await deleteAllData()
+      const cabinRes = await insertCabins()
+      const guestRes = await insertGuests()
+      const settingsRes = await insertSettings()
+      const {cabins, cabinError} = await cabinRes
+      const {guests, guestError} = await guestRes
+      const {settings, settingsError} = await settingsRes
+      
+      if (cabinError) console.error(cabinError)
+      if (guestError) console.error(guestError)
+      if (settingsError) console.error(settingsError)
 
-  if (cabinError) {
-    console.error(cabinError)
-    throw new Error("Something went wrong when seeding cabins")
+      resolve({cabins, guests})
+    })
   }
 
-  if ()
+  const data = insertData()
+  data.then(async (data) => {
+    if (data.cabins && data.guests) {
+      const bookingRes = await insertBookings()
+      const {bookings, bookingError} = await bookingRes
+
+      if (bookingError) {
+        console.error(bookingError)
+      }
+      
+    }
+    
+  }).catch((error) => {
+    throw new Error(error)
+  })
 
   console.log("Successfully inserted cabins")
 }
 
 main()
-//insert parent tabl e first
-//check if inserted, then only insert booking

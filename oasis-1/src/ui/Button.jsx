@@ -9,6 +9,15 @@ const color = {
         background-color: var(--bg-blue-500);
         border-radius: calc(var(--border-radius) / 2);
         color: white;
+    `,
+    transparent: css`
+        background-color: transparent;
+        color: var(--bg-indigo-800);
+    `,
+    warning: css`
+        color: white;
+        background-color: var(--bg-red-600);
+
     `
 }
 const Button = styled.button`

@@ -7,14 +7,12 @@ const StyledContentLayout = styled.div`
     flex-direction: column;
 `
 const StyledOutlet = styled.div`
-    margin: calc(var(--spacing) * 2);
-
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
 `
 
 function ContentLayout() {
     return (
         <StyledContentLayout>
-            <ContentHeader/>
             <StyledOutlet>
                 <Outlet />
 

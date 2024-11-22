@@ -47,15 +47,16 @@ const Input = styled.input`
         outline: none;
     }
 `
-export default function AddCabin() {
+export default function AddCabin({onCloseModal}) {
     const [error, setError] = useState({})
     const [cabinName, setCabinName] = useState("")
     const [cabinCapacity, setCabinCapacity] = useState(0)
     const [cabinPrice, setCabinPrice] = useState(0)
     const [cabinDiscount, setCabinDiscount] = useState(0)
     const [cabinWebsite, setCabinWebsite] = useState("")
-    const [cabinImage, setCabinImage] = useState("")
+    const [cabinImage, setCabinImage] = useState(null)
     const [cabinImageName, setCabinImageName] = useState("")
+    const {createCabins, isCreating} = useCreateCabins()
     const handleSubmit = (e) => {
         e.preventDefault()
         if (cabinName.length <= 1) {
@@ -87,7 +88,13 @@ export default function AddCabin() {
             image: cabinImage
 
         }
-        useCreateCabins(newCabin)
+        createCabins({...newCabin}, 
+            {
+                onSuccess: (data) => {
+                onCloseModal?.()
+                }
+            })
+        
     }
     const handleFileChange = (e) => {
         const file = e.target.files[0]
@@ -103,11 +110,6 @@ export default function AddCabin() {
         }
     }
     return (
-        <Modal>
-            <Modal.Open name="add-cabin-form">
-                <Button>Add Cabin</Button>
-            </Modal.Open>
-            <Modal.Window name="add-cabin-form">
                 <FormLayout onSubmit={handleSubmit}>
                     <FormRow label="Cabin name" alignment="horizontal">
                         <FormRowLayout>
@@ -148,18 +150,16 @@ export default function AddCabin() {
                         <FormRowLayout>
                             <StyledUploadFileFormLayout>
                                 <CabinUploadButton for="uploadPhoto">Choose file</CabinUploadButton>
-                                <CabinImageLabel for="uploadPhoto">{cabinImage ? cabinImage : "No file chosen"}</CabinImageLabel>
+                                <CabinImageLabel for="uploadPhoto">{cabinImageName ? cabinImageName : "No file chosen"}</CabinImageLabel>
                             </StyledUploadFileFormLayout>
                             <Label color="red">{error["cabinImage"]}</Label>
                         </FormRowLayout>
-                        <FormInput onChange={(e) => setCabinImage(e.target.value)} type="file" id="uploadPhoto"></FormInput>
+                        <FormInput onChange={handleFileChange} type="file" id="uploadPhoto"></FormInput>
                     </FormRow>
                     <ButtonLayout>
                         <Button color="secondary">Cancel</Button>
-                        <Button>Edit Cabin</Button>
+                        <Button>Add Cabin</Button>
                     </ButtonLayout>
                 </FormLayout>
-            </Modal.Window>
-        </Modal>
     )
 }

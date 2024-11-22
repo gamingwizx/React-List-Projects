@@ -2,6 +2,8 @@ import styled from "styled-components"
 import Label from "../../ui/Label"
 import Activity from "./Activity"
 import Hr from "../../ui/Hr"
+import { useEffect, useState } from "react"
+import { createGetTodayBooking } from "../../services/apiBooking"
 const StyledTodayActivity = styled.div`
     grid-area: todayActivity;
     background-color: white;
@@ -12,15 +14,22 @@ const StyledTodayActivity = styled.div`
 `
 
 function TodayActivity() {
+    const [todayBookings, setTodayBookings] = useState([])
+    useEffect(() => {
+        const getTodayBooking = async () => {
+            const data = await createGetTodayBooking()
+            setTodayBookings(() => data)
+        }
+        getTodayBooking()
+    }, [])
     return (
         <StyledTodayActivity>
             <Label paddingtop="normal" color="black" fs="large" fontWeight="bold">Today</Label>
-            <Activity></Activity>
-            <Activity></Activity>
-            <Activity></Activity>
-            <Activity></Activity>
-            <Activity></Activity>
-            <Activity></Activity>
+            {todayBookings.map(booking => (
+                <Activity key={booking.id} booking={booking}></Activity>
+
+            ))}
+
         </StyledTodayActivity>
     )
 }

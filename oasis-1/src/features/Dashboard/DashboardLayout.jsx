@@ -12,12 +12,4 @@ const StyledDashboardLayout = styled.div`
     "stat stat stat stat"
 `
 
-function DashboardLayout() {
-    return (
-        <StyledDashboardLayout>
-
-        </StyledDashboardLayout>
-    )
-}
-
-export default DashboardLayout
+export default StyledDashboardLayout

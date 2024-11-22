@@ -24,14 +24,31 @@ const StyledActivity = styled.div`
 
 `
 
-function Activity() {
+function Activity({booking}) {
+    const {status, numnights, fullname} = booking
+    const color = () => {
+        console.log(status.toLowerCase())
+        switch(status.toLowerCase()) {
+            case "checked in":
+                return "green"
+                break;
+            case "cancelled":
+                return "red"
+                break;
+            case "reserved":
+                return "yellow"
+                break;
+            default:
+                return "black"
+        }
+    }
     return (
         <StyledActivity>
-            <Status color="green">
-                Arriving
+            <Status color={color()}>
+                {status}
             </Status>
-            <Label>Ng Pheng Loong</Label>
-            <Label>7 nights</Label>
+            <Label>{fullname}</Label>
+            <Label>{numnights} nights</Label>
             <Button>Check in</Button>
         </StyledActivity>
     )
