@@ -83,7 +83,6 @@ function StaySummary() {
     numNightInfo.map((info) => {
         info["value"] = nights[info.id]
     })
-    console.log(numNightInfo)
     return (
         <StyledStaySummary>
             <Label paddingtop="normal" color="black" fs="large" fw="bold">Stay duration summary</Label>

@@ -15,12 +15,29 @@
         width: 100px;
         height: 100px;
       }
-      
+      .parent {
+        filter: invert(100%);
+        width: 500px;
+        height: 500px;
+        background-color: white;
+      }
+      .child {
+        filteR:invert(100%);
+        width: 100px;
+        height: 100px;
+        background-color: white;
+      }
+      body {
+        filter: invert(100%);
+      }
     </style>
 </head>
 <body>
   <span class="loader"></span>
   <div class="a">a</div>
+  <div class="parent">
+    <div class="child">a</div>
+  </div>
 </body>
 <script>
   const test = document.querySelector(".a")

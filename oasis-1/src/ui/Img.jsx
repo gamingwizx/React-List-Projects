@@ -14,9 +14,11 @@ const size = {
     `,
     small: css`
         width: 2.5rem;
+        height: 2rem;
     `,
     normal: css`
         width: 6rem;
+        height: 6rem;
     `
 }
 const Img = styled.img`

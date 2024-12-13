@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import UserAvatar from "../features/Auth/UserAvatar";
 import HeaderMenu from "../ui/HeaderMenu";
+import useRetrieveUserInfo from "../features/Auth/useRetrieveUserInfo1";
+import Loader from "./Spinner";
 const StyledHeader = styled.div`
     grid-area: header;
     background-color: white;    
@@ -15,10 +17,14 @@ const StyledLayout = styled.div`
 `
 
 function Header() {
+    const {data: userInfo, fetchStatus} = useRetrieveUserInfo()
+    if (fetchStatus === 'fetching') return <Loader></Loader>
+    const {user_metadata} = userInfo
+    const {filename, fullname} = user_metadata
     return (
         <StyledHeader>
             <StyledLayout>
-                <UserAvatar/>
+                <UserAvatar filename={filename} fullname={fullname}/>
                 <HeaderMenu/>
             </StyledLayout>
         </StyledHeader>

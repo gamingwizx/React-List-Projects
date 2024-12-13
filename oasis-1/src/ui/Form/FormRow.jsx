@@ -8,24 +8,30 @@ const StyledFormRow = styled.div`
     flex-direction: ${(props) => props.alignment === "horizontal" ? "row" : "column"};
     padding: 0 0 var(--spacing) 0;
     align-items: center;
-    border-bottom: 1px solid var(--bg-gray-200);
+    justify-content: flex-start;
+    border-bottom: ${(props) => props.auth === "false" ? "1px solid var(--bg-gray-200);" : "none;"}
     gap: var(--spacing);
     `
     
     const StyledFirstSection = styled.div`
-    flex-basis: ${(props) => props.alignment === "horizontal" ? "50%" : "100%"};
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        flex-basis: ${(props) => props.alignment === "horizontal" ? "50%" : "100%"};
     `
     const StyledSecondSection = styled.div`
     flex-basis: ${(props) => props.alignment === "horizontal" ? "50%" : "100%"};
+    width: 100%;
 `
 
 StyledFormRow.defaultProps = {
-    alignment: "vertical"
+    alignment: "vertical",
+    auth: "false"
 }
 
-function FormRow({children, label, alignment}) {
+function FormRow({children, label, auth, alignment}) {
     return (
-        <StyledFormRow alignment={alignment}>
+        <StyledFormRow auth={auth} alignment={alignment}>
             <StyledFirstSection>{label && <Label>{label}</Label>}</StyledFirstSection>
             <StyledSecondSection>{children}</StyledSecondSection>
         </StyledFormRow>

@@ -36,7 +36,7 @@ function Stats() {
     useEffect(() => {
     
         const initialLoading = async() => {
-            const data = await createGetTotalOccupiedCabins()
+            const data = await createGetTotalOccupiedCabins('2024-11-27', '2024-12-07')
             setTotalOccupiedCabins(() => data)
         }
         initialLoading()

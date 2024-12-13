@@ -21,7 +21,8 @@ const color = {
     `
 }
 const Button = styled.button`
-    ${(props) => color[props.color]}
+    ${(props) => color[props.color]};
+    opacity: ${(props) => props.test === "true" ? 0.5 : 1};
     width: auto;
     
     white-space: nowrap;

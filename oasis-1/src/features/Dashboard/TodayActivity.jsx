@@ -3,7 +3,9 @@ import Label from "../../ui/Label"
 import Activity from "./Activity"
 import Hr from "../../ui/Hr"
 import { useEffect, useState } from "react"
+import useGetBookingToday from "./useGetBookingToday.js"
 import { createGetTodayBooking } from "../../services/apiBooking"
+import Loader from "../../ui/Spinner.jsx"
 const StyledTodayActivity = styled.div`
     grid-area: todayActivity;
     background-color: white;
@@ -14,18 +16,11 @@ const StyledTodayActivity = styled.div`
 `
 
 function TodayActivity() {
-    const [todayBookings, setTodayBookings] = useState([])
-    useEffect(() => {
-        const getTodayBooking = async () => {
-            const data = await createGetTodayBooking()
-            setTodayBookings(() => data)
-        }
-        getTodayBooking()
-    }, [])
+    const {data = [], isLoading} = useGetBookingToday()
     return (
         <StyledTodayActivity>
             <Label paddingtop="normal" color="black" fs="large" fontWeight="bold">Today</Label>
-            {todayBookings.map(booking => (
+            {data?.map(booking => (
                 <Activity key={booking.id} booking={booking}></Activity>
 
             ))}

@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Label from "../../ui/Label";
 import Button from "../../ui/Button"
 import Status from "./Status"
+import useCheckIn from "../Booking/useCheckIn"
 const StyledActivity = styled.div`
     padding: var(--spacing);
     display: flex;
@@ -26,8 +27,10 @@ const StyledActivity = styled.div`
 
 function Activity({booking}) {
     const {status, numnights, fullname} = booking
+    const {checkIn, isLoading, error} = useCheckIn()
+    const disabled = status.toLowerCase() === "checked in"
+    const buttonName = status.toLowerCase() === "checked in" ? "Guest Checked in" : "Check in"
     const color = () => {
-        console.log(status.toLowerCase())
         switch(status.toLowerCase()) {
             case "checked in":
                 return "green"
@@ -38,9 +41,20 @@ function Activity({booking}) {
             case "reserved":
                 return "yellow"
                 break;
+            case "pending":
+                return "orange"
+                break;
             default:
                 return "black"
         }
+    }
+
+    const handleCheckIn = () => {
+        const updatedBooking = {status: "Checked in", id: booking.id}
+        checkIn(updatedBooking, {
+            onSuccess: () => {
+            }
+        })
     }
     return (
         <StyledActivity>
@@ -49,7 +63,7 @@ function Activity({booking}) {
             </Status>
             <Label>{fullname}</Label>
             <Label>{numnights} nights</Label>
-            <Button>Check in</Button>
+            <Button onClick={handleCheckIn} disabled={disabled} test={disabled.toString()}>{buttonName}</Button>
         </StyledActivity>
     )
 }

@@ -10,13 +10,18 @@ const StyledLayout = styled.div`
     width: 100vw;
     justify-content: center;
     `
+const StyledRegisterLayout = styled.div`
+    width: 50%;
+`
 
 export default function Register() {
     return (
         <StyledLayout>
             <Img src="/logo-light.png"></Img>
             <H2>Log into your account</H2>
-            <RegisterLayout></RegisterLayout>
+            <StyledRegisterLayout>
+                <RegisterLayout></RegisterLayout>
+            </StyledRegisterLayout>
         </StyledLayout>
     )
 }

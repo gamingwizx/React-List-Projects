@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
   *, *::before, *::after {
   box-sizing: border-box;
 }
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -90,6 +91,18 @@ const GlobalStyles = createGlobalStyle`
   --bg-red-700: rgba(185, 28, 28);	
   --bg-red-800: rgba(153, 27, 27);	
 
+  --bg-orange-50: rgb(255 247 237);
+  --bg-orange-100: rgb(255 237 213);
+  --bg-orange-200: rgb(254 215 170);
+  --bg-orange-300: rgb(253 186 116);
+  --bg-orange-400: rgb(251 146 60);
+  --bg-orange-500: rgb(249 115 22);
+  --bg-orange-600: rgb(234 88 12);
+  --bg-orange-700: rgb(194 65 12);
+  --bg-orange-800: rgb(154 52 18);
+  --bg-orange-900: rgb(124 45 18);
+  --bg-orange-950: rgb(67 20 7);
+
   --fs-1: 8rem;
   --fs-2: 6rem;
   --fs-3: 4.5rem;
@@ -167,7 +180,12 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
+body {
+  filter: invert(100%);
+}
+img {
+  filter: invert(100%);
+}
 `
 
 export default GlobalStyles

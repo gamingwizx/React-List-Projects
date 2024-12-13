@@ -4,6 +4,11 @@ import FormRow from "../../ui/Form/FormRow"
 import FormInput from "../../ui/Form/FormInput"
 import Button from "../../ui/Button"
 import Label from "../../ui/Label"
+import useChangePassword from "./useChangePassword.js"
+import useRequestChangePassword from "./useRequestChangePassword.js"
+// import {createChangePassword} from "../../services/apiAuth.js"
+import { useState } from "react"
+import toast from "react-hot-toast"
 const StyledUpdatePasswrd = styled.div`
     display: flex;
     gap: calc(var(--spacing) / 2);
@@ -17,20 +22,45 @@ const StyledButtonLayout = styled.div`
     justify-content: flex-end;
 `
 
-function UpdatePassword() {
+function UpdatePassword({email}) {
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const {changePassword} = useChangePassword(password)
+    const {requestChangePassword} = useRequestChangePassword(email)
+    // const changePasswordAsync = async() => {
+    //     await changePassword().then((data) => {
+    //         console.log(data)
+    //     }).catch(error => {
+    //         console.error(error)
+    //     })
+    // }
+    const handleSubmitChangePassword = (e) => {
+        e.preventDefault()
+        if (password !== confirmPassword) {
+            toast.error("Password and confirm password do not match!")
+        } else {
+            changePassword(password)
+        } 
+        
+    }
+    // const handleRequestChangePassword = (e) => {
+    //     e.preventDefault()
+    //     requestChangePassword(email)
+    // }
     return (
         <StyledUpdatePasswrd>
             <Label fs="verylarge" fw="bold">Update Password</Label>
-            <FormLayout>
+            <FormLayout onSubmit={(e) => e.preventDefault()}>
                 <FormRow label="New Password (min 8 chars)" alignment="horizontal">
-                    <FormInput></FormInput>
+                    <FormInput onChange={(e) => setPassword(e.target.value)}></FormInput>
                 </FormRow>
                 <FormRow label="Confirm Password" alignment="horizontal">
-                    <FormInput></FormInput>
+                    <FormInput onChange={(e) => setConfirmPassword(e.target.value)}></FormInput>
                 </FormRow>
                 <StyledButtonLayout>
                     <Button color="secondary">Cancel</Button>
-                    <Button>Change Password</Button>
+                    {/* <Button onClick={handleRequestChangePassword}>Request Change Password</Button> */}
+                    <Button onClick={handleSubmitChangePassword}>Change Password</Button>
                 </StyledButtonLayout>
             </FormLayout>
         </StyledUpdatePasswrd>

@@ -17,6 +17,22 @@ import { insertBookings, insertGuests, insertCabins, insertSettings, deleteAllDa
 
 // CREATE POLICY "Enable delete for authenticated users only" ON public.cabins FOR UPDATE USING (auth.role() = 'authenticated');
 
+// SELECT *
+// FROM information_schema.role_table_grants 
+// WHERE table_schema='public' and table_name='profiles'
+
+// grant all privileges on all tables in schema public to authenticated
+
+// create or replace trigger on_update_users()
+// after update of raw_user_meta_data on auth.users
+// for each row
+// execute function update_profile_row()
+
+//revoke all on all tables in schema public from anon;
+
+// SELECT grantee, privilege_type 
+// FROM information_schema.role_table_grants 
+
 async function main() {
   
   const insertData = () => {

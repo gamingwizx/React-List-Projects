@@ -13,6 +13,8 @@ import {QueryClientProvider, QueryClient} from "@tanstack/react-query"
 import { Toaster } from "react-hot-toast";
 import CreateUser from "./features/Auth/CreateUser";
 import AuthDashboardLayout from "./features/Auth/AuthDashboardLayout";
+import Test from "./ui/Test";
+import UpdatePassword from "./features/Auth/UpdatePassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -72,6 +74,9 @@ const router = createBrowserRouter([
         },
         {element: <Login/>,
           path: "/auth/login"
+        },
+        {element: <Test/>,
+          path: "/"
         }
       ]
     }

@@ -15,6 +15,9 @@ const backgroundColor = {
     `,
     red: css`
         background-color: var(--bg-red-200);
+    `,
+    orange: css`
+        background-color: var(--bg-orange-200);
     `
 }
 
@@ -33,6 +36,9 @@ const color = {
     `,
     red: css`
         color: var(--bg-red-800);
+    `,
+    orange: css`
+        color: var(--bg-orange-800);
     `
 }
 

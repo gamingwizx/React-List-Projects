@@ -41,8 +41,8 @@ export async function createGetTotalCheckins() {
     return data
 }
 
-export async function createGetTotalOccupiedCabins() {
-    const {data, error} = await supabase.rpc("check_if_today_between_start_and_end_date")
+export async function createGetTotalOccupiedCabins(startdate, enddate) {
+    const {data, error} = await supabase.rpc("check_if_today_between_start_and_end_date", {startdate, enddate})
     if (error) {
         console.error(error)
     }
@@ -59,6 +59,26 @@ export async function createGetTodayBooking() {
 
 export async function createGetSummaryNights() {
     const {data, error} = await supabase.rpc("get_summary_numnights")
+    if (error) {
+        console.error(error)
+    }
+    return data
+}
+
+export async function createGetTotalSalesPerDayForPeriod(startdate, enddate) {
+    const {data, error} = await supabase.rpc("testing", {
+        'query_startdate': startdate,
+        'query_enddate': enddate
+    })
+    if (error) {
+        console.error(error)
+    }
+    return data
+}
+
+export async function createCheckIn(updatedBooking) {
+    console.log(updatedBooking)
+    const {data, error} = await supabase.from("bookings").update({status: updatedBooking.status}).eq('id', updatedBooking.id)
     if (error) {
         console.error(error)
     }

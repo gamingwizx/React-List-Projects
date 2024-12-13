@@ -93,6 +93,7 @@ export default function EditCabin({data, onCloseModal}) {
             discount: cabinDiscount,
             website: cabinWebsite,
             imageName: cabinImageName,
+            oldImage: image,
             capacity: cabinCapacity,
             description: cabinWebsite,
             image: cabinImage
@@ -111,13 +112,12 @@ export default function EditCabin({data, onCloseModal}) {
     const handleFileChange = (e) => {
         const file = e.target.files[0]
         const fileName = e.target.value.split("\\")[2]
-        console.log(file)
         setCabinImageName(() => fileName)
         setCabinImage(() => file)
     }
     return (
                 <FormLayout onSubmit={handleSubmit}>
-                    <FormRow label="Cabin name" alignment="horizontal">
+                    <FormRow auth="false" label="Cabin name" alignment="horizontal">
                         <FormRowLayout>
                             <FormInput onChange={(e) => setCabinName(e.target.value)} value={cabinName}></FormInput>
                             <Label color="red">{error["cabinName"]}</Label>

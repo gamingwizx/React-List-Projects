@@ -73,9 +73,19 @@ const paddinghorizontal = {
     padding: 0 calc(var(--spacing) * 2);
     `,
 }
+const isFileUpload = {
+    true: css`
+        text-overflow: ellipsis ellipsis;
+        width: 200px;
+        overflow: hidden; 
+        white-space: nowrap;
+    `,
+    false: css``
+}
 const Label = styled.label`
   display: flex;
   gap: 8px;
+  ${(props) => isFileUpload[props.isFileUpload]}
   margin: 0;
   ${(props) => fs[props.fs]}
   ${(props) => fw[props.fw]}
@@ -89,7 +99,8 @@ Label.defaultProps = {
     fs: "medium",
     color: "black",
     paddingtop: "none",
-    paddinghorizontal: "none"
+    paddinghorizontal: "none",
+    isFileUpload: "false"
 }
 // function Label({children}) {
 //     return (<StyledLabel>

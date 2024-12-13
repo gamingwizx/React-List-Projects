@@ -25,10 +25,11 @@ const padding = {
 
 const StyledInput = styled.input`
     font-size: var(--fs-12);
-    border: 1px solid var(--bg-zinc-300);
     border-radius: calc(var(--border-radius) / 2);
     ${(props) => padding[props.padding]}
     ${(props) => width[props.width]}
+    border: ${(props) => props.error ? "1px solid var(--bg-red-600);" : "1px solid var(--bg-zinc-300);"}
+    width: 100%;
 
     &[type="file"] {
         display: none;
@@ -49,35 +50,5 @@ StyledInput.defaultProps = {
     padding: "normal"
 }
 
-function FormInput({width, type, accept, hidden, padding, id, value, onChange, onBlur}) {
-    if (type === "textarea")
-        return (
-        <StyledTextArea onChange={onChange} value={value} width={width}>
-            
-        </StyledTextArea>
-    )
 
-    if (onChange) {
-        return (
-            <StyledInput type={type} accept={accept} onChange={(e) => onChange(e)} padding={padding} value={value} id={id} hidden={hidden} width={width}>
-    
-            </StyledInput>
-        )
-    }
-    
-    if (onBlur) {
-        return (
-            <StyledInput type={type} accept={accept} onBlur={(e) => onBlur(e)} padding={padding} value={value} id={id} hidden={hidden} width={width}>
-    
-            </StyledInput>
-        )
-    }
-
-    return (
-        <StyledInput type={type} accept={accept} padding={padding} value={value} id={id} hidden={hidden} width={width}>
-
-        </StyledInput>
-    )
-}
-
-export default FormInput
+export default StyledInput

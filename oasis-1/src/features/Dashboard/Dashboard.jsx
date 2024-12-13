@@ -6,7 +6,7 @@ import TodayActivity from "./TodayActivity.jsx";
 import StaySummary from "./StaySummary.jsx";
 import SalesSummary from "./SalesSummary.jsx";
 import ContentHeader from "../../ui/ContentHeader.jsx"
-
+import { useEffect } from "react";
 const StyledDashboard = styled.div`
     height: 100%;
     grid-area: content;
@@ -27,6 +27,12 @@ const StyledDashboardLayout = styled.div`
 `
 
 function Dashboard() {
+    useEffect(() => {
+        const initiateCall = async() => {
+            // const data = await createTransferOwnership()
+        }
+        initiateCall()
+    }, [])
     return (
         <StyledDashboard>
             <ContentHeader>
