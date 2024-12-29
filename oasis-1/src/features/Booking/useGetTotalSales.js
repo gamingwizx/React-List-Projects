@@ -1,9 +1,14 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {createGetTotalSales} from "../../services/apiBooking"
-function useGetTotalSales() {
+import { useSearchParams } from "react-router-dom"
+import FormatTimestampToFormattedStringDate from "../../utils/FormatTimestampToFormattedStringDate.js"
+
+function useGetTotalSales(startDate, endDate) {
+    
+
     const {data: totalPrice, isLoading, error} = useQuery({
-        queryKey: ["bookings"],
-        queryFn: () => createGetTotalSales(),
+        queryKey: ["total-sales", startDate, endDate],
+        queryFn: createGetTotalSales,
         select: data => data.map(item => ({ totalprice: item.totalprice}))
     })
 

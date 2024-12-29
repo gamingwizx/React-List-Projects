@@ -6,9 +6,11 @@ import styled from "styled-components"
 
 const Overlay = styled.div`
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    top: 0;
+    left: 0;
     backdrop-filter: blur(4px);
+    width: 100%;
+    height:100vh;
 `
 
 const StyledXLayout = styled.div`
@@ -18,13 +20,12 @@ const StyledXLayout = styled.div`
 `
 
 const ModalLayout = styled.div`
-    min-height: auto;
-    min-width: auto;
+transform: translate(-50%, -50%);
     position: fixed;
     z-index: 2;
     background-color: white;
-    top: 20%;
-    left: 40%;
+    top: 50%;
+    left: 50%;
     border-radius: var(--border-radius);
     box-shadow: 1px 1px 10px 3px var(--bg-gray-400);
     padding: var(--spacing);

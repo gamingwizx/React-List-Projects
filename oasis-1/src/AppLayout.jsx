@@ -1,9 +1,10 @@
-import {useLocation, Outlet} from "react-router-dom"
+import {useLocation, useNavigate} from "react-router-dom"
 import ContentLayout from "./ui/ContentLayout"
 import styled from "styled-components"
 import Sidebar from "./ui/Sidebar"
 import Header from "./ui/Header"
-import Test from "./ui/Test"
+import useGetUser from "./features/Auth/useGetUser"
+import { useEffect } from "react"
 
 const StyledLayout = styled.div`
     width: 99vw;
@@ -18,7 +19,10 @@ const StyledLayout = styled.div`
         "sidebar contentLayout";
 `
 export default function AppLayout() {
-    const location = useLocation()
+    const {data: userInfo, fetchStatus} = useGetUser()
+    const navigate = useNavigate()
+    if (fetchStatus === "fetching") return <Loader></Loader>
+
     return (
         <StyledLayout>
             <Sidebar></Sidebar>

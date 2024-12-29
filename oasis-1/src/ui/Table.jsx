@@ -1,4 +1,6 @@
 import { AuthError } from "@supabase/supabase-js";
+import { useSearchParams, useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import { createContext } from "react";
 import styled, {css} from "styled-components"
 const TableContext = createContext()
@@ -120,6 +122,28 @@ StyledCell.defaultProps = {
     width: "auto"
 }
 function Table({children}) {
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [isLoaded, setIsLoaded] = useState(false)
+    const hasAppended = useRef(false)
+    const location = useLocation()
+    
+    useEffect(() => {
+        if (hasAppended.current) return 
+            
+
+        if (!searchParams.get("page") && !searchParams.get("pageSize")) {
+            const params = window.location.search
+            const param = new URLSearchParams(params)
+            param.append("page", 1)
+            param.append("pageSize", 5)
+            setSearchParams(param)
+            hasAppended.current = true
+        }
+        
+
+    }, [setSearchParams, searchParams])
+
     return (<TableContext.Provider value="Hello">
         <StyledTable>{children}</StyledTable>
     </TableContext.Provider>)

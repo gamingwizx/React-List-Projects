@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import Stat from "./Stat.jsx"
 import { useState } from "react"
-import useBooking from "../Booking/useBookings.js"
+import { useParams } from "react-router-dom"
+import useBookingByRange from "../Booking/useBookingByRange.js"
 import useGetTotalSales from "../Booking/useGetTotalSales"
 import useGetTotalCheckins from "../Booking/useGetTotalCheckins.jsx"
 import useGetTotalCabins from "../Cabin/useGetTotalCabins.js"
+import useGetTotalOccupiedCabins from "../Cabin/useGetTotalOccupiedCabins.js"
 import {createGetTotalOccupiedCabins} from "../../services/apiBooking.js"
 import { HiOutlineBriefcase,
     HiOutlineBanknotes,
@@ -13,6 +15,8 @@ import { HiOutlineBriefcase,
  } from "react-icons/hi2"
 import Loader from "../../ui/Spinner.jsx"
 import { useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
+import FormatTimestampToFormattedStringDate from "../../utils/FormatTimestampToFormattedStringDate.js"
 const StyledStats = styled.div`
     grid-area: stats;
     display: flex;
@@ -30,30 +34,20 @@ function getTotalCheckins(status) {
     return totalCheckins
 }
 
-function Stats() {
-    const [totalOccupiedCabins, setTotalOccupiedCabins] = useState(0)
-    
-    useEffect(() => {
-    
-        const initialLoading = async() => {
-            const data = await createGetTotalOccupiedCabins('2024-11-27', '2024-12-07')
-            setTotalOccupiedCabins(() => data)
-        }
-        initialLoading()
-    
-    }, [])
+function Stats({startDate, endDate}) {
 
-    const {bookings, isLoading: isBookingLoading, error: bookingError} = useBooking()
-    const {totalPrice, isLoading: isCabinLoading, error: cabinError} = useGetTotalSales()
-    const {data: {length: totalCabins} = {}, isLoading: isTotalCabinLoading} = useGetTotalCabins()
-    const {status, error: statusError} = useGetTotalCheckins()
-    
-    if (isBookingLoading || isCabinLoading || isTotalCabinLoading) return <Loader></Loader>
+    const {data: totalOccupiedCabins, isLoading: isTotalOccupiedCabinsLoading} = useGetTotalOccupiedCabins(startDate, endDate)
+    const {bookings, isLoading: isBookingLoading, error: bookingError} = useBookingByRange(startDate, endDate)
+    const {totalPrice, isLoading: isCabinLoading, error: cabinError} = useGetTotalSales(startDate, endDate)
+    const {data: totalCabins = 0, isLoading: isTotalCabinLoading} = useGetTotalCabins()
+    const {status, error: statusError, isLoading: isTotalCheckinsLoading} = useGetTotalCheckins(startDate, endDate)
+
+    if (isCabinLoading || isTotalCabinLoading || isTotalOccupiedCabinsLoading || isTotalCheckinsLoading) return <Loader></Loader>
 
     const totalSales = totalPrice.reduce((totalSales, price) => totalSales + price.totalprice, 0)
     const totalCheckins = getTotalCheckins(status)
     const occupancyRate = ((totalOccupiedCabins / totalCabins) * 100).toFixed(2)
-    const {length: totalBookings} = bookings
+    const {length: totalBookings = 0} = bookings
 
     return (
         <StyledStats>

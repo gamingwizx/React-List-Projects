@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom"
 import CalculateDuration from "../../utils/CalculateDuration"
 import GetDurationStatus from "../../utils/GetDurationStatus"
 import FormatTimestampToDate from "../../utils/FormatTimestampToDate"
+import useBookingDelete from "./useBookingDelete"
 function BookingRow({data}) {
     const {
         cabins,
@@ -27,6 +28,7 @@ function BookingRow({data}) {
     const bookingDays = CalculateDuration(startdate, enddate)
     const startDate = FormatTimestampToDate(startdate)
     const endDate = FormatTimestampToDate(enddate)
+    const {bookingDelete, isLoading} = useBookingDelete()
     const statusColor = () => {
         switch(status.toUpperCase()) {
             case "CHECKED IN":
@@ -47,7 +49,7 @@ function BookingRow({data}) {
         navigate(`/home/booking/${id}`)
     }
     const handleDeleteBookings = (e) => {
-
+        bookingDelete(id)
     }
     return (
         <Table.Row>

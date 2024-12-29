@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AppLayout from "./AppLayout";
 import Error from "./ui/Error";
 import Register from "./features/Auth/Register";
@@ -15,6 +15,11 @@ import CreateUser from "./features/Auth/CreateUser";
 import AuthDashboardLayout from "./features/Auth/AuthDashboardLayout";
 import Test from "./ui/Test";
 import UpdatePassword from "./features/Auth/UpdatePassword";
+import ResetPassword from "./features/Auth/ResetPassword";
+import useGetUser from "./features/Auth/useGetUser";
+import Loader from "./ui/Spinner";
+import ProtectedRoute from "./ProtectedRoute";
+import {DarkModeProvider} from "./DarkMode";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,9 +29,13 @@ const queryClient = new QueryClient({
   }
 })
 const router = createBrowserRouter([
-    {element: <AppLayout />,
+    {element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
     error: <Error />,
     children: [
+        {
+          path: "*",
+          element: <Navigate to="/home/dashboard"/>
+        },
         {
           path: "/home/dashboard",
           element: <Dashboard />
@@ -75,8 +84,8 @@ const router = createBrowserRouter([
         {element: <Login/>,
           path: "/auth/login"
         },
-        {element: <Test/>,
-          path: "/"
+        {element: <ResetPassword/>,
+          path: "/auth/reset-password"
         }
       ]
     }
@@ -84,6 +93,7 @@ const router = createBrowserRouter([
 
 function App() {
     return (
+      <DarkModeProvider>
         <QueryClientProvider client={queryClient}>
             <RouterProvider router={router}></RouterProvider>
             <Toaster
@@ -91,6 +101,8 @@ function App() {
               gutter={12}
             ></Toaster>
         </QueryClientProvider>
+
+      </DarkModeProvider>
     )
 }
 

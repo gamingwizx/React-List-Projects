@@ -26,9 +26,7 @@ async function loginApi({email, password}) {
         email,
         password
     })
-
     if (error) throw new Error(error.message)
-        console.log(data)
     return {data, error}
 }
 
@@ -90,9 +88,9 @@ async function createRequestChangePassword(email) {
       }
       return data
 }
-async function createChangePassword(newPassword) {
+async function createChangePassword({newPassword, email}) {
     const initiateUpdatePassword = async() => {
-        const {data, error} = await supabase.auth.updateUser({ password: newPassword })
+        const {data, error} = await supabase.auth.updateUser({ email, password: newPassword })
         if (error) {
             throw error
         }
@@ -111,4 +109,39 @@ async function createChangePassword(newPassword) {
         }
     })
 }
-export {registerApi, loginApi, createUpdateUserInfo, createRetrieveUserInfo, createGetAvatarImage, createChangePassword, createRequestChangePassword}
+async function createGetUser() {
+    const {data, error} = await supabase.auth.getUser()
+    if (error) {
+        console.error(error)
+    }
+    return data
+}
+
+async function createGetSession() {
+    const {data, error} = await supabase.auth.getSession()
+    if (error) {
+        console.error(error)
+    }
+    return data
+}
+
+async function createGetUserSession() {
+    const {data: session } = await supabase.auth.getSession()
+    if (!session.session) return null
+
+    const {data: user, error} = await supabase.auth.getUser()
+    if (error) {
+        console.error(error)
+    }
+
+    return user?.user
+}
+
+async function createLogout() {
+    const {data, error} = await supabase.auth.signOut()
+    if (error) {
+        console.error(error)
+    }
+    return data
+}
+export {registerApi, loginApi, createGetUserSession, createUpdateUserInfo, createRetrieveUserInfo,createGetSession, createGetAvatarImage, createChangePassword, createRequestChangePassword, createGetUser, createLogout}

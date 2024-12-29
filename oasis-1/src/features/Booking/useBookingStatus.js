@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBookingStatus } from "../../services/apiBooking";
 function useBookingStatus(id) {
     const {isLoading, data: bookingStatus, error} = useQuery({
-        queryKey: ["bookings"],
+        queryKey: ["booking-status"],
         queryFn: () => getBookingStatus(id)
     })
 

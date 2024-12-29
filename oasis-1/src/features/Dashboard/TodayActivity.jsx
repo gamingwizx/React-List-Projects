@@ -20,6 +20,7 @@ function TodayActivity() {
     return (
         <StyledTodayActivity>
             <Label paddingtop="normal" color="black" fs="large" fontWeight="bold">Today</Label>
+            {data?.length === 0 ? <Label paddingtop="large">No activities today!</Label> : ""}
             {data?.map(booking => (
                 <Activity key={booking.id} booking={booking}></Activity>
 

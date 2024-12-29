@@ -4,10 +4,7 @@ export const SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOi
 export const SUPABASE_URL = 'https://nvcdbulwwydjiivbeheu.supabase.co' 
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY, {
-    headers: {
-        apiKey: SUPABASE_API_KEY,
-        Authorisation: `Bearer cOqnXedSDM0o2Lg/oNMVRQEtK+EIkgCOAxJPthXA1PjejkwCGCq8z0aldp42Dfqh5tKOWqwI0SETzG4BsuaUXA==`
-    }
+    debug: true
 })
 
 export default supabase

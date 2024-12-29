@@ -1,8 +1,17 @@
 import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
+import useOutsideMenuClick from "../hooks/useOutsideMenuClick";
 
 const StyledToggle = styled.button`
-    
+    background-color: inherit;
+
+    &:focus,
+    &:hover,
+    &:active{
+        border: none;
+        outline: 0;
+        box-shadow:none;
+}
 `
 
 const StyledList = styled.div`
@@ -36,7 +45,7 @@ function Menu({children}) {
         setIsMenuOpen(false)
     }
     const toggleMenu = () => {
-        setIsMenuOpen(true)
+        setIsMenuOpen(!isMenuOpen)
     }
     return (
     <MenuContext.Provider value={{closeMenu, toggleMenu, isMenuOpen, position, setPosition}}>
@@ -45,7 +54,8 @@ function Menu({children}) {
 }
 
 function Toggle({icon}) {
-    const {toggleMenu, setPosition} = useContext(MenuContext)
+    const {toggleMenu, setPosition, closeMenu} = useContext(MenuContext)
+    const ref = useOutsideMenuClick(closeMenu)
     const handleToggleMenu = (e) => {
         const size = e.target.closest("button").getBoundingClientRect()
         setPosition({
@@ -55,7 +65,7 @@ function Toggle({icon}) {
         toggleMenu()
     }
     return ( 
-        <StyledToggle onClick={handleToggleMenu}>
+        <StyledToggle ref={ref} onClick={handleToggleMenu}>
             {icon}
         </StyledToggle>
     )

@@ -7,6 +7,7 @@ import AddCabin from "./AddCabin"
 import useCabin from "./useCabin"
 import Loader from "../../ui/Spinner"
 import Modal from "../../ui/Modal"
+import Label from "../../ui/Label"
 const StyledCabinLayout = styled.div`
     display: flex;
     gap: var(--spacing);
@@ -21,11 +22,10 @@ const AddNewCabinLayout = styled.div`
 
 function CabinLayout() {
     const {cabins, isLoading, error} = useCabin()
-    const [test, setTest] = useState(false)
     if (isLoading) return <Loader></Loader>
     return (
         <StyledCabinLayout>
-            <Table>
+            {cabins ? <Table>
                 <Table.Header>
                     <th></th>
                     <th>Cabin</th>
@@ -38,7 +38,7 @@ function CabinLayout() {
                         <CabinRow key={dat.id} data={dat}></CabinRow>
                     )}>
                 </Table.Body>
-            </Table>
+            </Table> : <Label>Nothing here</Label>}
             <AddNewCabinLayout>
             <Modal>
                 <Modal.Open name="add-cabin-form">

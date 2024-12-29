@@ -3,27 +3,20 @@ import {AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContain
 import Label from "../../ui/Label"
 import { useEffect, useState } from "react"
 import { createGetTotalSalesPerDayForPeriod } from "../../services/apiBooking"
+import useGetTotalSalesPerDayForPeriod from "./useGetTotalSalesPerDayForPeriod"
 const StyledSalesSummary = styled.div`
     grid-area: salesSummary;
     background-color: white;
     padding: 0 calc(var(--spacing) * 2);
 `
 
-function SalesSummary() {
-  const [totalSalesPerDayList, setTotalSalesPerDayList] = useState([])
-    useEffect(() => {
-      const getTotalSalesPerDayForPeriod = async() => {
-        const data = await createGetTotalSalesPerDayForPeriod('2024-11-27', '2024-12-07')
-        setTotalSalesPerDayList(() => data)
-      }
-      getTotalSalesPerDayForPeriod()
-    }, [])
-
+function SalesSummary({startDate, endDate}) {
+  const {data, isLoading, error} = useGetTotalSalesPerDayForPeriod(startDate, endDate)
     return (
         <StyledSalesSummary>
             <Label fontWeight="bold" fs="large" paddingtop="normal">Sales</Label>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart width={730} height={250} data={totalSalesPerDayList}
+                <AreaChart width={730} height={250} data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis dataKey="date_col" />
                     <YAxis name="Total Sales" unit="$">

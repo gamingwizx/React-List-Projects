@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import Label from "../../ui/Label"
-import { createGetSummaryNights } from "../../services/apiBooking"
+import useGetSummaryNights from "./useGetSummaryNights"
+import { useState } from "react"
+import Loader from "../../ui/Spinner"
 import {
     PieChart,
     Pie,
@@ -14,7 +16,6 @@ import {
     Bar,
     ResponsiveContainer
 } from "recharts"
-import { useEffect, useState } from "react"
 const StyledStaySummary = styled.div`
     grid-area: staySummary;
     background-color: white;
@@ -44,8 +45,8 @@ function getNumberNightsForEachCategory(data) {
     })
     return nights
 }
-function StaySummary() {
-    const [numNightInfo, setNumNightInfo] = useState([
+function StaySummary({startDate, endDate}) {
+    const numNightInfo = [
         {
             "id": "1night",
             "duration": "1 night",
@@ -69,24 +70,20 @@ function StaySummary() {
             "value": 3,
             "color": "green"
         }
-    ])
+    ]
     const [numNightsFromDatabase, setNumNightsFromDtabase] = useState([])
-    useEffect(() => {
-        const getNumnightInfo = async() => {
-            const data = await createGetSummaryNights()
-            setNumNightsFromDtabase(() => data)
-        }
-        getNumnightInfo()
-    }, [])
-    const nights = getNumberNightsForEachCategory(numNightsFromDatabase)
+    const {data, isLoading} = useGetSummaryNights(startDate, endDate)
+    if (isLoading) return <Loader></Loader>
+    const nights = getNumberNightsForEachCategory(data)
     const t = nights.values
     numNightInfo.map((info) => {
         info["value"] = nights[info.id]
     })
+    const hasValue = numNightInfo.every((numNight) => numNight.value === 0)
     return (
         <StyledStaySummary>
             <Label paddingtop="normal" color="black" fs="large" fw="bold">Stay duration summary</Label>
-            <ResponsiveContainer height="80%" width="100%">
+            {hasValue === false ? <ResponsiveContainer height="80%" width="100%">
                 <PieChart margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <Pie data={numNightInfo} cx="50%" cy="50%" innerRadius={85}
             outerRadius={110} paddingAngle={3} dataKey="value" nameKey="duration">
@@ -109,7 +106,7 @@ function StaySummary() {
             iconType="circle"
           />
                 </PieChart>
-            </ResponsiveContainer>
+            </ResponsiveContainer> : <Label>Don't have data!</Label>}
         </StyledStaySummary>
     )
 }

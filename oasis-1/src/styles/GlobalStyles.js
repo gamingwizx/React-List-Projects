@@ -151,14 +151,13 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 button:hover {
   border-color: #646cff;
@@ -166,6 +165,14 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.dark-mode {
+  filter: invert(100%);
+}
+
+.light-mode {
+  filter: invert(0%);
 }
 
 @media (prefers-color-scheme: light) {
@@ -180,11 +187,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-body {
-  filter: invert(100%);
-}
+
 img {
-  filter: invert(100%);
 }
 `
 

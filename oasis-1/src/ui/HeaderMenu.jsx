@@ -6,6 +6,8 @@ import {
     HiOutlineMoon,
     HiArrowRightOnRectangle
 } from "react-icons/hi2";
+import useLogout from "../features/Auth/useLogout";
+import { useDarkMode } from "../DarkMode";
 
 const StyledHeaderMenu = styled.div`
     display: flex;
@@ -20,24 +22,19 @@ const setPropertyToElements = (elements, property, value) => {
 } 
 
 function HeaderMenu() {
+    const {logout, isLoading} = useLogout()
     const navigate = useNavigate()
-    const [isDarkMode, setIsDarkMode] = useState(false)
-    const imageElements = document.querySelectorAll("img")
+    const {toggleDarkMode} = useDarkMode()
 
-    if (isDarkMode) {
-        root.style.setProperty("filter", "invert(0%)")
-        setPropertyToElements(imageElements, "filter", "invert(100%)")
-    } else {
-        root.style.setProperty("filter", "invert(100%)")
-        setPropertyToElements(imageElements, "filter", "invert(0%)")
+    const handleLogout = () => {
+        logout()
     }
-
 
     return (
         <StyledHeaderMenu className="avatar-image-parent">
             <HiOutlineUser onClick={() => navigate("/home/auth/update")}/>
-            <HiOutlineMoon onClick={() => setIsDarkMode(!isDarkMode)}/>
-            <HiArrowRightOnRectangle />
+            <HiOutlineMoon onClick={() => toggleDarkMode()}/>
+            <HiArrowRightOnRectangle onClick={() => handleLogout()}/>
         </StyledHeaderMenu>
     )
 }

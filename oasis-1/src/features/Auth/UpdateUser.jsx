@@ -60,7 +60,7 @@ function UpdateUser({email = "", fullname = "", filename = "", id = ""}) {
                 <FormRow label="Avatar Image" alignment="horizontal">
                     <UploadFileLayout>
                         <UploadFileButton htmlFor="uploadfile">Choose file</UploadFileButton>
-                        <Label isFileUpload="true" htmlFor="uploadfile">{selectedFilename ? selectedFilename : filename}</Label>
+                        <Label isfileupload="true" htmlFor="uploadfile">{selectedFilename ? selectedFilename : filename}</Label>
                     </UploadFileLayout>
                     <FormInput onChange={handleSubmitFile} type="file" id="uploadfile"></FormInput>
                 </FormRow>

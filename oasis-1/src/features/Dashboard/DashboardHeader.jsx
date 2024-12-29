@@ -1,18 +1,16 @@
-import styled from "styled-components";
-import {FilterBody, FilterOption} from "../../ui/Filter"
+import { useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import Filter from "../../ui/Filter"
+import updateListByIterationAndSpecificElementByCondition from "../../utils/updateListByIterationAndSpecificElementByCondition"
 function DashboardHeader() {
+    const options = [
+        {value: "7", label: "Last 7 days"},
+        {value: "30", label: "Last 30 days"},
+        {value: "90", label: "Last 90 days"},
+    ]
+    const filterKey = "last"
     return (
-        <FilterBody>
-            <FilterOption>
-                Last 7 days
-            </FilterOption>
-            <FilterOption>
-                Last 30 days
-            </FilterOption>
-            <FilterOption>
-                Last 90 days
-            </FilterOption>
-        </FilterBody>
+        <Filter options={options} filterKey={filterKey}></Filter>
     )
 }
 

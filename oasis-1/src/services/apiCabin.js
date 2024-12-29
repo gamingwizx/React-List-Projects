@@ -2,11 +2,28 @@ import supabase, {SUPABASE_URL} from "./supabase"
 
 const BASE_URL = `${SUPABASE_URL}/storage/v1/object/public/cabin-images`
 
-export async function getCabin() {
-  let { data, error } = await supabase
+export async function getCabin({sort = [], filterBy = [], currentPage, pageSize}) {
+  const filterByField = filterBy[0]
+  const filterByValue = filterBy[1]
+  const sortByField = sort[0]
+  const sortByValue = sort[1] === "asc" ? true : false 
+  let query = supabase
   .from('cabins')
   .select('*')
+  if (filterBy.length > 0 && filterByField === "discount") {
+    const hasDiscount = filterByValue === "true"
+    query = hasDiscount ? query.gt(filterByField, 0) : query.eq(filterByField, 0) 
+  }
+  if (sort.length > 0) { 
+    query = query.order(sortByField, { ascending: sortByValue})
 
+  }
+  if (currentPage) {
+    const from = (currentPage - 1) * Number(pageSize);
+    const to = from + Number(pageSize);
+    query = query.range(from, to)
+  }
+  let { data, error } = await query
   if (error) {
     console.error(error)
     throw new Error("Cabis could not be loaded")
@@ -101,7 +118,7 @@ export async function deleteCabin({id}) {
 }
 
 export async function createGetTotalCabins() {
-  const {data, error} = await supabase.from("cabins").select("", {count: "exact"})
+  const {data, error} = await supabase.rpc("get_total_cabins")
   if (error) {
     console.error(error)
     throw new Error(error)
