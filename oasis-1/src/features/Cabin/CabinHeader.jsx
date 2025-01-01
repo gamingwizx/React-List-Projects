@@ -7,6 +7,13 @@ const StyledCabinHeader = styled.div`
     gap: calc(var(--spacing) / 2);
 `
 
+const StyledOptions = styled.div`
+    display: flex;
+    gap: var(--spacing);
+    height: 2.5rem;
+    align-items: stretch;
+`
+
 function CabinHeader() {
     const options = [
         {value: "all", label: "All"},
@@ -23,8 +30,10 @@ function CabinHeader() {
     ]
     return (
         <StyledCabinHeader>
-            <Filter options={options} filterKey="filterBy"></Filter>
-            <Select options={selectOptions} selectLabel="Sort by name (A-Z)"></Select>
+            <StyledOptions>
+                <Filter options={options} filterKey="filterBy"></Filter>
+                <Select options={selectOptions} selectLabel="Sort by name (A-Z)"></Select>
+            </StyledOptions>
         </StyledCabinHeader>
     )
 }

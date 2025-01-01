@@ -7,7 +7,7 @@ import useGetTotalSalesPerDayForPeriod from "./useGetTotalSalesPerDayForPeriod"
 const StyledSalesSummary = styled.div`
     grid-area: salesSummary;
     background-color: white;
-    padding: 0 calc(var(--spacing) * 2);
+    padding: calc(var(--spacing) * 2);
 `
 
 function SalesSummary({startDate, endDate}) {
@@ -15,7 +15,7 @@ function SalesSummary({startDate, endDate}) {
     return (
         <StyledSalesSummary>
             <Label fontWeight="bold" fs="large" paddingtop="normal">Sales</Label>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height="90%">
                 <AreaChart width={730} height={250} data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <XAxis dataKey="date_col" />

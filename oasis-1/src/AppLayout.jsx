@@ -4,10 +4,11 @@ import styled from "styled-components"
 import Sidebar from "./ui/Sidebar"
 import Header from "./ui/Header"
 import useGetUser from "./features/Auth/useGetUser"
-import { useEffect } from "react"
+import { useAppLayout } from "./context/AppLayoutProvider"
+import { useEffect, createContext, useContext } from "react"
 
 const StyledLayout = styled.div`
-    width: 99vw;
+    width: 100vw;
     box-sizing: border-box;
     min-height: 100vh;
     z-index: 1;
@@ -17,17 +18,41 @@ const StyledLayout = styled.div`
     grid-template-areas: 
         "sidebar header"
         "sidebar contentLayout";
+
+    @media(max-width: 800px) {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header"
+                             "contentLayout";
+    }
+`
+const Overlay = styled.div`
+    display: ${(props) => props.isdisplay === `true` ? 'block' : 'none'};
+    height: 100vh;
+    width: 100vw;
+    opacity: 0.2;
+    background-color: black;
+    z-index: 10;
+    top: 0;
+    position: fixed;
 `
 export default function AppLayout() {
-    const {data: userInfo, fetchStatus} = useGetUser()
-    const navigate = useNavigate()
-    if (fetchStatus === "fetching") return <Loader></Loader>
+    const {isSidebarToggled, toggleSidebar} = useAppLayout()
+
+    const handleToggleSidebar = () => {
+
+        toggleSidebar()
+    }
 
     return (
+        <>
         <StyledLayout>
             <Sidebar></Sidebar>
             <Header/>
-            <ContentLayout />
+            <ContentLayout/>
         </StyledLayout>
+        <Overlay isdisplay={`${isSidebarToggled}`} onClick={() => handleToggleSidebar()}></Overlay>
+        
+        </>
+
     )
 }

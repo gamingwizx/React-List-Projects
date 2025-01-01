@@ -1,25 +1,26 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import AppLayout from "./AppLayout";
 import Error from "./ui/Error";
-import Register from "./features/Auth/Register";
-import Login from "./features/Auth/Login";
-import Dashboard from "./features/Dashboard/Dashboard"
-import AuthLayout from "./features/Auth/AuthLayout"
-import Booking from "./features/Booking/Booking"
-import BookingDetail from "./features/Booking/BookingDetail"
-import Cabin from "./features/Cabin/Cabin"
-import Settings from "./features/Settings/Settings"
-import {QueryClientProvider, QueryClient} from "@tanstack/react-query"
-import { Toaster } from "react-hot-toast";
-import CreateUser from "./features/Auth/CreateUser";
-import AuthDashboardLayout from "./features/Auth/AuthDashboardLayout";
-import Test from "./ui/Test";
-import UpdatePassword from "./features/Auth/UpdatePassword";
-import ResetPassword from "./features/Auth/ResetPassword";
-import useGetUser from "./features/Auth/useGetUser";
-import Loader from "./ui/Spinner";
 import ProtectedRoute from "./ProtectedRoute";
-import {DarkModeProvider} from "./DarkMode";
+import { Toaster } from "react-hot-toast";
+import {DarkModeProvider} from "./context/DarkMode";
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query"
+import {AppLayoutProvider} from "./context/AppLayoutProvider.jsx"
+import GlobalStyles from './styles/GlobalStyles.js'
+
+import React, { Suspense } from "react";
+
+const AppLayout = React.lazy(() => import("./AppLayout.jsx"))
+const Register = React.lazy(() =>import("./features/Auth/Register"))
+const Login = React.lazy(() =>import("./features/Auth/Login"))
+const Dashboard = React.lazy(() =>import("./features/Dashboard/Dashboard"))
+const AuthLayout = React.lazy(() =>import("./features/Auth/AuthLayout"))
+const Booking = React.lazy(() =>import("./features/Booking/Booking"))
+const BookingDetail = React.lazy(() =>import("./features/Booking/BookingDetail"))
+const Cabin = React.lazy(() =>import("./features/Cabin/Cabin"))
+const Settings = React.lazy(() =>import("./features/Settings/Settings"))
+const CreateUser = React.lazy(() =>import("./features/Auth/CreateUser"))
+const AuthDashboardLayout = React.lazy(() =>import("./features/Auth/AuthDashboardLayout"))
+const ResetPassword = React.lazy(() =>import("./features/Auth/ResetPassword"))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,8 +29,11 @@ const queryClient = new QueryClient({
     }
   }
 })
+
 const router = createBrowserRouter([
-    {element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
+    {element: <Suspense fallback={<div>Loading...</div>}>
+      <ProtectedRoute><AppLayout /></ProtectedRoute>
+    </Suspense>,
     error: <Error />,
     children: [
         {
@@ -38,53 +42,61 @@ const router = createBrowserRouter([
         },
         {
           path: "/home/dashboard",
-          element: <Dashboard />
+          element: <Suspense fallback={<div>Loading...</div>}><Dashboard /></Suspense>
         },
         {
           path: "/home/login",
-          element: <Login />
+          element: <Suspense fallback={<div>Loading...</div>}><Login /></Suspense>
         },
         {
           path: "/home/booking",
-          element: <Booking />
-        },
-        {
-          path: "/home/booking",
-          element: <Booking />
+          element: <Suspense fallback={<div>Loading...</div>}>
+            <Booking />
+          </Suspense>
         },
         {
           path: "/home/booking/:id",
-          element: <BookingDetail />
+          element: <Suspense fallback={<div>Loading...</div>}>
+            <BookingDetail />
+          </Suspense>
         },
         {
           path: "/home/cabin",
-          element: <Cabin />
+          element: <Suspense fallback={<div>Loading...</div>}>
+            <Cabin />
+          </Suspense>
         },
         {
           path: "/home/user",
-          element: <CreateUser />
+          element: <Suspense fallback={<div>Loading...</div>}>
+            <CreateUser />
+          </Suspense>
         },
         {
           path: "/home/settings",
-          element: <Settings />
+          element: <Suspense fallback={<div>Loading...</div>}>
+            <Settings />
+          </Suspense>
         },
         {
           path: "/home/auth/update",
-          element: <AuthDashboardLayout/>
+          element: <Suspense fallback={<div>Loading...</div>}><AuthDashboardLayout/></Suspense>
         }
       ]
     },
         
     {
-      element: <AuthLayout />,
+      element: <Suspense fallback={<div>Loading...</div>}>
+        <AuthLayout />
+      </Suspense>,
       children: [
-        {element: <Register/>,
+        {element: <Suspense fallback={<div>Loading...</div>}><Register/></Suspense>,
           path: "/auth/register"
         },
-        {element: <Login/>,
+        {element: <Suspense fallback={<div>Loading...</div>}><Login/></Suspense>,
           path: "/auth/login"
         },
-        {element: <ResetPassword/>,
+        {element: <Suspense fallback={<div>Loading...</div>}><ResetPassword/></Suspense>,
           path: "/auth/reset-password"
         }
       ]
@@ -94,8 +106,11 @@ const router = createBrowserRouter([
 function App() {
     return (
       <DarkModeProvider>
+        
         <QueryClientProvider client={queryClient}>
+          <AppLayoutProvider>
             <RouterProvider router={router}></RouterProvider>
+          </AppLayoutProvider>
             <Toaster
               position="top-center" 
               gutter={12}

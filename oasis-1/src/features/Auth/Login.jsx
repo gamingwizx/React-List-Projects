@@ -6,7 +6,7 @@ const StyledLogin = styled.div`
     align-items: center;
     gap: var(--spacing);
     flex-direction: column;
-    width: 35%;
+    width: 50%;
 
 `
 function Login() {

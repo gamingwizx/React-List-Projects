@@ -10,6 +10,10 @@ const StyledContentLayout = styled.div`
 const StyledOutlet = styled.div`
     padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
     background-color: var(--bg-zinc-100);
+
+    @media(max-width: 800px) {
+        padding: calc(var(--spacing) * 2) calc(var(--spacing));
+    }
 `
 
 function ContentLayout() {

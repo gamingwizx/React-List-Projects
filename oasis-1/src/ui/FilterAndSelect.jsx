@@ -1,15 +1,13 @@
 import styled from "styled-components"
-// import BookingOptions from "./CheckoutStatusFilter"
-import SortByFilterDropdown from "./SortByFilterDropdown"
-import Filter from "../../ui/Filter"
-import Label from "../../ui/Label"
-import Select from "../../ui/Select"
-import Menu from "../../ui/Menu"
+import Filter from "./Filter"
+import Label from "./Label"
+import Select from "./Select"
+import Menu from "./Menu"
 import { HiFunnel, HiMiniBarsArrowDown } from "react-icons/hi2"
-import useChangeSearchQueryParams from "../../hooks/useChangeSearchQueryParams"
-import checkCurrentMediaQuery from "../../utils/checkCurrentMediaQuery"
+import useChangeSearchQueryParams from "../hooks/useChangeSearchQueryParams"
+import checkCurrentMediaQuery from "../utils/checkCurrentMediaQuery"
 
-const StyledBookingHeader = styled.div`
+const StyledFilterAndSelectLayout = styled.div`
     display: flex;
     gap: ${(props) => props.istablet === `true` ? 'none' : 'var(--spacing)'};
     align-items: center;
@@ -22,25 +20,9 @@ const StyledOptions = styled.div`
     align-items: stretch;
 `
 
-function BookingHeader() {
+function FilterAndSelect({sortOptions = [], filterOptions = [], filterKey}) {
     const {modifySearchQueryParams} = useChangeSearchQueryParams()
     const {isTablet} = checkCurrentMediaQuery()
-    const sortOptions = [
-        {value: 'startdate-asc', label: 'Sort by date (earlier first)'},
-        {value: 'startdate-desc', label: 'Sort by date (high first)'},
-        {value: 'totalprice-asc', label: 'Sort by amount (low first)'},
-        {value: 'totalprice-desc', label: 'Sort by amount (high first)'}
-    ]
-    const selectLabel = "Sort by date (recent first)"
-
-    const options = [
-        {value: "all", label: "All"},
-        {value: "checked-out", label: "Check Out"},
-        {value: "checked-in", label: "Check In"},
-        {value: "unconfirmed", label: "Unconfirmed"},
-        {value: "cancelled", label: "Cancelled"}
-    ]
-    const filterKey = "filterBy"
 
     const handleFilterOptionClick = (filterKey, value) => {
         modifySearchQueryParams(filterKey, value)
@@ -52,21 +34,21 @@ function BookingHeader() {
 
 
     return (
-        <StyledBookingHeader istablet={`${isTablet}`}>
+        <StyledFilterAndSelectLayout istablet={`${isTablet}`}>
             {isTablet ? (
                 <>
-                    <Menu key="filter">
+                    {filterOptions.length > 0 && <Menu key="filter">
                         <Menu.Toggle icon={<HiFunnel />}>
                         </Menu.Toggle>
                         <Menu.List>
-                            {options.map(option => (
+                            {filterOptions.map(option => (
                                 <Menu.Button key={option.value} onClick={() => handleFilterOptionClick("filterBy", option.value)}>
                                     <Label>{option.label}</Label>
                                 </Menu.Button>    
                             ))}
                         </Menu.List>
-                    </Menu>
-                    <Menu key="sort">
+                    </Menu>}
+                    {sortOptions.length > 0 && <Menu key="sort">
                         <Menu.Toggle icon={<HiMiniBarsArrowDown />}>
                         </Menu.Toggle>
                         <Menu.List>
@@ -76,16 +58,16 @@ function BookingHeader() {
                                 </Menu.Button>    
                             ))}
                         </Menu.List>
-                    </Menu>
+                    </Menu>}
                 </>
             ) : <StyledOptions>
-                <Filter options={options}/>
-                <Select options={sortOptions}/>
+                {filterOptions.length > 0 && <Filter options={filterOptions} filterKey={filterKey}/>}
+                {sortOptions.length > 0 && <Select options={sortOptions}/>}
             </StyledOptions>
             }
             
-        </StyledBookingHeader>
+        </StyledFilterAndSelectLayout>
     )
 }
 
-export default BookingHeader
+export default FilterAndSelect

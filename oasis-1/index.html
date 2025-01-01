@@ -4,8 +4,50 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
   </head>
+    <title>Vite + React</title>
+    <style>
+      :root {
+        --fs-1: 8rem;
+        --fs-2: 6rem;
+        --fs-3: 4.5rem;
+        --fs-4: 3.75rem;
+        --fs-5: 3rem;
+        --fs-6: 2.25rem;
+        --fs-7: 1.875rem;
+        --fs-8: 1.5rem;
+        --fs-9: 1.25rem;
+        --fs-10: 1.125rem;
+        --fs-11: 1rem;
+        --fs-12: 0.875rem;
+        --fs-13: 0.75rem;
+      }
+
+      @media (max-width: 800px) {
+        :root {
+          --fs-1: 6rem;
+          --fs-2: 5rem;
+          --fs-3: 3.5rem;
+          --fs-4: 2.75rem;
+          --fs-5: 2.5rem;
+          --fs-6: 1.8rem;
+          --fs-7: 1.575rem;
+          --fs-8: 1.25rem;
+          --fs-9: 1rem;
+          --fs-10: 1rem;
+          --fs-11: 0.65rem;
+          --fs-12: 0.7em;
+          --fs-13: 0.35rem;
+
+        }
+      }
+
+      @media(max-width: 400px) {
+        :root {
+          --fs-12: 0.5rem;
+        }
+      }
+    </style>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

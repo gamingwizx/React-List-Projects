@@ -4,6 +4,7 @@ import Icon from "../../ui/Icon"
 
 const StyledStat = styled.div`
     flex-grow: 1;    
+    flex-basis: 25%;
     background-color: white;
     border-radius: calc(var(--border-radius) / 2);
     display: flex;

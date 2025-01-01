@@ -19,6 +19,7 @@ import { useSearchParams } from "react-router-dom"
 import FormatTimestampToFormattedStringDate from "../../utils/FormatTimestampToFormattedStringDate.js"
 const StyledStats = styled.div`
     grid-area: stats;
+    flex-wrap: wrap;
     display: flex;
     gap: var(--spacing);
 `

@@ -34,7 +34,10 @@ function Dashboard() {
     let startDate = new Date()
     let endDate = new Date()
     const [searchParams, setSearchParams] = useSearchParams()
-    if (searchParams.length === 0) setSearchParams({ last: 7 })
+    useEffect(() => {
+        if (searchParams.length === 0) setSearchParams({ last: 7 })
+
+    }, [])
     endDate.setDate(endDate.getDate() - searchParams.get("last"))
     startDate = FormatTimestampToFormattedStringDate(startDate)
     endDate = FormatTimestampToFormattedStringDate(endDate)

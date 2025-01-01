@@ -45,7 +45,7 @@ const StyledPageNumberButton = styled.button`
     justify-content: center;
     align-items: center;
     display: flex;
-    border: ${(props) => props.iscurrentpage ? 'black 1px solid' : 'var(--bg-zinc-300) 1px solid'};
+    border: ${(props) => props.iscurrentpage === 'true' ? 'black 1px solid' : 'var(--bg-zinc-300) 1px solid'};
     background-color: white;
     
     &:hover,
@@ -54,7 +54,7 @@ const StyledPageNumberButton = styled.button`
         outline: 0;
         box-shadow: none;
         background-color: var(--bg-zinc-100);
-        border: ${(props) => props.iscurrentpage ? 'black 1px solid' : 'var(--bg-zinc-300) 1px solid'};
+        border: ${(props) => props.iscurrentpage === 'true' ? 'black 1px solid' : 'var(--bg-zinc-300) 1px solid'};
     }
 `
     const StyledTest = styled.p`
@@ -84,16 +84,15 @@ export default function Page1({visibleRange, numRecords}) {
     const [searchParams, setSearchParams] = useSearchParams()
     const [pageNumberArr, setPageNumberArr] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    console.log(numRecords)
-    const totalPages = Math.ceil(numRecords / visibleRange)
+    const totalPages = numRecords ? Math.ceil(numRecords / visibleRange) : 1
     const isRan = useRef(false)
     const currentPage = Number(searchParams.get("page"))
+
 
     useEffect(() => {
         try {
             if (!isRan.current && numRecords) {
                 const pageArray = createPaginationSystem(totalPages, currentPage, visibleRange)
-                console.log(pageArray)
                 setPageNumberArr(() => pageArray)
         } }catch(error) {
             console.error(error)
@@ -143,7 +142,7 @@ export default function Page1({visibleRange, numRecords}) {
                 <HiChevronLeft/>
             </StyledTest>
             {pageNumberArr.map(pageNumber => (
-                <StyledPageNumberButton iscurrentpage={pageNumber === currentPage} key={pageNumber} onClick={() => handleNumberedPageClick(pageNumber)}>{pageNumber}</StyledPageNumberButton>
+                <StyledPageNumberButton iscurrentpage={`${pageNumber === currentPage}`} key={pageNumber} onClick={() => handleNumberedPageClick(pageNumber)}>{pageNumber}</StyledPageNumberButton>
                 
             ))}
                 <StyledTest onClick={() => handlePageClick(NEXT_PAGE)} action={NEXT_PAGE} pagenumber={currentPage} lastpage={totalPages}>

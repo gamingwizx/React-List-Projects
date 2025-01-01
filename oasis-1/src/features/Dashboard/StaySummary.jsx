@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Label from "../../ui/Label"
 import useGetSummaryNights from "./useGetSummaryNights"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Loader from "../../ui/Spinner"
 import {
     PieChart,
@@ -72,7 +72,41 @@ function StaySummary({startDate, endDate}) {
         }
     ]
     const [numNightsFromDatabase, setNumNightsFromDtabase] = useState([])
+    const [pieChartMargin, setPieChartMargin] = useState(() => {
+        return { top: 5, right: 30, left: 20, bottom: 5 }
+    })
+    const [legendMetadata, setLegendMetadata] = useState(() => {
+        return {align: "right", width: "30%", verticalAlign: "middle"}
+    })
+    const [responsiveContainerMetadata, setResponsiveContainerMetadata] = useState(() => {
+        return '80%'
+    })
     const {data, isLoading} = useGetSummaryNights(startDate, endDate)
+
+    useEffect(() => {
+        const onChangeMediaQuery = () => {
+            const windowSize = window.innerWidth;
+            if (windowSize < 800) {
+                setPieChartMargin(() => {
+                    return {}
+                })
+
+                setLegendMetadata(() => {
+                    return {align: "center", width: "", verticalAlign: "bottom", layout: "horizontal"}
+                })
+
+                setResponsiveContainerMetadata(() => {
+                    return '90%'
+                })
+            }
+        }
+
+        document.addEventListener("resize", onChangeMediaQuery)
+        onChangeMediaQuery()
+
+        return () => document.removeEventListener('resize', onChangeMediaQuery)
+    }, [])
+    
     if (isLoading) return <Loader></Loader>
     const nights = getNumberNightsForEachCategory(data)
     const t = nights.values
@@ -83,8 +117,8 @@ function StaySummary({startDate, endDate}) {
     return (
         <StyledStaySummary>
             <Label paddingtop="normal" color="black" fs="large" fw="bold">Stay duration summary</Label>
-            {hasValue === false ? <ResponsiveContainer height="80%" width="100%">
-                <PieChart margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            {hasValue === false ? <ResponsiveContainer height={responsiveContainerMetadata} width="100%">
+                <PieChart margin={pieChartMargin}>
                     <Pie data={numNightInfo} cx="50%" cy="50%" innerRadius={85}
             outerRadius={110} paddingAngle={3} dataKey="value" nameKey="duration">
                         
@@ -98,9 +132,9 @@ function StaySummary({startDate, endDate}) {
                     </Pie>
                     <Tooltip />
                     <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
+            verticalAlign={legendMetadata["verticalAlign"]}
+            align={legendMetadata["align"]}
+            width={legendMetadata["width"]}
             layout="vertical"
             iconSize={15}
             iconType="circle"

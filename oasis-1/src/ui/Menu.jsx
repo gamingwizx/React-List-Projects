@@ -4,7 +4,7 @@ import useOutsideMenuClick from "../hooks/useOutsideMenuClick";
 
 const StyledToggle = styled.button`
     background-color: inherit;
-
+    
     &:focus,
     &:hover,
     &:active{
@@ -18,13 +18,19 @@ const StyledList = styled.div`
 `
 const StyledListLayout = styled.div`
     position: absolute;
+    border-radius: 8px;
+    background-color: var(--bg-zinc-300);
+    padding: calc(var(--spacing)/4);
+    
     right: ${(props) => props.position.x}px;
     top: ${(props) => props.position.y}px;
-`
-const StyledButton = styled.button`
+    `
+    const StyledButton = styled.button`
+    background-color: var(--bg-zinc-300);
     display: flex;
     align-items: center;
     width: 100%;
+    border-radius: 0;
     gap: var(--spacing);
     & > *:first-child {
         flex-basis: 10%;

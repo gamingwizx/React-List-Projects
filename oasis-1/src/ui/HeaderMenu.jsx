@@ -7,7 +7,7 @@ import {
     HiArrowRightOnRectangle
 } from "react-icons/hi2";
 import useLogout from "../features/Auth/useLogout";
-import { useDarkMode } from "../DarkMode";
+import { useDarkMode } from "../context/DarkMode";
 
 const StyledHeaderMenu = styled.div`
     display: flex;

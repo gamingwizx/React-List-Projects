@@ -7,9 +7,12 @@ import Button from "../../ui/Button"
 import useSettings from "./useSettings"
 import useUpdateSettings from "./useUpdateSettings"
 import Loader from "../../ui/Spinner"
+import ContentHeader from "../../ui/ContentHeader"
+import Label from "../../ui/Label"
 const StyledCreateUser = styled.div`
     display: flex;
     gap: calc(var(--spacing) / 2);
+    flex-direction: column;
 `
 
 const StyledButtonLayout = styled.div`
@@ -28,7 +31,9 @@ function CreateUser() {
         maxguestsperbooking,
         breakfastprice
     } = {}, isGettingSettings, error} = useSettings()
-    const [minBookingLength, setMinBookingLength] = useState(() => minbookinglength)
+    const [minBookingLength, setMinBookingLength] = useState(() => {
+        return minbookinglength
+    })
     const [maxBookingLength, setMaxBookingLength] = useState(() => maxbookinglength)
     const [maxGuestsPerBooking, setMaxGuestsPerBooking] = useState(() => maxguestsperbooking)
     const [breakfastPrice, setBreakfastPrice] = useState(() => breakfastprice)
@@ -38,15 +43,19 @@ function CreateUser() {
     const handleSubmit = (e) => {
         e.preventDefault()
         const newSettings = {
+            id,
             minbookinglength: minBookingLength,
             maxbookinglength: maxBookingLength,
             maxguestsperbooking: maxGuestsPerBooking,
             breakfastprice: breakfastPrice,
         }
-        updateSetting({newSettings, id})
+        updateSetting({newSettings})
     }
     return (
         <StyledCreateUser>
+            <ContentHeader>
+                <Label fs="verylarge" fw="bold">Update Settings</Label>
+            </ContentHeader>
             <FormLayout onSubmit={handleSubmit}>
                 <FormRow label="Minimum nights/booking" alignment="horizontal">
                     <FormInput defaultValue={minbookinglength} type="number" onBlur={(e) => setMinBookingLength(e.target.value)}></FormInput>

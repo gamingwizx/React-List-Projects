@@ -31,16 +31,10 @@ const StyledSortByFilterDropdown = styled.nav`
         padding: calc(var(--spacing) / 3);
 
     `
-function SortByFilterDropdown() {
-    const options = [
-        {value: 'startdate-asc', label: 'Sort by date (earlier first)'},
-        {value: 'startdate-desc', label: 'Sort by amount (high first)'},
-        {value: 'totalprice-asc', label: 'Sort by amount (low first)'},
-        {value: 'totalprice-desc', label: 'Sort by amount (high first)'}
-    ]
-    const selectLabel = "Sort by date (recent first)"
+function SortByFilterDropdown({sortOptions, selectLabel}) {
+    
     return (
-         <Select options={options} selectLabel={selectLabel}/>
+         <Select options={sortOptions} selectLabel={selectLabel}/>
     )
 }
 

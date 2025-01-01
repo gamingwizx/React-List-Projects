@@ -10,6 +10,8 @@ export async function getCabin({sort = [], filterBy = [], currentPage, pageSize}
   let query = supabase
   .from('cabins')
   .select('*')
+  console.log(filterByField)
+  console.log(filterBy.length)
   if (filterBy.length > 0 && filterByField === "discount") {
     const hasDiscount = filterByValue === "true"
     query = hasDiscount ? query.gt(filterByField, 0) : query.eq(filterByField, 0) 

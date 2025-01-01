@@ -12,7 +12,7 @@ const StyledTodayActivity = styled.div`
     border-radius: calc(var(--spacing) / 2);
     padding: calc(var(--spacing));
     overflow-y: scroll;
-    height: 25rem;
+    height: 100%;
 `
 
 function TodayActivity() {

@@ -26,11 +26,12 @@ const StyledBookingLayout = styled.table`
     }
     & td {
         padding: calc(var(--spacing)) 0;
+        font-size: var(--fs-11);
     }
 `
 
 function BookingLayout({bookings}) {
-    
+    if (!bookings?.length) return <Empty resourceName="booking" />;
     return (
         <Table id="booking">
             <Table.Header id="bookingHeader">

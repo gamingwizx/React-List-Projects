@@ -7,6 +7,7 @@ import Page1 from "../../ui/Page1"
 import useBooking from "./useBookings"
 import Loader from "../../ui/Spinner"
 import Empty from "../../ui/Empty"
+import FilterAndSelect from "../../ui/FilterAndSelect"
 import useGetTotalBookings from "./useGetTotalBookings"
 const StyledBooking = styled.div`
     display: flex;
@@ -16,14 +17,33 @@ const StyledBooking = styled.div`
 function Booking() {
     const {bookings, isLoading} = useBooking()
     const {data: totalBookings, isLoading: isTotalBookingsLoading} = useGetTotalBookings()
-    if (isLoading) return <Loader></Loader>
-    if (!bookings?.length) return <Empty resourceName="booking" />;
+
+    const filterKey = "filterBy"
+
+    const sortOptions = [
+        {value: 'startdate-asc', label: 'Sort by date (earlier first)'},
+        {value: 'startdate-desc', label: 'Sort by date (high first)'},
+        {value: 'totalprice-asc', label: 'Sort by amount (low first)'},
+        {value: 'totalprice-desc', label: 'Sort by amount (high first)'}
+    ]
+    const selectLabel = "Sort by date (recent first)"
+
+    const options = [
+        {value: "all", label: "All"},
+        {value: "checked-out", label: "Check Out"},
+        {value: "checked-in", label: "Check In"},
+        {value: "unconfirmed", label: "Unconfirmed"},
+        {value: "cancelled", label: "Cancelled"}
+    ]
+
+    if (isLoading && isTotalBookingsLoading) return <Loader></Loader>
+    
 
     return (
         <StyledBooking>
             <ContentHeader>
                 <Label fs="verylarge" fw="bold">All Bookings</Label>
-                <BookingHeader />
+                <FilterAndSelect sortOptions={sortOptions} filterOptions={options} filterKey={filterKey}/>
             </ContentHeader>
             <BookingLayout bookings={bookings}/>
             <Page1 visibleRange={5} numRecords={totalBookings}></Page1>

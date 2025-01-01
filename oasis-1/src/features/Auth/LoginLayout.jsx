@@ -21,7 +21,7 @@ function LoginLayout() {
                 <StyledInput width="full" id="email" value={email} onChange={(e) => setEmail(e.target.value)}></StyledInput>
             </FormRow>
             <FormRow label="Password">
-                <StyledInput width="full" id="password" value={password} onChange={(e) => setPassword(e.target.value)}></StyledInput>
+                <StyledInput type="password" width="full" id="password" value={password} onChange={(e) => setPassword(e.target.value)}></StyledInput>
             </FormRow>
             <Button>Login</Button>
         </StyledFormLayout>

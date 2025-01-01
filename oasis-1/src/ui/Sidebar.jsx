@@ -10,6 +10,7 @@ import {
     HiOutlineUsers,
     HiOutlineCog6Tooth
 } from "react-icons/hi2"
+import { useAppLayout } from "../context/AppLayoutProvider";
 const StyledSidebar = styled.nav`
     grid-area: sidebar;
     background-color: white;
@@ -17,16 +18,26 @@ const StyledSidebar = styled.nav`
     flex-direction: column;
     align-items: center;
     gap: var(--spacing);
+    height: 100%;
     padding: var(--spacing) calc(var(--spacing) / 2);
+    width: 100%;
     
+    @media(max-width: 800px) {
+        width: 30%;
+        position: fixed;
+        z-index: 30;
+        display: ${(props) => props.isdisplayed === `true` ? 'flex' : 'none'};
+    }
+
 `
 
 
 
 function Sidebar() {
+    const {isSidebarToggled} = useAppLayout()
     const navigate = useNavigate()
     return (
-        <StyledSidebar>
+        <StyledSidebar isdisplayed={`${isSidebarToggled}`}>
             <Img src="/logo-light.png"></Img>
             <SidebarRow onClick={() => navigate("/home/dashboard")}>
                 <HiOutlineHome />

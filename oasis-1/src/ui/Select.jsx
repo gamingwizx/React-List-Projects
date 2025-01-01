@@ -20,7 +20,10 @@ const Test = styled.select`
     border: none;
     font-weight: bold;
     font-size: var(--fs-11);
-    
+    // padding: calc(var(--spacing) / 4);
+    box-shadow: 0.8px 2px 6px 0.8px var(--bg-gray-300);
+    border-radius: calc(var(--border-radius) / 2);
+    height: 100%;
     &:focus,
     &:active,
     &:hover {
@@ -35,22 +38,18 @@ const Test1 = styled.option`
         border: none;
     }
 `
-export default function Select({options, selectLabel}) {
+export default function Select({options}) {
+    const searchQueryKey = "sort"
     const [searchParams, setSearchParams] = useSearchParams()
     const handleClickMenuItem = (sortName) => {
-        let getUrlParams = {}
-        searchParams.forEach((value, key) => {
-            getUrlParams = {
-                ...getUrlParams,
-                [key]: value
-            }
-        })
-        setSearchParams({ ...getUrlParams, sort: sortName})
+        const option = options.find(option => option.label === sortName)
+        searchParams.set(searchQueryKey, option.value)
+        setSearchParams(searchParams)
     }
     return (
-            <Test>
+            <Test onChange={(e) => handleClickMenuItem(e.target.value)}>
                 {options.map(option => (
-                    <Test1 key={option.value} onClick={() => handleClickMenuItem(option.value)}>{option.label}</Test1>
+                    <Test1 key={option.value}>{option.label}</Test1>
                 ))}
             </Test>
     )

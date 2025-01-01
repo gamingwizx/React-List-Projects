@@ -3,6 +3,7 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { createContext } from "react";
 import styled, {css} from "styled-components"
+import media from "../utils/mediaQuerySettings"
 const TableContext = createContext()
 
 const align = {
@@ -96,6 +97,7 @@ const StyledBody = styled.tbody`
 const StyledRow = styled.tr`
 height: 2rem;
 
+
 `
 
 const StyledCell = styled.td`
@@ -104,6 +106,7 @@ const StyledCell = styled.td`
     ${(props) => paddinghorizontal[props.paddinghorizontal]}
     ${(props) => paddingright[props.paddingright]}
     ${(props) => width[props.width]}
+    font-size: var(--fs-12);
     line-height: ${(props) => props.stacked ? `calc(var(--spacing) * 2)` : "0px"};
     border-bottom: 1px solid var(--bg-gray-200);
     &:first-child {

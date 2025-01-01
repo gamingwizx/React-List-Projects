@@ -1,10 +1,16 @@
 import { createGlobalStyle } from "styled-components";
+import media from "../utils/mediaQuerySettings";
 
 const GlobalStyles = createGlobalStyle`
   *, *::before, *::after {
   box-sizing: border-box;
 }
-
+html {
+margin: 0;
+height: 100%;
+overflow-x: scoll;
+padding: 0
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -103,20 +109,6 @@ const GlobalStyles = createGlobalStyle`
   --bg-orange-900: rgb(124 45 18);
   --bg-orange-950: rgb(67 20 7);
 
-  --fs-1: 8rem;
-  --fs-2: 6rem;
-  --fs-3: 4.5rem;
-  --fs-4: 3.75rem;
-  --fs-5: 3rem;
-  --fs-6: 2.25rem;
-  --fs-7: 1.875rem;
-  --fs-8: 1.5rem;
-  --fs-9: 1.25rem;
-  --fs-10: 1.125rem;
-  --fs-11: 1rem;
-  --fs-12: 0.875rem;
-  --fs-13: 0.75rem;
-
   --spacing: 1rem;
   --border-radius: 0.5rem;
 
@@ -141,7 +133,6 @@ font-family: "Poppins", sans-serif;
   min-width: 320px;
   min-height: auto;
   background-color: var(--bg-zinc-100);
-  min-height: 100vh;
 }
 
 h1 {
@@ -188,8 +179,30 @@ button:focus-visible {
   }
 }
 
-img {
+@media(max-width: 800px) {
+  :root {
+    --fs-1: 6rem;
+    --fs-2: 5rem;
+    --fs-3: 3.5rem;
+    --fs-4: 2.75rem;
+    --fs-5: 2.5rem;
+    --fs-6: 2rem;
+    --fs-7: 1.575rem;
+    --fs-8: 1.25rem;
+    --fs-9: 1rem;
+    --fs-10: 1rem;
+    --fs-11: 0.65rem;
+    --fs-12: 0.5rem;
+    --fs-13: 0.35rem;
+
+  }
+
+${media.mobile} {
+  --fs-12: 0.35rem;
 }
+
+
+  
 `
 
 export default GlobalStyles

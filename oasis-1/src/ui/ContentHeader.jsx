@@ -5,6 +5,11 @@ const StyledContentHeader = styled.div`
     justify-content: space-between;
     padding: calc(var(--spacing)) 0;
     align-items: center;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    gap: var(--spacing);
+
 `
 
 // function ContentHeader() {
