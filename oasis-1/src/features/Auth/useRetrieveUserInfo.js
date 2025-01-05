@@ -14,7 +14,6 @@ function useRetrieveUserInfo() {
         queryKey: ["user-info"],
         queryFn: createRetrieveUserInfo
     })
-    console.log(data)
     return {data, isLoading}
 }
 export default useRetrieveUserInfo

@@ -25,7 +25,7 @@ const StyledButtonLayout = styled.div`
 function UpdatePassword({email}) {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const {changePassword} = useChangePassword(password)
+    const {changePassword} = useChangePassword()
     const {requestChangePassword} = useRequestChangePassword(email)
     // const changePasswordAsync = async() => {
     //     await changePassword().then((data) => {
@@ -39,7 +39,7 @@ function UpdatePassword({email}) {
         if (password !== confirmPassword) {
             toast.error("Password and confirm password do not match!")
         } else {
-            changePassword(password)
+            changePassword({email, password})
         } 
         
     }
@@ -52,10 +52,10 @@ function UpdatePassword({email}) {
             <Label fs="verylarge" fw="bold">Update Password</Label>
             <FormLayout onSubmit={(e) => e.preventDefault()}>
                 <FormRow label="New Password (min 8 chars)" alignment="horizontal">
-                    <FormInput onChange={(e) => setPassword(e.target.value)}></FormInput>
+                    <FormInput type="password" onChange={(e) => setPassword(e.target.value)}></FormInput>
                 </FormRow>
                 <FormRow label="Confirm Password" alignment="horizontal">
-                    <FormInput onChange={(e) => setConfirmPassword(e.target.value)}></FormInput>
+                    <FormInput type="password" onChange={(e) => setConfirmPassword(e.target.value)}></FormInput>
                 </FormRow>
                 <StyledButtonLayout>
                     <Button color="secondary">Cancel</Button>

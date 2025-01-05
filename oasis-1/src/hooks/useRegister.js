@@ -9,7 +9,7 @@ const useRegister = () => {
     mutationFn: registerApi,
     onSuccess: (user) => {
         toast.success("User successfully registered!")
-        navigate("/login")
+        navigate("/auth/login")
     },
     onError: (error) => {
         toast.error(`${error}`)

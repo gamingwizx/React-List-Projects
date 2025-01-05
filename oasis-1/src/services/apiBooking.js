@@ -46,6 +46,15 @@ export async function getBooking({sortBy, filterBy, page, pageSize = 5}) {
     if (error) {
         console.error(error)
     }
+
+    return data
+}
+
+export async function getBookingCount() {
+    const {data, error} = await supabase.rpc("get_booking_count")
+    if (error) {
+        console.error(error)
+    }
     return data
 }
 
@@ -147,8 +156,7 @@ export async function createGetBookingSortByEarliestDate() {
 }
 
 export async function createDeleteBooking(id) {
-    const {data, error} = await supabase.from("bookings").delete().eq('id', '1').select()
-    console.log(data)
+    const {data, error} = await supabase.from("bookings").delete().eq('id', id).select()
     if (error) {
         console.error(error)
     }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import styled, {css} from "styled-components"
 import useBookingDetail from "./useBookingDetail.js"
 import ContentHeader from "../../ui/ContentHeader.jsx"
@@ -11,6 +11,7 @@ import FormatTimestampToDate from "../../utils/FormatTimestampToDate"
 import FormatTimestampToDateTime from "../../utils/FormatTimestampToDateTime"
 import Loader from "../../ui/Spinner.jsx"
 import Empty from "../../ui/Empty.jsx"
+import useBookingDelete from "./useBookingDelete.js"
 const StyledBookingDetail = styled.div`
     display: grid;
     gap: calc(var(--spacing) * 2);
@@ -85,7 +86,10 @@ StyledBookingDetailLayout.Body.Row.defaultProps = {
 
 function BookingDetail() {
     const {id: bookingId} = useParams()
+    const {bookingDelete, isLoading: isBookingDeleting} = useBookingDelete()
+    const navigate = useNavigate()
     const {error, bookingDetail, isLoading} = useBookingDetail()
+    const params = useParams()
     if (isLoading) return <Loader/>
     if (!bookingDetail) return <Empty resourceName="booking detail"></Empty>
     const {
@@ -110,6 +114,12 @@ function BookingDetail() {
     const endDate = FormatTimestampToDate(enddate)
     const durationStatus = GetDurationStatus(startdate)
   
+    const handleDeleteBooking = () => {
+        const {id} = params
+        bookingDelete(id)
+        navigate("/home/booking")
+    }
+
     return (
         <StyledBookingDetail>
             <ContentHeader>
@@ -162,7 +172,7 @@ function BookingDetail() {
                 </StyledBookingDetailLayout.Body>
             </StyledBookingDetailLayout>
                 <ButtonLayout>
-                    <Button color="warning">Delete Booking</Button>
+                    <Button color="warning" onClick={handleDeleteBooking}>Delete Booking</Button>
                     <Button color="secondary">Back</Button>
                 </ButtonLayout>
         </StyledBookingDetail>

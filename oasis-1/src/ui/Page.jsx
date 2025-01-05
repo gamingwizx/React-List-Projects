@@ -17,7 +17,6 @@ const handleCursorCss = (action, pageNumber, lastPage) => {
     if (action === NEXT_PAGE && pageNumber === lastPage) isReachedPageLimit = true
     if (action === LAST_PAGE && pageNumber === lastPage) isReachedPageLimit = true
 
-    console.log(action, pageNumber, lastPage)
     if (isReachedPageLimit) {
     return css`
             cursor: not-allowed;

@@ -66,6 +66,7 @@ const StyledPageNumberButton = styled.button`
         line-height: 35px;
         text-align: center;
         border-radius: 50%;
+        cursor: pointer;
         border: var(--bg-zinc-300) 1px solid;
         ${(props) => handleCursorCss(props.action, props.pagenumber, props.lastpage)}
 

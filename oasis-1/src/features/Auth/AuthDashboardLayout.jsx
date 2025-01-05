@@ -15,7 +15,6 @@ function AuthDashboardLayout() {
     if(retrieveUserInfoStatus === "fetching") return <Loader></Loader>
     const {user_metadata, id} = data
     const {filename, fullname, email} = user_metadata
-    console.log("Running")
     return (
         <StyledAuthDashboardLayout>
             <UpdateUser fullname={fullname} email={email} filename={filename} id={id}></UpdateUser>

@@ -34,8 +34,10 @@ function Dashboard() {
     let startDate = new Date()
     let endDate = new Date()
     const [searchParams, setSearchParams] = useSearchParams()
+    
     useEffect(() => {
-        if (searchParams.length === 0) setSearchParams({ last: 7 })
+        const searchParamsSize = Array.from(searchParams.entries()).length;
+        if (searchParamsSize === 0) setSearchParams({ last: 7 })
 
     }, [])
     endDate.setDate(endDate.getDate() - searchParams.get("last"))

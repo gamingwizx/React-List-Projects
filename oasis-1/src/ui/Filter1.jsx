@@ -45,13 +45,11 @@ export default function Filter1({options}) {
             setSearchParams(param)
 
         }
-        console.log(option.value)
         
     }
     useEffect(() => {
         options.map(option => {
             if (option.value === searchParams.get("filterBy")) {
-                console.log("Same!")
             }
         })
     }, [])

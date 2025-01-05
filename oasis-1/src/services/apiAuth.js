@@ -88,9 +88,9 @@ async function createRequestChangePassword(email) {
       }
       return data
 }
-async function createChangePassword({newPassword, email}) {
+async function createChangePassword({email, password}) {
     const initiateUpdatePassword = async() => {
-        const {data, error} = await supabase.auth.updateUser({ email, password: newPassword })
+        const {data, error} = await supabase.auth.updateUser({ email, password })
         if (error) {
             throw error
         }
@@ -100,7 +100,6 @@ async function createChangePassword({newPassword, email}) {
         toast.success("Successfully updated password!")
         return data
     }).catch(error => {
-        console.log(JSON.stringify(error))
         const {name, code} = error
         if (name == "AuthWeakPasswordError" && code === "weak_password") {
             toast.error("Password must be more than 6 characters")

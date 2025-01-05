@@ -17,7 +17,6 @@ function ResetPassword() {
     const handleResetPassword = (e) => {        
         e.preventDefault()
         changePassword({email, newPassword: password})
-        console.log("awaw")
     }
     return (
         <StyledResetPassword>

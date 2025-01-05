@@ -2,16 +2,18 @@ import useGetUserSession from "./features/Auth/useGetUserSession";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "./ui/Spinner";
-export default function ProtectedRoute({children}) {
+function ProtectedRoute({children}) {
     const navigate = useNavigate()
-    const {isLoading, isAuthenticated} = useGetUserSession()
+    const {isLoading, isFetching, isAuthenticated} = useGetUserSession()
     
     useEffect(() => {
-        if (!isLoading && !isAuthenticated) navigate("/auth/login")
+        if (!isFetching && !isAuthenticated) navigate("/auth/login")
 
-    }, [isLoading, isAuthenticated, navigate])
+    }, [isLoading, isAuthenticated, navigate, isFetching])
 
-    if (isLoading) return <Loader></Loader>
+    if (isFetching) return <Loader></Loader>
 
     if (isAuthenticated) return children
 }
+
+export default ProtectedRoute

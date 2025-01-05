@@ -17,6 +17,8 @@ import Loader from "../../ui/Spinner.jsx"
 import { useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import FormatTimestampToFormattedStringDate from "../../utils/FormatTimestampToFormattedStringDate.js"
+import useGetBookingCount from "../Booking/useGetBookingCount.js"
+
 const StyledStats = styled.div`
     grid-area: stats;
     flex-wrap: wrap;
@@ -48,7 +50,7 @@ function Stats({startDate, endDate}) {
     const totalSales = totalPrice.reduce((totalSales, price) => totalSales + price.totalprice, 0)
     const totalCheckins = getTotalCheckins(status)
     const occupancyRate = ((totalOccupiedCabins / totalCabins) * 100).toFixed(2)
-    const {length: totalBookings = 0} = bookings
+    const {length: totalBookings = 0} = bookings ? bookings : [];
 
     return (
         <StyledStats>

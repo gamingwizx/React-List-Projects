@@ -31,6 +31,22 @@ const queryClient = new QueryClient({
 })
 
 const router = createBrowserRouter([
+  {
+    element: <Suspense fallback={<div>Loading...</div>}>
+      <AuthLayout />
+    </Suspense>,
+    children: [
+      {element: <Suspense fallback={<div>Loading...</div>}><Register/></Suspense>,
+        path: "/auth/register"
+      },
+      {element: <Suspense fallback={<div>Loading...</div>}><Login/></Suspense>,
+        path: "/auth/login"
+      },
+      {element: <Suspense fallback={<div>Loading...</div>}><ResetPassword/></Suspense>,
+        path: "/auth/reset-password"
+      }
+    ]
+  },
     {element: <Suspense fallback={<div>Loading...</div>}>
       <ProtectedRoute><AppLayout /></ProtectedRoute>
     </Suspense>,
@@ -81,23 +97,6 @@ const router = createBrowserRouter([
         {
           path: "/home/auth/update",
           element: <Suspense fallback={<div>Loading...</div>}><AuthDashboardLayout/></Suspense>
-        }
-      ]
-    },
-        
-    {
-      element: <Suspense fallback={<div>Loading...</div>}>
-        <AuthLayout />
-      </Suspense>,
-      children: [
-        {element: <Suspense fallback={<div>Loading...</div>}><Register/></Suspense>,
-          path: "/auth/register"
-        },
-        {element: <Suspense fallback={<div>Loading...</div>}><Login/></Suspense>,
-          path: "/auth/login"
-        },
-        {element: <Suspense fallback={<div>Loading...</div>}><ResetPassword/></Suspense>,
-          path: "/auth/reset-password"
         }
       ]
     }
