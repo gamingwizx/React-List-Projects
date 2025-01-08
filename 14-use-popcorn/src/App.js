@@ -1,11 +1,18 @@
 import logo from "./logo.svg"
 import "./App.css"
 import { useState, useEffect, useRef } from "react"
+import MovieDetail from "./MovieDetail";
+import MovieList from "./MovieList";
+import WatchList from "./WatchList";
+
+const KEY = "3bebfb26";
+
 function App() {
   const [isShowInfo, setIsShowInfo] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [isMovieDetail, setIsMovieDetail] = useState(false)
-  const [isMovieWatchlist, setIsMovieWatchlist] = useState(false)
+  const [isMovieWatchlist, setIsMovieWatchlist] = useState(true)
+  const [query, setSearchQuery] = useState("")
   const [isMinimized, setMinimized] = useState(true)
   const [watchList, setWatchList] = useState([])
   const [a, setA] = useState(0)
@@ -18,7 +25,7 @@ function App() {
     isMovieWatchlist === true
       ? setIsMovieWatchlist(!isMovieWatchlist)
       : setIsMovieWatchlist(isMovieWatchlist)
-    setMovie(aw.current.filter((mov) => mov.id === movie.id)[0])
+    setMovie(() => movie)
     setMinimized(true)
   }
   const onBackClicked = () => {
@@ -30,46 +37,60 @@ function App() {
   }
 
   const filterResult = (value) => {
-    setMovies((movies) =>
-      aw.current.filter((movie) =>
-        movie.title.toUpperCase().includes(value.toUpperCase())
-      )
-    )
+    setSearchQuery(() => value)
   }
 
   const handleSetWatchlist = (movie) => {
     const isExistingMovie =
-      watchList.filter((watchlist) => watchlist.id === movie.id).length > 0
-
-    !isExistingMovie
-      ? setWatchList((watchlist) => [...watchlist, movie])
-      : setWatchList((watchlist) =>
-          watchlist.map((watch) => (watch.id === movie.id ? movie : watch))
-        )
+    watchList.filter((watchlist) => watchlist.imdbID === movie.imdbID).length > 0
+    
+    if(!isExistingMovie) {
+      setWatchList((watchlist) => [...watchlist, movie])
+    } else {
+        setWatchList((watchlist) =>
+        watchlist.map((watch) => (watch.imdbID === movie.imdbID ? movie : watch)))
+    }
     setIsMovieDetail(!isMovieDetail)
     setIsMovieWatchlist(!isMovieWatchlist)
   }
-  useEffect(() => {
-    const data = null
+  
+  useEffect(
+    function () {
+      // callback?.();
 
-    const xhr = new XMLHttpRequest()
+      const controller = new AbortController();
 
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        setMovies(JSON.parse(this.responseText))
-        aw.current = JSON.parse(this.responseText)
+      async function fetchMovies() {
+        try {
+
+          const res = await fetch(
+            `https://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
+            { signal: controller.signal }
+          );
+
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+          setMovies(() => data?.Search)
+
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            console.log(err.message);
+          }
+        } finally {
+        }
       }
-    })
 
-    xhr.open("GET", "https://freetestapi.com/api/v1/movies")
-    // xhr.setRequestHeader(
-    //   "x-rapidapi-key",
-    //   "26f8c061c1msh39d96eb5b8ebdd5p13ffffjsn98ca653b7857"
-    // )
-    // xhr.setRequestHeader("x-rapidapi-host", "moviedatabase8.p.rapidapi.com")
+      fetchMovies();
 
-    xhr.send(data)
-  }, [])
+      return function () {
+        controller.abort();
+      };
+    },
+    [setMovies, query]
+  );
   return (
     <div className="App">
       <header className="movie-header">
@@ -77,6 +98,7 @@ function App() {
         <input
           onChange={(e) => filterResult(e.target.value)}
           className="movie-search-input"
+          placeholder="Search movie..."
         />
         <label>Found {movies.length} Results</label>
       </header>
@@ -107,129 +129,8 @@ function App() {
     </div>
   )
 }
-function MovieDetail({ onBackClicked, isMinimized, onRate, movie }) {
-  const [a, setA] = useState(0)
-  const ratingChosen = a
-  const [updateRating, setUpdateRating] = useState(false)
-  const TOTAL_RATING = 10
 
-  const onHoverRating = (index) => {
-    setUpdateRating(!updateRating)
-    setA(index)
-  }
-  const handleRate = () => {
-    movie["userRating"] = a
-    onRate(movie)
-  }
-  return (
-    <div class="movie-details">
-      <div className="movie-details-section">
-        <button onClick={onBackClicked} className="back">
-          🠔
-        </button>
-        <div class="movie-details-header">
-          <div class="movie-detail-image">
-            <img src={movie.poster} />
-          </div>
-          <div className="movie-details-info">
-            <h2>{movie.title}</h2>
-            <p>
-              {movie.year} • {movie.runtime} mins
-            </p>
-            <p>{movie.genre.map((genre) => genre)}</p>
-            <p>⭐ {movie.rating} IMDb rating</p>
-          </div>
-        </div>
-        <div className="movie-details-bottom">
-          <div className="rating">
-            <div className="rating-bar">
-              {Array.from({ length: TOTAL_RATING }, (_, i) => i + 1).map(
-                (num) => (
-                  <div onMouseEnter={() => onHoverRating(num)} className="star">
-                    {num <= ratingChosen ? "★" : "☆"}
-                  </div>
-                )
-              )}
-              {a > 0 && <label>{ratingChosen}</label>}
-            </div>
-            {a > 0 && (
-              <button onClick={handleRate} className="rating-button">
-                + Add to List
-              </button>
-            )}
-          </div>
-          <div className="description">
-            <p>{movie.plot}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-function WatchList({ watchList, onMovieClicked }) {
-  const averageRating = (
-    watchList.reduce((sum, watch) => watch.rating + sum, 0) / watchList.length
-  ).toFixed(2)
-  const ownRating = (
-    watchList.reduce((sum, watch) => watch.userRating + sum, 0) /
-    watchList.length
-  ).toFixed(2)
-  const totalWatchTime = watchList.reduce(
-    (sum, watch) => watch.runtime + sum,
-    0
-  )
-  return (
-    <div className="movie-details">
-      <div className="movie-watchlist">
-        <div className="movie-statistic-summary-container">
-          <h2>Movies you watched</h2>
-          <div class="movie-statistic-summary">
-            <label>{watchList.length} movies</label>
-            <label>🌟 {averageRating}</label>
-            <label>⭐ {ownRating}</label>
-            <label>⌛ {totalWatchTime} mins</label>
-          </div>
-        </div>
-        {watchList.map((watch) => (
-          <Movie onMovieClicked={onMovieClicked} movie={watch} />
-        ))}
-        {/* <div class="movie-watchlist-results">
-          <div className="movie-result movie-result--watchlist">
-            <div class="movie-image">
-              <img src="./movie1.png" />
-            </div>
-            <div className="movie-result-info movie-result-info--watchlist">
-              <h2>Interstellar</h2>
-              <p>📆&nbsp;8.6&nbsp;9&nbsp;169 mins</p>
-            </div>
-            <button className="remove-button">X</button>
-          </div>
-        </div> */}
-      </div>
-    </div>
-  )
-}
-function MovieList({ onMovieClicked, movies }) {
-  return (
-    <div className="movie-search-results">
-      {movies.slice(0, 5).map((movie) => (
-        <Movie key={movie.id} onMovieClicked={onMovieClicked} movie={movie} />
-      ))}
-    </div>
-  )
-}
 
-function Movie({ onMovieClicked, movie }) {
-  return (
-    <div onClick={() => onMovieClicked(movie)} className="movie-result">
-      <div class="movie-image">
-        <img src={movie.poster} />
-      </div>
-      <div className="movie-result-info">
-        <h2>{movie.title}</h2>
-        <p>📆&nbsp;{movie.year}</p>
-      </div>
-    </div>
-  )
-}
+
+
 export default App

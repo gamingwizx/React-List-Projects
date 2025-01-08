@@ -82,15 +82,27 @@ body {
   background-color: var(--clr-lightest);
   color: var(--clr-neutral);
 }
+.movie-search-input::placeholder {
+  color: white; 
+}
 .movie-search-input:focus {
   outline: none;
 }
 .movie-search-results {
   flex-basis: 50%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background-color: var(--clr-dark);
   border-radius: var(--border-radius);
   padding: var(--spacing) 0;
+  text-align: left;
+  gap: var(--spacing);
+  padding: var(--spacing);
+}
+.movie-search-results__label {
+  font-weight: bold;
 }
 .movie-details {
   background-color: var(--clr-dark);
