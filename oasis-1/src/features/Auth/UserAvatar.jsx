@@ -25,7 +25,7 @@ function UserAvatar({filename, fullname}) {
     const navigate = useNavigate()
     const {data: userAvatar, isLoading} = useGetAvatarImage(filename)
     if (isLoading) return <span>Loading avatar...</span>
-    const {signedUrl} = userAvatar
+    const {signedUrl = null} = userAvatar
     return (
         <StyledUserAvatar>
             <Img className="avatar-image" onClick={() => console.log("Hello")} src={signedUrl} borderradius="rounded" size="small"></Img>
